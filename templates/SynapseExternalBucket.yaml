@@ -1,0 +1,144 @@
+Description: Synapse External S3 Bucket
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  AllowWriteBucket:
+    Type: String
+    Description: true for read-write, false (default) for read-only bucket
+    AllowedValues:
+      - true
+      - false
+    Default: false
+  EncryptBucket:
+    Type: String
+    Description: true to encrypt bucket, false (default) for no encryption
+    AllowedValues:
+      - true
+      - false
+    Default: false
+  BucketVersioning:
+    Type: String
+    Description: Enabled to enable bucket versionsing, default is Suspended
+    AllowedValues:
+      - Enabled
+      - Suspended
+    Default: Suspended
+  SynapseUserName:
+    Type: String
+    Description: Synapse user for read-write bucket
+  OwnerEmail:
+    Type: String
+    Description: The bucket owner's email address
+  EnableGlacierLifeCycle:
+    Type: String
+    Description: Enabled to enable Glacier lifecycle rule, default is Disabled
+    AllowedValues:
+      - Enabled
+      - Disabled
+    Default: Disabled
+  GlacierTransition:
+    Type: Number
+    Description: Number of days until S3 objects are moved to Glacier
+    Default: 30
+  GlacierExpiration:
+    Type: Number
+    Description: Number of days (from creation) when objects are deleted from S3 and Glacier
+    Default: 365000
+Conditions:
+  AllowWrite: !Equals [!Ref AllowWriteBucket, true]
+  EnableEncryption: !Equals [!Ref EncryptBucket, true]
+  DisableEncryption: !Not [!Condition EnableEncryption]
+Resources:
+  SynapseExternalBucket:
+    Type: "AWS::S3::Bucket"
+    Condition: DisableEncryption
+    Properties:
+      VersioningConfiguration:
+        Status: !Ref BucketVersioning
+      CorsConfiguration:
+        CorsRules:
+          - Id: SynapseCORSRule
+            AllowedHeaders: ['*']
+            AllowedOrigins: ['*']
+            AllowedMethods: [GET, POST, PUT, HEAD]
+            MaxAge: '3000'
+      LifecycleConfiguration:
+        Rules:
+        - Id: GlacierRule
+          Status: !Ref EnableGlacierLifeCycle
+          ExpirationInDays: !Ref GlacierExpiration
+          Transitions:
+            - TransitionInDays: !Ref GlacierTransition
+              StorageClass: Glacier
+      Tags:
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
+  SynapseEncryptedExternalBucket:
+    Type: "AWS::S3::Bucket"
+    Condition: EnableEncryption
+    Properties:
+      VersioningConfiguration:
+        Status: !Ref BucketVersioning
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - Id: SynapseCORSRule
+            AllowedHeaders: ['*']
+            AllowedOrigins: ['*']
+            AllowedMethods: [GET, POST, PUT, HEAD]
+            MaxAge: '3000'
+      LifecycleConfiguration:
+        Rules:
+        - Id: GlacierRule
+          Status: !Ref EnableGlacierLifeCycle
+          ExpirationInDays: !Ref GlacierExpiration
+          Transitions:
+            - TransitionInDays: !Ref GlacierTransition
+              StorageClass: Glacier
+      Tags:
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
+  ExternalBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !If [EnableEncryption, !Ref SynapseEncryptedExternalBucket, !Ref SynapseExternalBucket]
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Sid: "ReadAccess"
+            Effect: "Allow"
+            Principal:
+              AWS: "325565585839"
+            Action: "s3:ListBucket*"
+            Resource: !If [EnableEncryption, !GetAtt SynapseEncryptedExternalBucket.Arn, !GetAtt SynapseExternalBucket.Arn]
+          -
+            Sid: "WriteAccess"
+            Effect: "Allow"
+            Principal:
+              AWS: "325565585839"
+            Action:
+              - !If [AllowWrite, "s3:*Object*", "s3:GetObject*"]
+              - "s3:*MultipartUpload*"
+            Resource: !If [EnableEncryption, !Sub "${SynapseEncryptedExternalBucket.Arn}/*", !Sub "${SynapseExternalBucket.Arn}/*"]
+Outputs:
+  SynapseExternalBucket:
+    Condition: DisableEncryption
+    Value: !Ref SynapseExternalBucket
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-SynapseExternalBucket'
+  SynapseEncryptedExternalBucket:
+    Condition: EnableEncryption
+    Value: !Ref SynapseEncryptedExternalBucket
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-SynapseExternalBucket'
+  SynapseUserName:
+    Value: !Ref SynapseUserName
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-SynapseUserName'
+  OwnerEmail:
+    Value: !Ref OwnerEmail
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-OwnerEmail'

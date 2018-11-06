@@ -1,0 +1,29 @@
+# Provision an EC2 bastian host for the agora database
+template_path: templates/managed-ec2.yaml
+stack_name: agoradb-bastian3
+dependencies:
+  - peer-vpn-computevpc
+parameters:
+  # The Sage deparment for this resource
+  Department: "Systems Biology"
+  # The Sage project this resource will be used for
+  Project: "Agora"
+  # The resource owner
+  OwnerEmail: "khai.do@sagebase.org"
+  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "t2.small"
+  # Name of an existing VPC subnet to run the instance in
+  VpcSubnet: "PublicSubnet"
+  # Name of an existing EC2 KeyPair to enable SSH access to the instance
+  KeyName: "toptal"
+
+   # Integration with our jumpcloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+hooks:
+  after_create:
+    - !notify_ec2
+  after_update:
+    - !notify_ec2
+

@@ -1,0 +1,23 @@
+# Provision an EC2 instance
+template_path: templates/managed-ec2.yaml
+stack_name: mpower2-user-add
+dependencies:
+  - peer-vpn-computevpc
+parameters:
+  # The Sage deparment for this resource
+  Department: "Systems Biology"
+  # The Sage project this resource will be used for
+  Project: "AT-HOME PD"
+  # The resource owner
+  OwnerEmail: "phil.snyder@sagebase.org"
+  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "t2.micro"
+  AMIId: "ami-0c7cdeb6546281c1a"
+
+  # Integrate with our cloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+hooks:
+  after_update:
+    - !notify_ec2
