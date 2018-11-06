@@ -1,8 +1,6 @@
 # Provision an EC2 bastian host for the agora database
 template_path: templates/managed-ec2.yaml
 stack_name: agoradb-bastian3
-dependencies:
-  - peer-vpn-computevpc
 parameters:
   # The Sage deparment for this resource
   Department: "Systems Biology"
