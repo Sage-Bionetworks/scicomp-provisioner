@@ -1,0 +1,23 @@
+-# Provision an EC2 instance
+-template_path: templates/managed-ec2.yaml
+-stack_name: genie-infra
+-dependencies:
+-  - peer-vpn-computevpc
+-parameters:
+-  # The Sage deparment for this resource
+-  Department: "CompOnc"
+-  # The Sage project this resource will be used for
+-  Project: "GENIE Infrastructure"
+-  # The resource owner
+-  OwnerEmail: "thomas.yu@sagebionetworks.org"
+-  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+-  InstanceType: "t2.2xlarge"
+-  AMIId: "ami-02cc14ddb168c7e68"
+-
+-  # Integration with our jumpcloud directory service (do not change)
+-  JcConnectKey: !ssm /infra/JcConnectKey
+-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+-hooks:
+-  after_create:
+-    - !notify_ec2
