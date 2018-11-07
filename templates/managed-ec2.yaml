@@ -111,9 +111,26 @@ Parameters:
     Description: ID of the AMI to deploy
     Type: String
     Default: ""
+  AMILinuxDist:
+    Description: The Linux distribution of the AMI (amazon, ubuntu, suse, redhat)
+    Type: String
+    Default: "amazon"
+    AllowedValues:
+      - amazon
+      - ubuntu
+      - suse
+      - redhat
 Conditions:
   PublicEc2Resources: !Or [!Equals [ !Ref VpcSubnet, PublicSubnet ], !Equals [ !Ref VpcSubnet, PublicSubnet1 ], !Equals [ !Ref VpcSubnet, PublicSubnet2 ] ]
   HasAMIId: !Not [!Equals ["", !Ref AMIId]]
+  AmazonAmi: !Equals ["amazon", !Ref AMILinuxDist]
+  NotAmazonAmi: !Not [!Condition AmazonAmi]
+  PublicEc2AmazonAmi: !And
+    - !Condition PublicEc2Resources
+    - !Condition AmazonAmi
+  PublicEc2NotAmazonAmi: !And
+    - !Condition PublicEc2Resources
+    - !Condition NotAmazonAmi
 Mappings:
   AWSInstanceType2Arch:
     t1.micro:
@@ -411,8 +428,9 @@ Mappings:
       HVM64: ami-3e60745c
       HVMG2: NOT_SUPPORTED
 Resources:
-  Ec2Instance:
+  Ec2InstanceAmazonAmi:
     Type: 'AWS::EC2::Instance'
+    Condition: AmazonAmi
     Metadata:
       'AWS::CloudFormation::Init':
         configSets:
@@ -498,18 +516,121 @@ Resources:
     CreationPolicy:
       ResourceSignal:
         Timeout: PT5M
+  # Non Amazon ami do not report a resource signal after creation
+  Ec2InstanceNotAmazonAmi:
+    Type: 'AWS::EC2::Instance'
+    Condition: NotAmazonAmi
+    Metadata:
+      'AWS::CloudFormation::Init':
+        configSets:
+          InstallAndRun:
+            - Install
+            - Config
+        Install:
+          packages:
+            yum:
+              jq: []
+          commands:
+            01_jumpcloud_agent:
+              command: !Join
+                - ''
+                - - "curl --silent --show-error --header 'x-connect-key: "
+                  - !Ref JcConnectKey
+                  - "' https://kickstart.jumpcloud.com/Kickstart | sudo bash"
+        Config:
+          commands:
+            # allow agent time to register with jumpcloud account
+            01_wait_registeration:
+              command: "sleep 10"
+            # get the jumpcloud host id
+            02_get_jc_system_id:
+              command: "export systemKey=$(sudo cat /opt/jc/jcagent.conf|jq -r '.systemKey') && echo JC_SYSTEM_ID=$systemKey > /tmp/jc_info"
+            # use rest api to this host to a jumpcloud system group
+            03_associate_jc_systems:
+              command: !Join
+                 - ''
+                 - - "source /tmp/jc_info && curl -X POST 'https://console.jumpcloud.com/api/v2/systemgroups/"
+                   - !Ref JcSystemsGroupId
+                   - "/members' -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'x-api-key: "
+                   - !Ref JcServiceApiKey
+                   - "' -d '{\"op\": \"add\",\"type\": \"system\",\"id\": \"'$JC_SYSTEM_ID'\"}'"
+    Properties:
+      ImageId: !If [HasAMIId, !Ref AMIId, !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch, !Ref InstanceType, Arch]]]
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      NetworkInterfaces:
+        - DeleteOnTermination: "true"
+          DeviceIndex: "0"
+          GroupSet:
+            - !ImportValue
+              'Fn::Sub': '${AWS::Region}-${VpcName}-VpnSecurityGroup'
+          SubnetId: !ImportValue
+            'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
+      UserData: !Base64
+        'Fn::Join':
+          - ''
+          - - |
+              #!/bin/bash -xe
+            - |
+              yum update -y aws-cfn-bootstrap
+            - |
+              # Install the files and packages from the metadata
+            - '/opt/aws/bin/cfn-init -v '
+            - '         --stack '
+            - !Ref 'AWS::StackName'
+            - '         --resource Ec2Instance '
+            - '         --configsets InstallAndRun '
+            - '         --region '
+            - !Ref 'AWS::Region'
+            - |+
+
+            - |
+              # Signal the status from cfn-init
+            - '/opt/aws/bin/cfn-signal -e $? '
+            - '         --stack '
+            - !Ref 'AWS::StackName'
+            - '         --resource Ec2Instance '
+            - '         --region '
+            - !Ref 'AWS::Region'
+            - |+
+      Tags:
+        - Key: "Name"
+          Value: !Ref 'AWS::StackName'
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
 Outputs:
-  Ec2InstanceId:
-    Value: !Ref Ec2Instance
+  Ec2InstanceAmazonAmi:
+    Condition: AmazonAmi
+    Value: !Ref Ec2InstanceAmazonAmi
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstanceId'
-  Ec2InstancePrivateIp:
-    Value: !GetAtt Ec2Instance.PrivateIp
+  Ec2InstanceNotAmazonAmi:
+    Condition: NotAmazonAmi
+    Value: !Ref Ec2InstanceNotAmazonAmi
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstanceId'
+  Ec2InstancePrivateIpAmazonAmi:
+    Condition: AmazonAmi
+    Value: !GetAtt Ec2InstanceAmazonAmi.PrivateIp
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstancePrivateIp'
-  Ec2InstancePublicIp:
-    Condition: PublicEc2Resources
-    Value: !GetAtt Ec2Instance.PublicIp
+  Ec2InstancePrivateIpNotAmazonAmi:
+    Condition: NotAmazonAmi
+    Value: !GetAtt Ec2InstanceNotAmazonAmi.PrivateIp
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstancePrivateIp'
+  Ec2InstancePublicIpAmazonAmi:
+    Condition: PublicEc2AmazonAmi
+    Value: !GetAtt Ec2InstanceAmazonAmi.PublicIp
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstancePublicIp'
+  Ec2InstancePublicIpNotAmazonAmi:
+    Condition: PublicEc2NotAmazonAmi
+    Value: !GetAtt Ec2InstanceNotAmazonAmi.PublicIp
     Export:
       Name: !Sub '${AWS::Region}-${AWS::StackName}-Ec2InstancePublicIp'
   OwnerEmail:
