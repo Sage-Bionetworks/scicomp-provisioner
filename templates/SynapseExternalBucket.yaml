@@ -15,6 +15,16 @@ Parameters:
       - true
       - false
     Default: false
+  RestrictDownloadToAWSResourcesInSameRegion:
+    Type: String
+    Description: >
+      Data transfers within the same region between AWS resources are free.
+      true to restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda) within the same region as this bucket.
+      This will limit your ability to work with this bucket outside of AWS!
+    AllowedValues:
+      - true
+      - false
+    Default: false
   BucketVersioning:
     Type: String
     Description: Enabled to enable bucket versionsing, default is Suspended
@@ -25,9 +35,11 @@ Parameters:
   SynapseUserName:
     Type: String
     Description: Synapse user for read-write bucket
+    AllowedPattern: ".+" # makes this parameter required
   OwnerEmail:
     Type: String
     Description: The bucket owner's email address
+    AllowedPattern: ".+" # makes this parameter required
   EnableGlacierLifeCycle:
     Type: String
     Description: Enabled to enable Glacier lifecycle rule, default is Disabled
@@ -47,6 +59,7 @@ Conditions:
   AllowWrite: !Equals [!Ref AllowWriteBucket, true]
   EnableEncryption: !Equals [!Ref EncryptBucket, true]
   DisableEncryption: !Not [!Condition EnableEncryption]
+  CreateIPAddressRestrictionLambda: !Equals [!Ref RestrictDownloadToAWSResourcesInSameRegion, true]
 Resources:
   SynapseExternalBucket:
     Type: "AWS::S3::Bucket"
@@ -123,6 +136,111 @@ Resources:
               - !If [AllowWrite, "s3:*Object*", "s3:GetObject*"]
               - "s3:*MultipartUpload*"
             Resource: !If [EnableEncryption, !Sub "${SynapseEncryptedExternalBucket.Arn}/*", !Sub "${SynapseExternalBucket.Arn}/*"]
+  ExternalBucketGroupPolicyUpdateRole:
+    Type: "AWS::IAM::Role"
+    Condition: CreateIPAddressRestrictionLambda
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: external-bucket-lambda-policy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: "*"
+          - Action:
+            - s3:*
+            Effect: Allow
+            Resource: !If [EnableEncryption, !GetAtt SynapseEncryptedExternalBucket.Arn, !GetAtt SynapseExternalBucket.Arn]
+  ExternalBucketGroupPolicyUpdateLambda:
+    Type: "AWS::Lambda::Function"
+    Condition: CreateIPAddressRestrictionLambda
+    Properties:
+      Description: Dynamically updates the external bucket policy to restrict downloading only IP addresses listed by AWS.
+      Runtime: python3.6
+      Handler: "index.handler"
+      Role: !GetAtt ExternalBucketGroupPolicyUpdateRole.Arn
+      Timeout: 10
+      Code:
+        ZipFile: !Sub
+        - |
+          import json
+          import boto3
+          from botocore.vendored import requests
+
+          bucket_name = '${BucketName}'
+          region = '${Region}'
+          policy_statement_id="DenyGetObjectForNonMatchingIp"
+
+          def handler(event, context):
+            s3_client = boto3.client('s3')
+
+            #generate new policy statement based on data from AWS
+            ip_ranges = requests.get('https://ip-ranges.amazonaws.com/ip-ranges.json').json()['prefixes']
+            region_ip_addresses = [item['ip_prefix'] for item in ip_ranges if (item["service"] == "AMAZON" and item["region"] == region)]
+            
+            new_ip_policy_statement = {'Sid': policy_statement_id,
+                                       'Effect': 'Deny',
+                                       'Principal': '*',
+                                       'Action': 's3:GetObject',
+                                       'Resource': 'arn:aws:s3:::'+bucket_name+'/*',
+                                       'Condition': {'NotIpAddress': {'aws:SourceIp': region_ip_addresses}}}
+
+
+            #get current bucket_policy from the s3 bucket
+            bucket_policy = json.loads(s3_client.get_bucket_policy(Bucket=bucket_name)['Policy'])
+
+            #remove the old IP address policy statement and add new
+            bucket_policy['Statement'] = [statement for statement in bucket_policy['Statement'] if (policy_statement_id != statement.get("Sid"))]
+            bucket_policy['Statement'].append(new_ip_policy_statement)
+
+
+            s3_client.put_bucket_policy(Bucket=bucket_name, Policy=json.dumps(bucket_policy))
+
+        - { BucketName: !If [EnableEncryption, !Ref SynapseEncryptedExternalBucket, !Ref SynapseExternalBucket], Region: !Ref "AWS::Region" }
+  ExternalBucketGroupPolicyUpdateSNSSubscription:
+    Condition: CreateIPAddressRestrictionLambda
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: 'arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged'
+      Protocol: lambda
+      Endpoint: !GetAtt ExternalBucketGroupPolicyUpdateLambda.Arn
+  ExternalBucketGroupPolicyUpdateLambdaSNSInvokePermission: # for sns to trigger group policy update lambda
+    Condition: CreateIPAddressRestrictionLambda
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt ExternalBucketGroupPolicyUpdateLambda.Arn
+      Action: 'lambda:InvokeFunction'
+      SourceArn: 'arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged'
+      Principal: sns.amazonaws.com
+  ExternalBucketGroupPolicyUpdateTimer:
+    Condition: CreateIPAddressRestrictionLambda
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: rate(3 hours)
+      Targets:
+        - Arn: !GetAtt ExternalBucketGroupPolicyUpdateLambda.Arn
+          Id: !Ref ExternalBucketGroupPolicyUpdateLambda
+  ExternalBucketGroupPolicyUpdateLambdaTimerInvokePermission: # for timer to trigger group policy update lambda
+    Condition: CreateIPAddressRestrictionLambda
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt ExternalBucketGroupPolicyUpdateLambda.Arn
+      Action: 'lambda:InvokeFunction'
+      SourceArn: !GetAtt ExternalBucketGroupPolicyUpdateTimer.Arn
+      Principal: events.amazonaws.com
+
 Outputs:
   SynapseExternalBucket:
     Condition: DisableEncryption
