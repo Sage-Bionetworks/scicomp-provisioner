@@ -36,6 +36,12 @@ Parameters:
       - m4.2xlarge
       - m4.4xlarge
       - m4.10xlarge
+      - m5.large
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+      - m5.12xlarge
+      - m5.24xlarge
       - c1.medium
       - c1.xlarge
       - c3.large
@@ -164,6 +170,18 @@ Mappings:
       Arch: HVM64
     m4.10xlarge:
       Arch: HVM64
+    m5.large:
+      Arch: HVM64
+    m5.xlarge:
+      Arch: HVM64
+    m5.2xlarge:
+      Arch: HVM64
+    m5.4xlarge:
+      Arch: HVM64
+    m5.12xlarge:
+      Arch: HVM64
+    m5.24xlarge:
+      Arch: HVM64
     c1.medium:
       Arch: PV64
     c1.xlarge:
@@ -274,6 +292,18 @@ Mappings:
     m4.4xlarge:
       Arch: NATHVM64
     m4.10xlarge:
+      Arch: NATHVM64
+    m5.large:
+      Arch: NATHVM64
+    m5.xlarge:
+      Arch: NATHVM64
+    m5.2xlarge:
+      Arch: NATHVM64
+    m5.4xlarge:
+      Arch: NATHVM64
+    m5.12xlarge:
+      Arch: NATHVM64
+    m5.24xlarge:
       Arch: NATHVM64
     c1.medium:
       Arch: NATPV64
