@@ -41,7 +41,7 @@ Parameters:
     Default: 30
   LifecycleDataStorageClass:
     Type: String
-    Description: S3 bucket objects will transition into this storage type
+    Description: S3 bucket objects will transition into this storage class
     AllowedValues:
       - STANDARD_IA
       - ONEZONE_IA
@@ -49,7 +49,7 @@ Parameters:
     Default: GLACIER
   LifecycleDataExpiration:
     Type: Number
-    Description: Number of days (from creation) when objects are deleted from S3 and Glacier
+    Description: Number of days (from creation) when objects are deleted from S3 and the LifecycleDataStorageClass
     Default: 365000
 Conditions:
   AllowWrite: !Equals [!Ref AllowWriteBucket, true]
