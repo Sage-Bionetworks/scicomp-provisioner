@@ -35,23 +35,29 @@ Parameters:
   SynapseUserName:
     Type: String
     Description: Synapse user for read-write bucket
-    AllowedPattern: ".+" # makes this parameter required
   OwnerEmail:
     Type: String
     Description: The bucket owner's email address
-    AllowedPattern: ".+" # makes this parameter required
-  EnableGlacierLifeCycle:
+  EnableDataLifeCycle:
     Type: String
-    Description: Enabled to enable Glacier lifecycle rule, default is Disabled
+    Description: Enabled to enable bucket lifecycle rule, default is Disabled
     AllowedValues:
       - Enabled
       - Disabled
     Default: Disabled
-  GlacierTransition:
+  LifecycleDataTransition:
     Type: Number
-    Description: Number of days until S3 objects are moved to Glacier
+    Description: Number of days until S3 objects are moved to LifecycleDataStorageClass
     Default: 30
-  GlacierExpiration:
+  LifecycleDataStorageClass:
+    Type: String
+    Description: S3 bucket objects will transition into this storage type
+    AllowedValues:
+      - STANDARD_IA
+      - ONEZONE_IA
+      - GLACIER
+    Default: GLACIER
+  LifecycleDataExpiration:
     Type: Number
     Description: Number of days (from creation) when objects are deleted from S3 and Glacier
     Default: 365000
@@ -76,12 +82,12 @@ Resources:
             MaxAge: '3000'
       LifecycleConfiguration:
         Rules:
-        - Id: GlacierRule
-          Status: !Ref EnableGlacierLifeCycle
-          ExpirationInDays: !Ref GlacierExpiration
+        - Id: DataLifecycleRule
+          Status: !Ref EnableDataLifeCycle
+          ExpirationInDays: !Ref LifecycleDataExpiration
           Transitions:
-            - TransitionInDays: !Ref GlacierTransition
-              StorageClass: Glacier
+            - TransitionInDays: !Ref LifecycleDataTransition
+              StorageClass: !Ref LifecycleDataStorageClass
       Tags:
         - Key: "OwnerEmail"
           Value: !Ref OwnerEmail
@@ -104,12 +110,12 @@ Resources:
             MaxAge: '3000'
       LifecycleConfiguration:
         Rules:
-        - Id: GlacierRule
-          Status: !Ref EnableGlacierLifeCycle
-          ExpirationInDays: !Ref GlacierExpiration
+        - Id: DataLifecycleRule
+          Status: !Ref EnableDataLifeCycle
+          ExpirationInDays: !Ref LifecycleDataExpiration
           Transitions:
-            - TransitionInDays: !Ref GlacierTransition
-              StorageClass: Glacier
+            - TransitionInDays: !Ref LifecycleDataTransition
+              StorageClass: !Ref LifecycleDataStorageClass
       Tags:
         - Key: "OwnerEmail"
           Value: !Ref OwnerEmail
