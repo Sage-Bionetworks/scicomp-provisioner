@@ -487,6 +487,8 @@ Resources:
           GroupSet:
             - !ImportValue
               'Fn::Sub': '${AWS::Region}-${VpcName}-VpnSecurityGroup'
+            - !ImportValue
+              'Fn::Sub': '${AWS::Region}-${VpcName}-BastianSecurityGroup'
           SubnetId: !ImportValue
             'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
       UserData: !Base64
