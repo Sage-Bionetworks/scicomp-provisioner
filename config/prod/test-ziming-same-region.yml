@@ -1,0 +1,27 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+template_path: templates/SynapseExternalBucket.yaml
+stack_name: ziming-test-same-region
+parameters:
+  # true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+  # Synapse username
+  SynapseUserName: 'ziming'
+  # true to encrypt bucket, false (default) for no encryption
+  EncryptBucket: 'true'
+  # 'Enabled' to enable bucket versioning, default is 'Suspended'
+  BucketVersioning: 'Suspended'
+  # Bucket owner's email address
+  OwnerEmail: 'ziming.dong@sagebase.org'
+  # 'Enabled' to enable bucket data life cycle rule, default is 'Disabled'
+  EnableDataLifeCycle: 'Disabled'
+  # S3 bucket objects will transition into this storage class: GLACIER(default), STANDARD_IA, ONEZONE_IA
+  LifecycleDataStorageClass: 'STANDARD_IA'
+  # Number of days until S3 objects are moved to the LifecycleDataStorageClass, default is 30
+  LifecycleDataTransition: '90'
+  # Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
+  LifecycleDataExpiration: '1825'
+  
+  SameRegionResourceAccessToBucket: 'true'
+hooks:
+  after_create:
+    - !synapse_external_bucket
