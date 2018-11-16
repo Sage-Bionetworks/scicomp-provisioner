@@ -1,7 +1,3 @@
-#######################################################
-# THIS TEMPLATE IS DEPRECATED
-# PLEASE USE managed-ec2-v2.yaml
-#######################################################
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   Provision EC2 instance, connect to Jumpcloud, and associate with a jumpcloud systems group.
@@ -491,6 +487,8 @@ Resources:
           GroupSet:
             - !ImportValue
               'Fn::Sub': '${AWS::Region}-${VpcName}-VpnSecurityGroup'
+            - !ImportValue
+              'Fn::Sub': '${AWS::Region}-${VpcName}-BastianSecurityGroup'
           SubnetId: !ImportValue
             'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
       UserData: !Base64
