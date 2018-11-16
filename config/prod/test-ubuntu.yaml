@@ -1,0 +1,21 @@
+# Provision an EC2 instance
+template_path: templates/managed-ec2.yaml
+stack_name: ubuntu-test
+parameters:
+  # The Sage deparment for this resource
+  Department: "CompOnc"
+  # The Sage project this resource will be used for
+  Project: "Ubuntu base image"
+  # The resource owner
+  OwnerEmail: "thomas.yu@sagebase.org"
+  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "t2.micro"
+  AMIId: "ami-010d7285c460bd379"
+
+  # Integrate with our cloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+hooks:
+  after_update:
+    - !notify_ec2
