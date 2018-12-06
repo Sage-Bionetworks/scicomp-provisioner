@@ -20,6 +20,13 @@ Parameters:
       - t2.large
       - t2.xlarge
       - t2.2xlarge
+      - t3.nano
+      - t3.micro
+      - t3.small
+      - t3.medium
+      - t3.large
+      - t3.xlarge
+      - t3.2xlarge
       - m1.small
       - m1.medium
       - m1.large
@@ -137,6 +144,20 @@ Mappings:
     t2.xlarge:
       Arch: HVM64
     t2.2xlarge:
+      Arch: HVM64
+    t3.nano:
+      Arch: HVM64
+    t3.micro:
+      Arch: HVM64
+    t3.small:
+      Arch: HVM64
+    t3.medium:
+      Arch: HVM64
+    t3.large:
+      Arch: HVM64
+    t3.xlarge:
+      Arch: HVM64
+    t3.2xlarge:
       Arch: HVM64
     m1.small:
       Arch: PV64
@@ -260,6 +281,20 @@ Mappings:
     t2.xlarge:
       Arch: NATHVM64
     t2.2xlarge:
+      Arch: NATHVM64
+    t3.nano:
+      Arch: NATHVM64
+    t3.micro:
+      Arch: NATHVM64
+    t3.small:
+      Arch: NATHVM64
+    t3.medium:
+      Arch: NATHVM64
+    t3.large:
+      Arch: NATHVM64
+    t3.xlarge:
+      Arch: NATHVM64
+    t3.2xlarge:
       Arch: NATHVM64
     m1.small:
       Arch: NATPV64
