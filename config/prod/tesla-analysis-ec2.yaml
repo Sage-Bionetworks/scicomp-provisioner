@@ -9,7 +9,7 @@ parameters:
   # The resource owner
   OwnerEmail: "xengie.doan@sagebase.org"
   # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "m5.2xlarge"
+  InstanceType: "t3.2xlarge"
   # (Optional) ID of the AMI to deploy
   AMIId: "ami-0c031218cbaf1204f"  # AWS linux with 100GB encrypted boot volume
 
