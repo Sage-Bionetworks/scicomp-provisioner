@@ -3,47 +3,39 @@ Auto provision resources on AWS scicomp account. Cloudformation templates
 in this repo build on top of CF templates in Sage-Bionetworks/scicomp-infra
 repo.
 
-## Instructions to create or update CF stacks
-
-
-```
-# Update CF stacks with sceptre:
-# sceptre launch-stack prod <stack_name>
-```
-
-The above should setup resources for the AWS account.  Once the infrastructure
-for the account has been setup you can access and view the account using the
-[AWS console](https://AWS-account-ID-or-alias.signin.aws.amazon.com/console).
-
 *Note - This project depends on CF templates from other accounts.*
 
-## Scicomp
+## Workflow
+The workflow to provision AWS resources is done using pull requests.
+PRs provide history, gating, and a way to review and approve resource
+requests.
 
 ### Provision EC2 instances
+Instructions and workflow to auto provision and de-provision an EC2 is in
+[Example PR: Auto provision an EC2 instance](https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/3)
 
-```
-aws --profile scicomp --region us-east-1 \
-cloudformation create-stack --stack-name khai-instance1 \
---capabilities CAPABILITY_NAMED_IAM \
---template-url https://s3.amazonaws.com/bootstrap-awss3cloudformationbucket-114n2ojlbvj21/scicomp-infra/master/accounts.yaml \
---parameters \
-ParameterKey=InstanceType,ParameterValue="t2.nano" \
-ParameterKey=JcServiceApiKey,ParameterValue="abcd111122223333aaaabbbbccccddddeeeeffff" \
-ParameterKey=JcSystemsGroupId,ParameterValue="1eabd8df45bf6d7d2a32d4ff" \
-ParameterKey=JcConnectKey,ParameterValue="0123456789abcdef0123456789abcdef01234567" \
-ParameterKey=KeyName,ParameterValue="scicomp" \
-ParameterKey=VpcName,ParameterValue="computevpc" \
-ParameterKey=VpcSubnet,ParameterValue="PrivateSubnet"
-```
-*Note* - check default parameters in the template
+Merging the above should create an EC2 instance and join the instance to a Sage
+Jumpcloud "system group" identified by $JcSystemsGroupId.  Jumpcloud
+"User groups" that have access to $JcSystemsGroupId will have access to
+the provisioned instance.
 
-The above should create an EC2 instance and join the instance to a Sage Jumpcloud "system group"
-identified by $JcSystemsGroupId.  Jumpcloud "User groups" that have access to $JcSystemsGroupId
-will have access to this instance.
+#### EC2 AMIs
+We allow provisioning based on custom AMIs.  List of Sage IT managed AMIs:
+
+Instance ID|Distribution|Disk Size
+-----------|------------|---------
+ami-0ddee041772c2d9f8|AWS linux|8GB encrypted boot volume|
+ami-0c031218cbaf1204f|AWS linux|100GB encrypted boot volume|
+
+
+## Jumpcloud
+We use a directory service [Jumpcloud](https://jumpcloud.com/)
+to manage user access to EC2 instances.  
+
 
 ### Jumpcloud System Groups
-
-Find [system groups](https://docs.jumpcloud.com/2.0/system-groups/list-all-systems-groups) by using the Jumpcloud API
+Find [system groups](https://docs.jumpcloud.com/2.0/system-groups/list-all-systems-groups)
+by using the Jumpcloud API:
 ```
 curl -X GET https://console.jumpcloud.com/api/v2/systemgroups \
   -H 'Accept: application/json' \
@@ -52,8 +44,8 @@ curl -X GET https://console.jumpcloud.com/api/v2/systemgroups \
 ```
 
 ### Jumpcloud Systems
-
-Find [systems](https://docs.jumpcloud.com/1.0/systems/list-all-systems) by using the Jumpcloud API
+Find [systems](https://docs.jumpcloud.com/1.0/systems/list-all-systems)
+by using the Jumpcloud API:
 ```
 curl -X GET https://console.jumpcloud.com/api/systems \
   -H 'Accept: application/json' \
@@ -61,34 +53,14 @@ curl -X GET https://console.jumpcloud.com/api/systems \
   -H 'x-api-key: abcd111122223333aaaabbbbccccddddeeeeffff'
 ```
 
-### Workflow
+### Provision a Synapse external S3 bucket
+Instructions and workflow to auto provision a
+[Synapse external S3 bucket](http://docs.synapse.org/articles/custom_storage_location.html) 
+can be found in 
+[Example PR: Auto provision a synapse bucket](https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/14)
 
-This is how EC2 provisioning works for this account.
-
-1. Create the EC2 instance with the above command.
-2. Locate the IP address of the newly provisioned EC2 instance.
-3. Login to the Sage VPN. (only required if the instance is in a private subnet)
-4. ssh to the ip address with a jumpcloud user account and ssh key (i.e. ssh jsmith@10.5.67.102)
-
-
-### Delete EC2 instances
-
-Steps required to delete an instance.
-
-1. Delete the stack from AWS.
-```
-aws --profile scicomp --region us-east-1 \
-cloudformation delete-stack --stack-name khai-instance1
-```
-The above should delete the EC2 instance that was provisioned in the Provision EC2 instance step
-
-2. Delete EC2 from Jumpcloud
-```
-curl -X DELETE https://console.jumpcloud.com/api/systems/5aabfa45f626352a235780a8 \
-  -H 'Accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: abcd111122223333aaaabbbbccccddddeeeeffff'
-```
+Merging the above should create a synapse bucket with the configurations defined in
+the documentation.
 
 ## Continuous Integration
 We have configured Travis to deploy CF template updates.  Travis deploys using
