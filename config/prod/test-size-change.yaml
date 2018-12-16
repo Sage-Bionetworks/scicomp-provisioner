@@ -1,20 +1,17 @@
 # Provision an EC2 instance
 template_path: templates/managed-ec2-v3.yaml
-stack_name: iwanna-instance
+stack_name: test-size-change
 parameters:
   # The Sage deparment for this resource
   Department: "Platform"
   # The Sage project this resource will be used for
   Project: "Infrastructure"
   # The resource owner
-  OwnerEmail: "joe.smith@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
   # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "t2.medium"
-  # (Optional) EC2 based AMI, default is "ami-0ddee041772c2d9f8" (AWS linux with 8 GB encrypted volume)
-  # Sage IT managed AMIs https://github.com/Sage-Bionetworks/scicomp-provisioner#ec2-amis
-  AMIId: "ami-0ddee041772c2d9f8"  
   # (Optional) Boot volume size, default is 8gb, Max is 500gb
-  VolumeSize: 50
+  VolumeSize: 55
    # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey
