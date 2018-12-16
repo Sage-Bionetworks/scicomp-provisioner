@@ -11,7 +11,7 @@ parameters:
   # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "t2.medium"
   # (Optional) Boot volume size, default is 8gb, Max is 500gb
-  VolumeSize: 55
+  VolumeSize: "55"
    # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey
