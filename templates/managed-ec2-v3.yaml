@@ -129,7 +129,7 @@ Parameters:
     Type: Number
     Default: 8
     MinValue: 8
-    MaxValue: 100
+    MaxValue: 1000
 Conditions:
   PublicEc2Resources: !Or [!Equals [ !Ref VpcSubnet, PublicSubnet ], !Equals [ !Ref VpcSubnet, PublicSubnet1 ], !Equals [ !Ref VpcSubnet, PublicSubnet2 ] ]
   HasAMIId: !Not [!Equals ["", !Ref AMIId]]
