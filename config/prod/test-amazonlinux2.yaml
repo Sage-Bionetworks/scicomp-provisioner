@@ -10,8 +10,9 @@ parameters:
   OwnerEmail: "thomas.yu@sagebase.org"
   # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "t2.micro"
-  AMIId: "ami-056131b84aa59cae0"
-
+  AMIId: "ami-082278746f893d99c"
+  VolumeSize: "200"
+  
   # Integrate with our cloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey
