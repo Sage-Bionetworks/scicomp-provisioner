@@ -9,7 +9,7 @@ parameters:
   # The resource owner
   OwnerEmail: "xengie.doan@sagebase.org"
   # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "c5n.9xlarge"
+  InstanceType: "c4.8xlarge"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "500"
 
