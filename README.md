@@ -22,9 +22,9 @@ the provisioned instance.
 #### EC2 AMIs
 We allow provisioning based on custom AMIs.  List of Sage IT managed AMIs:
 
-Instance ID|Distribution|Volume|Comment|
+AMI ID|Distribution|Volume|Comment|
 -----------|------------|---------|-------|
-ami-0ddee041772c2d9f8|AWS linux|8GB encrypted boot volume|Default AMI|
+ami-082278746f893d99c|AWS linux 2|8GB encrypted boot volume|Default AMI|
 
 
 ## Jumpcloud
