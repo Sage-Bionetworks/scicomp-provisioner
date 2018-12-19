@@ -1,6 +1,6 @@
 #######################################################
 # THIS TEMPLATE IS DEPRECATED
-# PLEASE USE managed-ec2-v2.yaml
+# PLEASE USE managed-ec2-v3.yaml
 #######################################################
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
