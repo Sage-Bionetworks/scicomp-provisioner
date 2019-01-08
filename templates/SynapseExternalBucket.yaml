@@ -80,7 +80,7 @@ Resources:
             AllowedHeaders: ['*']
             AllowedOrigins: ['*']
             AllowedMethods: [GET, POST, PUT, HEAD]
-            MaxAge: '3000'
+            MaxAge: 3000
       LifecycleConfiguration:
         Rules:
         - Id: DataLifecycleRule
@@ -108,7 +108,7 @@ Resources:
             AllowedHeaders: ['*']
             AllowedOrigins: ['*']
             AllowedMethods: [GET, POST, PUT, HEAD]
-            MaxAge: '3000'
+            MaxAge: 3000
       LifecycleConfiguration:
         Rules:
         - Id: DataLifecycleRule
