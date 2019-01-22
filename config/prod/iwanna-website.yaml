@@ -1,0 +1,23 @@
+# Provision a static website with S3 bucket and cloudfront (HTTP and HTTPS)
+template_path: remote/managed-s3WebCloudfront.yaml
+stack_name: iwanna-website
+parameters:
+  # The Sage deparment for this resource
+  Department: "Platform"
+  # The Sage project this resource will be used for
+  Project: "Infrastructure"
+  # The resource owner
+  OwnerEmail: "joe.smith@sagebase.org"
+  # The website domain name (i.e. sagebionetworks.org)
+  DomainName: "sagebionetworks.org"
+  # The website sub domain name (i.e. 'mysite' in mysite.sagebionetworks.org)
+  SubDomainName: "mysite"
+  # The SSL certificate from the AWS Certificate Manager (ask IT for one).
+  AcmCertificateArn: "arn:aws:acm:us-east-1:111111111111:certificate/12e131f3-f411-111f-b574-1d6316b8901a"
+
+# For CI system (do not change)
+hooks:
+  before_launch:
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
+  after_create:
+    - !s3_web_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
