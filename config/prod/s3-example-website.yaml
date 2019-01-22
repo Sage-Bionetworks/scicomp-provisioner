@@ -1,0 +1,16 @@
+# Provision a static website with S3 bucket and cloudfront (HTTP and HTTPS)
+template_path: templates/managed-s3WebCloudfront.yaml
+stack_name: s3-example-website
+parameters:
+  # The website domain name (i.e. example.org)
+  DomainName: "example.org"
+  # The website sub domain name (i.e. 'simple' in simple.example.org)
+  SubDomainName: "simple"
+  # The SSL certificate from the AWS Certificate Manager.
+  AcmCertificateArn: "arn:aws:acm:us-east-1:111111111111:certificate/12e131f3-f411-111f-b574-1d6316b8901a"
+  # The Sage deparment for this resource
+  Department: "Platform"
+  # The Sage project this resource will be used for
+  Project: "Infrastructure"
+  # The resource owner
+  OwnerEmail: "joe.smith@sagebase.org"
