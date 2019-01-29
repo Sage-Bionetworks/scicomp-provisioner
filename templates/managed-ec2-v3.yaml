@@ -80,11 +80,9 @@ Parameters:
       - d2.2xlarge
       - d2.4xlarge
       - d2.8xlarge
-      - hi1.4xlarge
       - hs1.8xlarge
       - cr1.8xlarge
       - cc2.8xlarge
-      - cg1.4xlarge
     ConstraintDescription: must be a valid EC2 instance type.
   JcConnectKey:
     Description: Connection key used to let JC agent connect to a Jumpcloud account.
@@ -266,8 +264,6 @@ Mappings:
     d2.4xlarge:
       Arch: HVM64
     d2.8xlarge:
-      Arch: HVM64
-    hi1.4xlarge:
       Arch: HVM64
     hs1.8xlarge:
       Arch: HVM64
