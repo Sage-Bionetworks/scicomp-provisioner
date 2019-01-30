@@ -1,7 +1,3 @@
-#######################################################
-# THIS TEMPLATE IS DEPRECATED
-# PLEASE USE SynapseExternalBucket-v2.yaml
-#######################################################
 Description: Synapse External S3 Bucket
 AWSTemplateFormatVersion: 2010-09-09
 Parameters:
@@ -40,6 +36,12 @@ Parameters:
   SynapseUserName:
     Type: String
     Description: Synapse user for read-write bucket
+  Department:
+    Description: The department for this resource (i.e. Computational Oncology)
+    Type: String
+  Project:
+    Description: The name of the project that this resource is used for (i.e. Resilience)
+    Type: String
   OwnerEmail:
     Type: String
     Description: The bucket owner's email address
@@ -94,6 +96,12 @@ Resources:
             - TransitionInDays: !Ref LifecycleDataTransition
               StorageClass: !Ref LifecycleDataStorageClass
       Tags:
+        - Key: "Name"
+          Value: !Ref 'AWS::StackName'
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
         - Key: "OwnerEmail"
           Value: !Ref OwnerEmail
   SynapseEncryptedExternalBucket:
@@ -122,8 +130,15 @@ Resources:
             - TransitionInDays: !Ref LifecycleDataTransition
               StorageClass: !Ref LifecycleDataStorageClass
       Tags:
+        - Key: "Name"
+          Value: !Ref 'AWS::StackName'
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
         - Key: "OwnerEmail"
           Value: !Ref OwnerEmail
+
   ExternalBucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
@@ -147,6 +162,7 @@ Resources:
               - !If [AllowWrite, "s3:*Object*", "s3:GetObject*"]
               - "s3:*MultipartUpload*"
             Resource: !If [EnableEncryption, !Sub "${SynapseEncryptedExternalBucket.Arn}/*", !Sub "${SynapseExternalBucket.Arn}/*"]
+
   IPAddressRestictionLambda:
     Type: 'AWS::CloudFormation::Stack'
     Condition: CreateIPAddressRestrictionLambda
@@ -155,6 +171,15 @@ Resources:
       TemplateURL: 'https://s3.amazonaws.com/bootstrap-awss3cloudformationbucket-19qromfd235z9/aws-infra/v0.0.4/AddSameRegionBucketDownloadRestriction.yaml'
       Parameters:
         BucketName: !If [EnableEncryption, !Ref SynapseEncryptedExternalBucket, !Ref SynapseExternalBucket]
+      Tags:
+        - Key: "Name"
+          Value: !Ref 'AWS::StackName'
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
 
 Outputs:
   SynapseExternalBucket:
