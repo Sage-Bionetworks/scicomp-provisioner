@@ -5,8 +5,6 @@ parameters:
   Project: "dream"
   OwnerEmail: "phil.snyder@sagebase.org"
   InstanceType: "t3.medium"
-  # (Optional) ID of the base AMI (supported distros: AWS linux)
-  AMIId: "ami-035be7bafff33b6b6"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "30"
 
