@@ -1,0 +1,19 @@
+template_path: templates/managed-ec2-v4.yaml
+stack_name: neurolincs
+parameters:
+  Department: "SysBio"
+  Project: "dream"
+  OwnerEmail: "phil.snyder@sagebase.org"
+  InstanceType: "t3.medium"
+  # (Optional) ID of the base AMI (supported distros: AWS linux)
+  AMIId: "ami-035be7bafff33b6b6"
+  # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
+  VolumeSize: "30"
+
+  # Integration with our jumpcloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+hooks:
+  after_create:
+    - !notify_ec2
