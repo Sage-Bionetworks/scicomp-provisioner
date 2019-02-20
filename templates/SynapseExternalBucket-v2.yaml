@@ -45,6 +45,11 @@ Parameters:
   OwnerEmail:
     Type: String
     Description: The bucket owner's email address
+  GrantAccess:
+    Type: CommaDelimitedList
+    Default: "[]"
+    Description: Grant bucket access to accounts, groups, and users.
+    ConstraintDescription: List of ARNs (i.e. [arn:aws:iam::011223344556:user/jsmith, arn:aws:iam::544332211006:user/rjones']
   EnableDataLifeCycle:
     Type: String
     Description: Enabled to enable bucket lifecycle rule, default is Disabled
@@ -70,6 +75,7 @@ Parameters:
     Default: 365000
 Conditions:
   AllowWrite: !Equals [!Ref AllowWriteBucket, true]
+  AllowUserAccess: !Not [!Equals [!Join ['', !Ref GrantAccess], "[]"]]
   EnableEncryption: !Equals [!Ref EncryptBucket, true]
   DisableEncryption: !Not [!Condition EnableEncryption]
   CreateIPAddressRestrictionLambda: !Equals [!Ref SameRegionResourceAccessToBucket, true]
@@ -141,6 +147,7 @@ Resources:
 
   ExternalBucketPolicy:
     Type: "AWS::S3::BucketPolicy"
+    Condition: AllowUserAccess
     Properties:
       Bucket: !If [EnableEncryption, !Ref SynapseEncryptedExternalBucket, !Ref SynapseExternalBucket]
       PolicyDocument:
@@ -150,14 +157,14 @@ Resources:
             Sid: "ReadAccess"
             Effect: "Allow"
             Principal:
-              AWS: "325565585839"
+              AWS: !Ref GrantAccess
             Action: "s3:ListBucket*"
             Resource: !If [EnableEncryption, !GetAtt SynapseEncryptedExternalBucket.Arn, !GetAtt SynapseExternalBucket.Arn]
           -
             Sid: "WriteAccess"
             Effect: "Allow"
             Principal:
-              AWS: "325565585839"
+              AWS: !Ref GrantAccess
             Action:
               - !If [AllowWrite, "s3:*Object*", "s3:GetObject*"]
               - "s3:*MultipartUpload*"

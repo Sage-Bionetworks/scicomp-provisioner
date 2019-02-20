@@ -1,7 +1,11 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: SynapseExternalBucket.yaml
+template_path: SynapseExternalBucket-v2.yaml
 stack_name: gates-ki-001
 parameters:
+  # The Sage deparment for this resource
+  Department: "SysBio"
+  # The Sage project this resource will be used for
+  Project: "GatesKi"
   # true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
   # Synapse username
@@ -9,7 +13,10 @@ parameters:
   # true to encrypt bucket, false (default) for no encryption
   EncryptBucket: "true"
   # Bucket owner's email address
-  OwnerEmail: kenneth.daily@sagebase.org
+  OwnerEmail: 'kenneth.daily@sagebase.org'
+  # Allow accounts, groups, and users to access bucket.
+  GrantAccess:
+    - 'arn:aws:iam::325565585839:root'
 hooks:
   after_create:
     - !synapse_bucket_notify {{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}
