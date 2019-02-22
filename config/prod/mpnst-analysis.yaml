@@ -1,16 +1,17 @@
 # Provision an EC2 instance
 template_path: managed-ec2.yaml
-stack_name: raad2-challenge
+stack_name: mpnst-analysis
 parameters:
   # The Sage deparment for this resource
-  Department: "CompOnc"
+  Department: "Computational Oncology"
   # The Sage project this resource will be used for
-  Project: "DREAM Infrastructure"
+  Project: "NTAP"
   # The resource owner
-  OwnerEmail: "thomas.yu@sagebionetworks.org"
+  OwnerEmail: "xengie.doan@sagebase.org"
+  AMIId: "ami-0c031218cbaf1204f"
   # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "t2.small"
-
+  InstanceType: "t2.large"
+  
   # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey

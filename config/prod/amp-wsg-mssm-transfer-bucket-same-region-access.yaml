@@ -1,0 +1,16 @@
+# Enable same region bucket download restriction to amp-wsg-mms-transfer
+# synapse bucket,
+# https://github.com/Sage-Bionetworks/aws-infra/blob/master/templates/AddSameRegionBucketDownloadRestriction.yaml
+# Typically this is done when the bucket is created using the
+# SynapseExternalBucket.yaml template however this is a workaround because
+# this bucket got into a bad state and the template for it had to be removed,
+# https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/17
+template_path: remote/AddSameRegionBucketDownloadRestriction.yaml
+stack_name: amp-wsg-mssm-transfer-bucket-same-region-access
+parameters:
+  BucketName: amp-wgs-mssm-transfer-synapseexternalbucket-w61e1z1zbfic
+hooks:
+  before_create:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.0.4/AddSameRegionBucketDownloadRestriction.yaml --create-dirs -o templates/remote/AddSameRegionBucketDownloadRestriction.yaml"
+  before_update:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.0.4/AddSameRegionBucketDownloadRestriction.yaml --create-dirs -o templates/remote/AddSameRegionBucketDownloadRestriction.yaml"

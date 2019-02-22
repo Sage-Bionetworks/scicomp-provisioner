@@ -1,7 +1,11 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: templates/SynapseExternalBucket.yaml
+template_path: SynapseExternalBucket-v2.yaml
 stack_name: AMP-Emory-Bucket
 parameters:
+  # The Sage deparment for this resource
+  Department: "SysBio"
+  # The Sage project this resource will be used for
+  Project: "AMP-Emory"
   # true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
   # Synapse username
@@ -9,7 +13,12 @@ parameters:
   # true to encrypt bucket, false (default) for no encryption
   EncryptBucket: "true"
   # Bucket owner's email address
-  OwnerEmail: ampadportal@sagebase.org
+  OwnerEmail: 'ampadportal@sagebase.org'
+  # Allow accounts, groups, and users to access bucket.
+  GrantAccess:
+    - 'arn:aws:iam::325565585839:root'
+    - 'arn:aws:iam::743849566882:user/dduong'
+    - 'arn:aws:iam::563295687221:user/phil.snyder@sagebase.org'
 hooks:
   after_create:
-    - !synapse_external_bucket
+    - !synapse_bucket_notify {{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}

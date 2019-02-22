@@ -1,5 +1,5 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: templates/SynapseExternalBucket.yaml
+template_path: SynapseExternalBucket.yaml
 stack_name: test1-kdaily-encryptedexternals3
 parameters:
   # true for read-write bucket, false (default) for read-only bucket
@@ -12,4 +12,4 @@ parameters:
   OwnerEmail: kenneth.daily@sagebase.org
 hooks:
   after_create:
-    - !synapse_external_bucket
+    - !synapse_bucket_notify {{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}
