@@ -2,6 +2,10 @@
 template_path: remote/s3-bucket.yaml
 stack_name: test1-kdaily-encryptedexternals3
 parameters:
+  # The Sage deparment for this resource
+  Department: "SysBio"
+  # The Sage project this resource will be used for
+  Project: "GatesKi"
   # true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
   # Synapse username
