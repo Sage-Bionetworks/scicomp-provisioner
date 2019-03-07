@@ -1,8 +1,6 @@
-
-    
 # Provision an EC2 instance
 template_path: managed-ec2-v5.yaml
-stack_name: test-scrna
+stack_name: salmon-rnaSeq
 parameters:
   # The Sage deparment for this resource
   Department: "CompOnc"
