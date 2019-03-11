@@ -1,6 +1,6 @@
 # Provision an EC2 instance
 template_path: managed-ec2-v4.yaml
-stack_name: neurolincs
+stack_name: neurolincs-actual
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
