@@ -1,5 +1,5 @@
 # Provision an EC2 instance
-template_path: managed-ec2-v4.yaml
+template_path: managed-ec2-v5.yaml
 stack_name: mpnst-analysis-larger
 parameters:
   # The Sage deparment for this resource
@@ -11,7 +11,7 @@ parameters:
   AMIId: "ami-084302eb33c52749d"
   # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "m5.4xlarge"
-  VolumeSize: "300"
+  VolumeSize: "250"
   
   # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
