@@ -13,7 +13,7 @@ parameters:
   # The sub domain name e.g. ('mysite' in mysite.sagebionetworks.org)
   SubDomainName: "cancer"
   # The Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate
-  AcmCertificateArn: "arn:aws:acm:us-east-1:055273631518:certificate/1fdb2541-963b-4363-963b-69deb71637af"
+  AcmCertificateArn: "arn:aws:acm:us-east-1:055273631518:certificate/62283392-710d-439e-ad40-3b53a6a78499"
 
 hooks:
   before_create:
