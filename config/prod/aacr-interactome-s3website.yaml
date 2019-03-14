@@ -9,7 +9,7 @@ parameters:
   # The resource owner's email address
   OwnerEmail: "xindi.guo@sagebase.org"
   # Domain name for your website (sagebionetworks.org)
-  DomainName: "sagebionetworks.org"
+  DomainName: "sagebase.org"
   # The sub domain name e.g. ('mysite' in mysite.sagebionetworks.org)
   SubDomainName: "cancer"
   # The Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate
