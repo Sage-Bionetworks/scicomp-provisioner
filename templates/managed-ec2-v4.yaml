@@ -1,3 +1,7 @@
+#######################################################
+# THIS TEMPLATE IS DEPRECATED
+# PLEASE USE managed-ec2-v5.yaml
+#######################################################
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   Provision EC2 instance, connect to Jumpcloud, and associate with a jumpcloud systems group.
