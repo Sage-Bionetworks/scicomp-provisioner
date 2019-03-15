@@ -10,8 +10,6 @@ parameters:
   OwnerEmail: "kara.woo@sagebase.org"
   # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "m4.xlarge"
-  # (Optional) ID of the base AMI (supported distros: AWS linux)
-  AMIId: "ami-0ff8a91507f77f867"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "150"
 
