@@ -21,4 +21,4 @@ jobs:
     - stage: validate
       script: cfn-lint ./templates/**/*
     - stage: deploy
-      script: sceptre launch prod --yes
+      script: travis_wait 30 sceptre launch prod --yes
