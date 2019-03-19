@@ -375,12 +375,12 @@ Resources:
             # use rest api to this host to a jumpcloud system group
             03_associate_jc_systems:
               command: !Join
-                 - ''
-                 - - "source /tmp/jc_info && curl -X POST 'https://console.jumpcloud.com/api/v2/systemgroups/"
-                   - !Ref JcSystemsGroupId
-                   - "/members' -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'x-api-key: "
-                   - !Ref JcServiceApiKey
-                   - "' -d '{\"op\": \"add\",\"type\": \"system\",\"id\": \"'$JC_SYSTEM_ID'\"}'"
+                - ''
+                - - "source /tmp/jc_info && curl -X POST 'https://console.jumpcloud.com/api/v2/systemgroups/"
+                  - !Ref JcSystemsGroupId
+                  - "/members' -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'x-api-key: "
+                  - !Ref JcServiceApiKey
+                  - "' -d '{\"op\": \"add\",\"type\": \"system\",\"id\": \"'$JC_SYSTEM_ID'\"}'"
     Properties:
       ImageId: !If [HasAMIId, !Ref AMIId, !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch, !Ref InstanceType, Arch]]]
       InstanceType: !Ref InstanceType

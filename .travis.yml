@@ -20,7 +20,7 @@ jobs:
   include:
     - stage: validate
       script:
-        - yamllint ./config
+        - yamllint ./config ./templates
         - cfn-lint ./templates/**/*
     - stage: deploy
       script: travis_wait 30 sceptre launch prod --yes
