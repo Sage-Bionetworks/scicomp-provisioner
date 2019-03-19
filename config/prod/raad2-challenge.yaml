@@ -17,4 +17,4 @@ parameters:
   JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
 hooks:
   after_create:
-    - !ec2_notify {{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}
+    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
