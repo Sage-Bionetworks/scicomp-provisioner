@@ -9,6 +9,9 @@ parameters:
   # The resource owner
   OwnerEmail: 'kenneth.daily@sagebase.org'
 
+  GrantAccess:
+    - 'arn:aws:iam::563295687221:user/kenneth.daily@sagebase.org'
+
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
 
