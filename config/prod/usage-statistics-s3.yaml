@@ -1,0 +1,28 @@
+# For storage of files related to usage statistics reporting
+template_path: remote/s3-bucket.yaml
+stack_name: usage-statistics-S3
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "DataEngineering"
+  # The resource owner
+  OwnerEmail: 'kenneth.daily@sagebase.org'
+
+  GrantAccess:
+    - 'arn:aws:iam::563295687221:user/kenneth.daily@sagebase.org'
+
+  # The following parameters are only examples they are not required.
+  # You may omit them if you do not need to override the defaults.
+
+  # (Optional) true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+
+# For CI system (do not change)
+hooks:
+  before_create:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+  before_update:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+  after_create:
+    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
