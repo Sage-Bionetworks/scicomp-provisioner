@@ -1,6 +1,6 @@
 # Provision an EC2 instance
 template_path: managed-ec2-v5.yaml
-stack_name: test_pcawg
+stack_name: test-pcawg
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"
@@ -20,3 +20,4 @@ parameters:
 hooks:
   after_create:
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
+
