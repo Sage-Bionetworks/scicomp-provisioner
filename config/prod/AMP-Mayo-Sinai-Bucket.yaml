@@ -20,10 +20,6 @@ parameters:
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:iam::563295687221:user/william.poehlman@sagebase.org'
-  # (Optional) true (default) to encrypt bucket, false for no encryption
-  EncryptBucket: 'true'
-  # (Optional) S3 bucket objects will transition into this storage class: GLACIER(default), STANDARD_IA, ONEZONE_IA
-  LifecycleDataStorageClass: 'STANDARD_IA'
 
 # For CI system (do not change)
 hooks:
