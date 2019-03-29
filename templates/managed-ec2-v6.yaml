@@ -1,7 +1,3 @@
-#######################################################
-# THIS TEMPLATE IS DEPRECATED
-# PLEASE USE managed-ec2-v6.yaml
-#######################################################
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   Provision EC2 instance, connect to Jumpcloud, and associate with a jumpcloud systems group.
@@ -10,7 +6,7 @@ Parameters:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
-    Default: "scicomp"
+    Default: "sandbox"
   InstanceType:
     Description: WebServer EC2 instance type
     Type: String
@@ -118,7 +114,7 @@ Parameters:
   VpcName:
     Description: Name of an existing VPC to run the instance in.
     Type: String
-    Default: computevpc
+    Default: sandcastlevpc
   Department:
     Description: The department for this resource (i.e. Computational Oncology)
     Type: String
@@ -135,7 +131,7 @@ Parameters:
   AMIId:
     Description: ID of the AMI to deploy
     Type: String
-    Default: ami-082278746f893d99c
+    Default: ""
   VolumeSize:
     Description: The EC2 volume size (in GB)
     Type: Number
@@ -398,10 +394,12 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Init':
         configSets:
-          InstallAndRun:
-            - Install
-            - Config
-        Install:
+          SetupJumpcloud:
+            - Install_JC
+            - Config_JC
+          SetupVolume:
+            - TagRootVolume
+        Install_JC:
           packages:
             yum:
               jq: []
@@ -412,15 +410,18 @@ Resources:
                 - - "curl --silent --show-error --header 'x-connect-key: "
                   - !Ref JcConnectKey
                   - "' https://kickstart.jumpcloud.com/Kickstart | sudo bash"
-        Config:
+        Config_JC:
           commands:
             # allow agent time to register with jumpcloud account
             01_wait_registeration:
               command: "sleep 10"
             # get the jumpcloud host id
             02_get_jc_system_id:
-              command: "export systemKey=$(sudo cat /opt/jc/jcagent.conf|jq -r '.systemKey') && echo JC_SYSTEM_ID=$systemKey > /tmp/jc_info"
-            # use rest api to this host to a jumpcloud system group
+              command: !Join
+                - ''
+                - - "export systemKey=$(sudo cat /opt/jc/jcagent.conf|jq -r '.systemKey') && "
+                  - "echo JC_SYSTEM_ID=$systemKey > /tmp/jc_info"
+            # add this host to a jumpcloud system group
             03_associate_jc_systems:
               command: !Join
                 - ''
@@ -429,6 +430,36 @@ Resources:
                   - "/members' -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'x-api-key: "
                   - !Ref JcServiceApiKey
                   - "' -d '{\"op\": \"add\",\"type\": \"system\",\"id\": \"'$JC_SYSTEM_ID'\"}'"
+        TagRootVolume:
+          commands:
+            01_get_instance_id:
+              command: !Join
+                - ''
+                - - "export Ec2InstanceId=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) && "
+                  - "echo EC2_INSTANCE_ID=$Ec2InstanceId > /tmp/instance_info"
+            02_get_root_disk_id:
+              command: !Join
+                - ''
+                - - "source /tmp/instance_info && "
+                  - "export RootDiskId=$(aws ec2 describe-volumes --region $AWS_REGION "
+                  - "--filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID "
+                  - "--query Volumes[].VolumeId --out text) "
+                  - "&& echo ROOT_DISK_ID=$RootDiskId >> /tmp/instance_info"
+              env:
+                AWS_REGION: !Ref AWS::Region
+            03_tag_root_disk:
+              command: !Join
+                - ''
+                - - "source /tmp/instance_info && "
+                  - "aws ec2 create-tags --region $AWS_REGION --resources $ROOT_DISK_ID "
+                  - "--tags Key=Name,Value=$EC2_INSTANCE_ID-root Key=cloudformation:stack-name,Value=$STACK_NAME "
+                  - "Key=Department,Value=$DEPARTMENT Key=Project,Value=$PROJECT Key=OwnerEmail,Value=$OWNER_EMAIL"
+              env:
+                AWS_REGION: !Ref AWS::Region
+                STACK_NAME: !Ref AWS::StackName
+                DEPARTMENT: !Ref Department
+                PROJECT: !Ref Project
+                OWNER_EMAIL: !Ref OwnerEmail
     Properties:
       ImageId: !If [HasAMIId, !Ref AMIId, !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch, !Ref InstanceType, Arch]]]
       InstanceType: !Ref InstanceType
@@ -449,6 +480,8 @@ Resources:
             - !If [AllowPortAccess, !GetAtt InstanceSecurityGroup.GroupId, !Ref "AWS::NoValue"]
           SubnetId: !ImportValue
             'Fn::Sub': '${AWS::Region}-${VpcName}-${VpcSubnet}'
+      IamInstanceProfile: !ImportValue
+        'Fn::Sub': '${AWS::Region}-essentials-TagRootVolumeProfile'
       UserData: !Base64
         'Fn::Join':
           - ''
@@ -462,7 +495,7 @@ Resources:
             - '         --stack '
             - !Ref 'AWS::StackName'
             - '         --resource Ec2Instance '
-            - '         --configsets InstallAndRun '
+            - '         --configsets SetupJumpcloud,SetupVolume '
             - '         --region '
             - !Ref 'AWS::Region'
             - |+
