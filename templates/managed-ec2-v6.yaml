@@ -6,7 +6,7 @@ Parameters:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
-    Default: "sandbox"
+    Default: "scicomp"
   InstanceType:
     Description: WebServer EC2 instance type
     Type: String
@@ -114,7 +114,7 @@ Parameters:
   VpcName:
     Description: Name of an existing VPC to run the instance in.
     Type: String
-    Default: sandcastlevpc
+    Default: computevpc
   Department:
     Description: The department for this resource (i.e. Computational Oncology)
     Type: String
@@ -131,7 +131,7 @@ Parameters:
   AMIId:
     Description: ID of the AMI to deploy
     Type: String
-    Default: ""
+    Default: ami-082278746f893d99c
   VolumeSize:
     Description: The EC2 volume size (in GB)
     Type: Number
