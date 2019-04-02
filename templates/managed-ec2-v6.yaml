@@ -145,11 +145,26 @@ Parameters:
     Default: 0
     MinValue: 0
     MaxValue: 65535
+  BackupEc2:
+    Type: String
+    Description: true to enable daily EC2 backup, false (default) for no backup
+    AllowedValues:
+      - true
+      - false
+    Default: false
+  SnapshotCount:
+    Description: The number of snapshots to keep, only used if BackupEc2=true
+    Type: Number
+    MinValue: 1
+    MaxValue: 180
+    Default: 7
+    ConstraintDescription: Valid values are 1-180
 Conditions:
   PublicEc2Resources: !Or [!Equals [ !Ref VpcSubnet, PublicSubnet ], !Equals [ !Ref VpcSubnet, PublicSubnet1 ], !Equals [ !Ref VpcSubnet, PublicSubnet2 ] ]
   HasAMIId: !Not [!Equals ["", !Ref AMIId]]
   EnableOpenPort: !Not [!Equals ["0", !Ref OpenPort]]
   AllowPortAccess: !And [!Condition PublicEc2Resources, !Condition EnableOpenPort]
+  EnableEc2Backup: !Equals [!Ref BackupEc2, true]
 Mappings:
   AWSInstanceType2Arch:
     t1.micro:
@@ -523,6 +538,26 @@ Resources:
     CreationPolicy:
       ResourceSignal:
         Timeout: PT5M
+  Ec2Backup:
+    Type: 'AWS::CloudFormation::Stack'
+    Condition: EnableEc2Backup
+    Properties:
+      # template uploaded from Sage-Bionetworks/aws-infra repo
+      TemplateURL: 'https://s3.amazonaws.com/bootstrap-awss3cloudformationbucket-19qromfd235z9/aws-infra/master/ec2-backup.yaml'
+      Parameters:
+        StackName: !Ref AWS::StackName
+        SnapshotCount: !Ref SnapshotCount
+      Tags:
+        - Key: "parkmycloud"
+          Value: !Ref ParkMyCloudManaged
+        - Key: "Name"
+          Value: !Ref 'AWS::StackName'
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
 Outputs:
   Ec2InstanceId:
     Value: !Ref Ec2Instance
