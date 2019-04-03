@@ -20,6 +20,8 @@ parameters:
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:iam::563295687221:user/william.poehlman@sagebase.org'
+    - 'arn:aws:iam::563295687221:user/khai.do@sagebase.org'
+    - 'arn:aws:iam::563295687221:user/bootstrap-AWSIAMTravisUser-BP6FVD6SZZCN'
 
 # For CI system (do not change)
 hooks:
