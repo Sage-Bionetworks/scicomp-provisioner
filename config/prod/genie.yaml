@@ -1,4 +1,4 @@
-template_path: templates/genie.yaml
+template_path: genie.yaml
 stack_name: genie
 parameters:
   # AWS batch requires the instance to have pre-installed packages.
