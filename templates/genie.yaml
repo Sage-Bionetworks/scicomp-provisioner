@@ -1,0 +1,435 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Batch jobs for Genie validation.
+
+Parameters:
+  ComputeImageId:
+    Description: The Genie compute resource image ID
+    Type: 'AWS::EC2::Image::Id'
+  MainImage:
+    Description: The Genie main processing and validation docker container image
+    Type: String
+  MutationImage:
+    Description: The Genie mutation processing docker container image 
+    Type: String
+
+Resources:
+  BatchServiceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: batch.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: "/"
+  BatchInstanceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: "/"
+  BatchInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref BatchInstanceRole
+  BatchComputeEnvironment:
+    Type: "AWS::Batch::ComputeEnvironment"
+    Properties:
+      Type: MANAGED
+      ServiceRole: !GetAtt BatchServiceRole.Arn
+      State: ENABLED
+      ComputeResources:
+        Type: EC2
+        MaxvCpus: 256
+        SecurityGroupIds:
+          - !ImportValue us-east-1-sandcastlevpc-VpnSecurityGroup
+        Subnets:
+          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet
+          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet1
+          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet2
+        MinvCpus: 0
+        ImageId: !Ref ComputeImageId
+        InstanceRole: !GetAtt BatchInstanceProfile.Arn
+        InstanceTypes:
+          - optimal
+        DesiredvCpus: 8
+  BatchJobQueue:
+    Type: "AWS::Batch::JobQueue"
+    Properties:
+      JobQueueName: !Join
+        - '-'
+        - - !Ref AWS::StackName
+          - "job"
+          - "queue"
+      ComputeEnvironmentOrder:
+        - ComputeEnvironment: !Ref BatchComputeEnvironment
+          Order: 1
+      Priority: 1
+      State: ENABLED
+  ValidationBatchJob:
+    Type: 'AWS::Batch::JobDefinition'
+    Properties:
+      Type: container
+      JobDefinitionName: !Join
+        - '-'
+        - - !Ref AWS::StackName
+          - "job"
+          - "validation"
+      ContainerProperties:
+        Image: !Ref MainImage
+        Vcpus: 8
+        Memory: 8000
+        Command:
+          - python
+          - input_to_database.py
+          - vcf 
+          - --pemFile 
+          - /root/.ssh/genie.pem
+          - --onlyValidate
+        Volumes:
+          - Host:
+              SourcePath: "/home/ec2-user/.ssh/genie.pem"
+            Name: geniePem
+          - Host:
+              SourcePath: "/home/ec2-user/.synapseCache"
+            Name: synapsecache
+        Environment:
+          - Name: GENIE_PASS
+            Value: (b'\x1b\x1f\xc8\xdb\x9f\x03\x0c\xf6\xd4\x95NI\x06\x97e\xda\x88i~\x89\x9a"\x19ON\x8c\x01\x9a\xb4\xaat\x970\xb0\xeel\xae\t\'\xdb\xf3XUQw\xdb\xe7\x11\xd3\x0bf\xc6\xaf\xae\x11\xe2\xa9W\x8b\x08\xcb\x92\xc5\x8f3-\xf8\x92[\x8b\xb8\xe0\xcc\x87\xc09\xa5\rw\x03\xbc\xa4\xa6Y\xa1\x87\x8d\xe6G\xba5\xbb\xa4\x84xl\xba\xa1\x05\xa6\xc7\x1d&N>\xb7\xf0\x1b\x19#E\xb1\xd5\xaf\xc3\xafU,\xfbb\x95\x9df\xeb\xfe&\x0f\xaa',)
+          - Name: GENIE_USER
+            Value: genieRunner
+        MountPoints:
+          - ContainerPath: "/root/.ssh/genie.pem"
+            ReadOnly: false
+            SourceVolume: geniePem
+          - ContainerPath: "/root/.synapseCache"
+            ReadOnly: false
+            SourceVolume: synapsecache
+  MainProcessingBatchJob:
+    Type: 'AWS::Batch::JobDefinition'
+    Properties:
+      Type: container
+      JobDefinitionName: !Join
+        - '-'
+        - - !Ref AWS::StackName
+          - "job"
+          - "mainprocess"
+      ContainerProperties:
+        Image: !Ref MainImage
+        Vcpus: 8
+        Memory: 8000
+        Command:
+          - python
+          - input_to_database.py
+          - main 
+          - --pemFile 
+          - /root/.ssh/genie.pem
+        Volumes:
+          - Host:
+              SourcePath: "/home/ec2-user/.ssh/genie.pem"
+            Name: geniePem
+          - Host:
+              SourcePath: "/home/ec2-user/.synapseCache"
+            Name: synapsecache
+        Environment:
+          - Name: GENIE_PASS
+            Value: (b'\x1b\x1f\xc8\xdb\x9f\x03\x0c\xf6\xd4\x95NI\x06\x97e\xda\x88i~\x89\x9a"\x19ON\x8c\x01\x9a\xb4\xaat\x970\xb0\xeel\xae\t\'\xdb\xf3XUQw\xdb\xe7\x11\xd3\x0bf\xc6\xaf\xae\x11\xe2\xa9W\x8b\x08\xcb\x92\xc5\x8f3-\xf8\x92[\x8b\xb8\xe0\xcc\x87\xc09\xa5\rw\x03\xbc\xa4\xa6Y\xa1\x87\x8d\xe6G\xba5\xbb\xa4\x84xl\xba\xa1\x05\xa6\xc7\x1d&N>\xb7\xf0\x1b\x19#E\xb1\xd5\xaf\xc3\xafU,\xfbb\x95\x9df\xeb\xfe&\x0f\xaa',)
+          - Name: GENIE_USER
+            Value: genieRunner
+        MountPoints:
+          - ContainerPath: "/root/.ssh/genie.pem"
+            ReadOnly: false
+            SourceVolume: geniePem
+          - ContainerPath: "/root/.synapseCache"
+            ReadOnly: false
+            SourceVolume: synapsecache
+  VcfBatchJob:
+    Type: 'AWS::Batch::JobDefinition'
+    Properties:
+      Type: container
+      JobDefinitionName: !Join
+        - '-'
+        - - !Ref AWS::StackName
+          - "job"
+          - "vcfprocess"
+      ContainerProperties:
+        Image: !Ref MutationImage
+        Vcpus: 8
+        Memory: 32000
+        Command:
+          - python
+          - input_to_database.py
+          - vcf
+          - --pemFile 
+          - /root/.ssh/genie.pem
+          - --vcf2mafPath
+          - /root/vcf2maf-1.6.14
+          - --vepPath
+          - /root/vep
+          - --vepData
+          - /root/.vep
+        Volumes:
+          - Host:
+              SourcePath: "/home/ec2-user/.ssh/genie.pem"
+            Name: geniePem
+          - Host:
+              SourcePath: "/home/ec2-user/vep"
+            Name: vepPath
+          - Host:
+              SourcePath: "/home/ec2-user/.vep"
+            Name: vepData
+          - Host:
+              SourcePath: "/home/ec2-user/.synapseCache"
+            Name: synapsecache
+        Environment:
+          - Name: GENIE_PASS
+            Value: (b'\x1b\x1f\xc8\xdb\x9f\x03\x0c\xf6\xd4\x95NI\x06\x97e\xda\x88i~\x89\x9a"\x19ON\x8c\x01\x9a\xb4\xaat\x970\xb0\xeel\xae\t\'\xdb\xf3XUQw\xdb\xe7\x11\xd3\x0bf\xc6\xaf\xae\x11\xe2\xa9W\x8b\x08\xcb\x92\xc5\x8f3-\xf8\x92[\x8b\xb8\xe0\xcc\x87\xc09\xa5\rw\x03\xbc\xa4\xa6Y\xa1\x87\x8d\xe6G\xba5\xbb\xa4\x84xl\xba\xa1\x05\xa6\xc7\x1d&N>\xb7\xf0\x1b\x19#E\xb1\xd5\xaf\xc3\xafU,\xfbb\x95\x9df\xeb\xfe&\x0f\xaa',)
+          - Name: GENIE_USER
+            Value: genieRunner
+        MountPoints:
+          - ContainerPath: "/root/.ssh/genie.pem"
+            ReadOnly: false
+            SourceVolume: geniePem
+          - ContainerPath: "/root/vep"
+            ReadOnly: false
+            SourceVolume: vepPath
+          - ContainerPath: "/root/.vep"
+            ReadOnly: false
+            SourceVolume: vepData
+          - ContainerPath: "/root/.synapseCache"
+            ReadOnly: false
+            SourceVolume: synapsecache
+  MafBatchJob:
+    Type: 'AWS::Batch::JobDefinition'
+    Properties:
+      Type: container
+      JobDefinitionName: !Join
+        - '-'
+        - - !Ref AWS::StackName
+          - "job"
+          - "mafprocess"
+      ContainerProperties:
+        Image: !Ref MutationImage
+        Vcpus: 8
+        Memory: 32000
+        Command:
+          - python
+          - input_to_database.py
+          - maf
+          - --pemFile 
+          - /root/.ssh/genie.pem
+          - --vcf2mafPath
+          - /root/vcf2maf-1.6.14
+          - --vepPath
+          - /root/vep
+          - --vepData
+          - /root/.vep
+        Volumes:
+          - Host:
+              SourcePath: "/home/ec2-user/.ssh/genie.pem"
+            Name: geniePem
+          - Host:
+              SourcePath: "/home/ec2-user/vep"
+            Name: vepPath
+          - Host:
+              SourcePath: "/home/ec2-user/.vep"
+            Name: vepData
+          - Host:
+              SourcePath: "/home/ec2-user/.synapseCache"
+            Name: synapsecache
+        Environment:
+          - Name: GENIE_PASS
+            Value: (b'\x1b\x1f\xc8\xdb\x9f\x03\x0c\xf6\xd4\x95NI\x06\x97e\xda\x88i~\x89\x9a"\x19ON\x8c\x01\x9a\xb4\xaat\x970\xb0\xeel\xae\t\'\xdb\xf3XUQw\xdb\xe7\x11\xd3\x0bf\xc6\xaf\xae\x11\xe2\xa9W\x8b\x08\xcb\x92\xc5\x8f3-\xf8\x92[\x8b\xb8\xe0\xcc\x87\xc09\xa5\rw\x03\xbc\xa4\xa6Y\xa1\x87\x8d\xe6G\xba5\xbb\xa4\x84xl\xba\xa1\x05\xa6\xc7\x1d&N>\xb7\xf0\x1b\x19#E\xb1\xd5\xaf\xc3\xafU,\xfbb\x95\x9df\xeb\xfe&\x0f\xaa',)
+          - Name: GENIE_USER
+            Value: genieRunner
+        MountPoints:
+          - ContainerPath: "/root/.ssh/genie.pem"
+            ReadOnly: false
+            SourceVolume: geniePem
+          - ContainerPath: "/root/vep"
+            ReadOnly: false
+            SourceVolume: vepPath
+          - ContainerPath: "/root/.vep"
+            ReadOnly: false
+            SourceVolume: vepData
+          - ContainerPath: "/root/.synapseCache"
+            ReadOnly: false
+            SourceVolume: synapsecache
+  SubmitBatchJobLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: python2.7
+      Timeout: 3
+      Handler: index.lambda_handler
+      Environment:
+        Variables:
+          JOB_NAME: !Join
+            - '-'
+            - - !Ref AWS::StackName
+              - "job"
+          JOB_QUEUE: !Join
+            - '-'
+            - - !Ref AWS::StackName
+              - "job"
+              - "queue"
+          JOB_DEFINITION: !Join
+            - '-'
+            - - !Ref AWS::StackName
+              - "job"
+              - "validation"
+      Code:
+        ZipFile: |
+          from __future__ import print_function
+          import json
+          import logging
+          import os
+          import boto3
+          from botocore.exceptions import ClientError
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.DEBUG)
+
+          def lambda_handler(event, context):
+              batch = boto3.client('batch')
+              # Log the received event
+              logger.debug("Received event: " + json.dumps(event, indent=2))
+
+              # Get parameters for the SubmitJob call
+              # http://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html
+              # These should be passed in via Lambda Environment Variables
+              try:
+                  jobName = os.environ['JOB_NAME']
+                  jobQueue = os.environ['JOB_QUEUE']
+                  jobDefinition = os.environ['JOB_DEFINITION']
+              except (KeyError, ValueError, Exception) as e:
+                  logger.error(e.response['Error']['Message'])
+
+              # containerOverrides and parameters are optional
+              if event.get('containerOverrides'):
+                  containerOverrides = event['containerOverrides']
+              else:
+                  containerOverrides = {}
+              if event.get('parameters'):
+                  parameters = event['parameters']
+              else:
+                  parameters = {}
+
+              try:
+                  # Submit a Batch Job
+                  response = batch.submit_job(jobQueue=jobQueue, jobName=jobName, jobDefinition=jobDefinition,
+                                              containerOverrides=containerOverrides, parameters=parameters)
+                  # Log response from AWS Batch
+                  logger.debug("Response: " + json.dumps(response, indent=2))
+                  # Return the jobId
+                  jobId = response['jobId']
+                  return {
+                      'jobId': jobId
+                  }
+              except ClientError as e:
+                  logger.error(e.response['Error']['Message'])
+
+  PeriodicEvent:
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: "rate(1 day)"
+      Targets:
+        - Arn: !GetAtt SubmitBatchJobLambda.Arn
+          Id: !Ref SubmitBatchJobLambda
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: PublishToCloudwatch
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: 'arn:aws:logs:*:*:*'
+        - PolicyName: BatchJobAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - batch:DescribeJobs
+                  - batch:ListJobs
+                  - batch:SubmitJob
+                Resource: "*"
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt SubmitBatchJobLambda.Arn
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt PeriodicEvent.Arn
+  SubmitBatchJobLambdaFailureAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue us-east-1-AccountAlertTopics-SNSAlertsErrorArn
+      MetricName: !Sub "${SubmitBatchJobLambda}-FailureAlarm"
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref SubmitBatchJobLambda
+      EvaluationPeriods: 1
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+Outputs:
+  SubmitBatchJobLambda:
+    Value: !Ref SubmitBatchJobLambda
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-SubmitBatchJobLambda'
+  BatchComputeEnvironment:
+    Value: !Ref BatchComputeEnvironment
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-BatchComputeEnvironment'
+  BatchJobQueue:
+    Value: !Ref BatchJobQueue
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-BatchJobQueue'
+  ValidationBatchJob:
+    Value: !Ref ValidationBatchJob
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-ValidationBatchJob'
+  MainProcessingBatchJob:
+    Value: !Ref MainProcessingBatchJob
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-MainProcessingBatchJob'
+  MafBatchJob:
+    Value: !Ref MafBatchJob
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-MafBatchJob'

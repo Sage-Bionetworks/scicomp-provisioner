@@ -1,0 +1,9 @@
+template_path: templates/genie.yaml
+stack_name: genie
+parameters:
+  # AWS batch requires the instance to have pre-installed packages.
+  # VEP installation
+  # Distibution: Amazon Linux.
+  ComputeImageId: ami-033b8c0b4b16a03cd
+  MainImage: sagebionetworks/genie:latest
+  MutationImage: sagebionetworks/genie:vcf2maf
