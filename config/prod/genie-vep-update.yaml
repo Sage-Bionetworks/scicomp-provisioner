@@ -12,7 +12,7 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: {{stack_group_config.default_vpc}}
   KeyName: {{stack_group_config.default_key_pair}}
-  AMIId: {{stack_group_config.default_ami}}
+  AMIId: "ami-033b8c0b4b16a03cd"
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
@@ -21,8 +21,6 @@ parameters:
   InstanceType: "t2.medium"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "500"
-  # (Optional) Base instance on AMI (default: ami-082278746f893d99c) (supported distros: AWS linux)
-  AMIId: "ami-033b8c0b4b16a03cd"
   # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
   # VpcSubnet: "PublicSubnet"
   # (Optional) Expose a port to incoming traffic (default is no open ports) (valid range: 1-65535)
