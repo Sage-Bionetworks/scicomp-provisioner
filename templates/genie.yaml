@@ -58,11 +58,11 @@ Resources:
         Type: EC2
         MaxvCpus: 256
         SecurityGroupIds:
-          - !ImportValue us-east-1-sandcastlevpc-VpnSecurityGroup
+          - !ImportValue us-east-1-computevpc-VpnSecurityGroup
         Subnets:
-          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet
-          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet1
-          - !ImportValue us-east-1-sandcastlevpc-PrivateSubnet2
+          - !ImportValue us-east-1-computevpc-PrivateSubnet
+          - !ImportValue us-east-1-computevpc-PrivateSubnet1
+          - !ImportValue us-east-1-computevpc-PrivateSubnet2
         MinvCpus: 0
         ImageId: !Ref ComputeImageId
         InstanceRole: !GetAtt BatchInstanceProfile.Arn
