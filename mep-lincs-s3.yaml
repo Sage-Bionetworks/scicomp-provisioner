@@ -1,0 +1,26 @@
+# Provision a general S3 bucket or a Synapse External Bucket
+# http://docs.synapse.org/articles/custom_storage_location.html
+
+# For use in the MEP-LINCS Synapse Project https://www.synapse.org/mep_lincs
+
+template_path: remote/s3-bucket.yaml
+stack_name: mep-lincs-s3
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "MEP-LINCS"
+  # The resource owner
+  OwnerEmail: "kenneth.daily@sagebase.org"
+  # (Optional) true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+  SynapseUserName: 'kdaily'
+
+ # For CI system (do not change)
+hooks:
+  before_create:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+  before_update:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+  after_create:
+    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
