@@ -15,6 +15,8 @@ parameters:
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   SynapseUserName: 'kdaily'
+  GrantAccess:
+    - 'arn:aws:iam::325565585839:root'   # Required
 
  # For CI system (do not change)
 hooks:
