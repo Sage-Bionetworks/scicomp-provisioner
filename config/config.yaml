@@ -7,3 +7,7 @@ admincentral_cf_bucket: "bootstrap-awss3cloudformationbucket-19qromfd235z9"
 # Sender for notification hooks
 aws_account_name: Scicomp
 aws_account_email: aws.scicomp@sagebase.org
+# Provisioner defaults
+default_ami: "ami-082278746f893d99c"
+default_key_pair: "scicomp"
+default_vpc: "computevpc"
