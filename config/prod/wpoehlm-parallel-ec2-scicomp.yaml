@@ -8,7 +8,7 @@ parameters:
   Project: "amp-ad"
   # The resource owner
   OwnerEmail: "william.poehlman@sagebase.org"
-  
+
   # Default account settings, leave alone unless you plan to override
   VpcName: {{stack_group_config.default_vpc}}
   KeyName: {{stack_group_config.default_key_pair}}
