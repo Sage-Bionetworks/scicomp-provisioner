@@ -1,0 +1,31 @@
+template_path: remote/managed-batch.yaml
+stack_name: iwanna-batch-job
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "Platform"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "Infrastructure"
+  # The resource owner
+  OwnerEmail: "joe.smith@sagebase.org"
+  # The docker command to run
+  ContainerCommands: "['echo', 'Hello World']"
+
+  # Default account settings, leave alone unless you plan to override
+  VpcName: {{stack_group_config.default_vpc}}
+
+  # Settings have default values but can be overriden. Set the below
+  # parameters *only* if you want to override the defaults.
+
+  # (Optional) The docker image to run (default 137112412989.dkr.ecr.us-east-1.amazonaws.com/amazonlinux:latest)
+  # ContainerImage: "137112412989.dkr.ecr.us-east-1.amazonaws.com/amazonlinux:latest"
+  # (Optional) Run job on a periodic schedule (default is Enabled), otherwise Disabled
+  # PeriodicSchedule: "Disabled"
+  # (Optional) The interval (default: daily) to execute the batch job. Required if PeriodSchedule=Enabled
+  # ScheduleExpression: "rate(12 hours)"  # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+  # (Optional) The AMI (default: ECS-optimized AMI)
+  # AMIId: ami-007571470797b8ffa
+
+# For CI system (do not change)
+hooks:
+  before_launch:
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/managed-batch.yaml --create-dirs -o templates/remote/managed-batch.yaml"
