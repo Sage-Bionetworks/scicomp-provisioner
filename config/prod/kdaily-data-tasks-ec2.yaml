@@ -5,7 +5,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Data Curation"
+  Project: "data_curation"
   # The resource owner
   OwnerEmail: "kenneth.daily@sagebase.org"
 
