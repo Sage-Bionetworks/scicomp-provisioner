@@ -1,6 +1,6 @@
 # Provision an EC2 instance
 template_path: remote/managed-ec2.yaml
-stack_name: cmolitor-data-tasks_ec2
+stack_name: cmolitor-data-tasks-ec2
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
