@@ -22,7 +22,7 @@ parameters:
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "1000"
   # (Optional) Base instance on AMI (default: ami-0a313d6098716f372)
-  AMIId: "ami-0565af6e282977273"
+  # AMIId: "ami-0565af6e282977273"
   # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
   # VpcSubnet: "PublicSubnet"
   # (Optional) Expose a port to incoming traffic (default is no open ports) (valid range: 1-65535)
@@ -43,6 +43,4 @@ hooks:
   before_update:
     - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-ec2-ubuntu-v1.yaml --create-dirs -o templates/remote/managed-ec2-ubuntu-v1.yaml"
   after_create:
-    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
-
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
