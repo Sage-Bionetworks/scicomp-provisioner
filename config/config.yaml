@@ -12,4 +12,5 @@ default_ami: "ami-082278746f893d99c"
 default_key_pair: "scicomp"
 default_vpc: "computevpc"
 default_win_ami: "ami-0388ce15d3f7066cb"
+default_ubuntu_ami: "ami-06ae50b5661319711"
 
