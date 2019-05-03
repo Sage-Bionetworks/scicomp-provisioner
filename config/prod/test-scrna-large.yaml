@@ -5,7 +5,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "CSBC PS-ON"
+  Project: "CSBC_PS-ON"
   # The resource owner
   OwnerEmail: "xindi.guo@sagebase.org"
 
