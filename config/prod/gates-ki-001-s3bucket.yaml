@@ -23,4 +23,4 @@ hooks:
   before_update:
     - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
   after_create:
-    - !synapse_bucket_notify {{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}
+    - !synapse_bucket_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

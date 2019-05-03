@@ -1,22 +1,20 @@
 # Provision an EC2 instance
-template_path: managed-ec2-v4.yaml
-stack_name: neurolincs
+template_path: managed-ec2-v5.yaml
+stack_name: wpoehlm-dtn-ec2
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
+  Department: "NDR"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "dream"
+  Project: "amp-ad"
   # The resource owner
-  OwnerEmail: "phil.snyder@sagebase.org"
-  # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "t3.medium"
-  # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
-  VolumeSize: "30"
+  OwnerEmail: "william.poehlman@sagebase.org"
 
   # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey
   JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+
+# For CI system (do not change)
 hooks:
   after_create:
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
