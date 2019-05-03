@@ -1,19 +1,20 @@
 # Provision an EC2 instance
-template_path: managed-ec2.yaml
-stack_name: test-ki-rally-manager-ec2
+template_path: managed-ec2-v5.yaml
+stack_name: wpoehlm-dtn-ec2
 parameters:
-  # The Sage deparment for this resource
-  Department: "Systems Biology"
-  # The Sage project this resource will be used for
-  Project: "Gates HBGDki"
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "NDR"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "amp-ad"
   # The resource owner
-  OwnerEmail: "kenneth.daily@sagebase.org"
-  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "t2.micro"
+  OwnerEmail: "william.poehlman@sagebase.org"
+
   # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
   JcServiceApiKey: !ssm /infra/JcServiceApiKey
   JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+
+# For CI system (do not change)
 hooks:
   after_create:
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
