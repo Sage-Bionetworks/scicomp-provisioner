@@ -1,0 +1,28 @@
+# Provision an EC2 instance
+template_path: managed-ec2-v5.yaml
+stack_name: JKG-SciComp-EC2-Mem
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "amp-ad"
+  # The resource owner
+  OwnerEmail: "jake.gockley@sagebase.org"
+
+  # The following parameters are only examples they are not required.
+  # You may omit them if you do not need to override the defaults.
+
+  # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "r3.8xlarge"
+  # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
+  VolumeSize: "120"
+
+  # Integration with our jumpcloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+
+# For CI system (do not change)
+hooks:
+  after_create:
+    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
