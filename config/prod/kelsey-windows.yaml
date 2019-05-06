@@ -5,7 +5,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Infrastructure"
+  Project: "AMPAD-CMC-PEC"
   # The resource owner
   OwnerEmail: "kelsey.montgomery@sagebase.org"
 
@@ -18,7 +18,7 @@ parameters:
   # parameters *only* if you want to override the defaults.
 
   # (Optional) EC2 instance type, default is "t2.small" (other available types https://aws.amazon.com/ec2/instance-types/)
-  #  InstanceType: "t2.medium"
+  InstanceType: "c5.xlarge"
   # (Optional) EC2 boot volume size in GB, default is 30GB, Max is 1000GB
   # VolumeSize: "50"
   # (Optional) ID of the base AMI (default: "ami-0e50f04c1dab2eb7e" Windows_Server-2019-English-Full-Encrypted-EBS-2019.03.13)
