@@ -1,0 +1,24 @@
+# Provision an EC2 instance
+template_path: managed-ec2-v5.yaml
+stack_name: minidream-R-env-pub-prod-instance-ec2 
+parameters:
+  # The Sage deparment for this resource
+  Department: "Computational Oncology"
+  # The Sage project this resource will be used for
+  Project: "CSBC"
+  # The resource owner
+  OwnerEmail: "milen.nikolov@sagebase.org"
+  AMIId: "ami-084302eb33c52749d"
+  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "r4.16xlarge"
+  VpcSubnet: "PublicSubnet"
+  # (Optional) Expose a port to incoming traffic (valid range: 1-65535)
+  OpenPort: "8787"
+
+  # Integration with our jumpcloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+hooks:
+  after_create:
+    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
