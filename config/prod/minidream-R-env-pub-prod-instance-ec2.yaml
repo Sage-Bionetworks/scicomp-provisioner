@@ -1,5 +1,5 @@
 # Provision an EC2 instance
-template_path: managed-ec2-v5.yaml
+template_path: managed-ec2-v7.yaml
 stack_name: minidream-R-env-pub-prod-instance-ec2 
 parameters:
   # The Sage deparment for this resource
