@@ -29,7 +29,7 @@ parameters:
 #sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
   # OpenPorts: ["80","443"]
-  
+
 # For CI system (do not change)
 hooks:
   before_create:
