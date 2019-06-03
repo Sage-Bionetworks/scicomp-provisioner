@@ -13,7 +13,7 @@ parameters:
   AllowWriteBucket: 'true'
   GrantAccess:
     - 'arn:aws:iam::563295687221:user/kenneth.daily@sagebase.org'
-  
+
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
 
