@@ -1,5 +1,5 @@
-# Provision a general S3 bucket or a Synapse External Bucket
-# http://docs.synapse.org/articles/custom_storage_location.html
+# Provision a general S3 bucket for submitting reference tissue project data to NDA
+# Will copy data from nda-bsmn-scratch to this bucket to facilitate upload to NDA
 template_path: remote/s3-bucket.yaml
 stack_name: bsmn-reprocessing-s3-bucket
 parameters:
