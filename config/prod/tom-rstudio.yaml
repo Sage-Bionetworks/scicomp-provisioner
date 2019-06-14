@@ -12,6 +12,7 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
+  # AMI found from here: http://www.louisaslett.com/RStudio_AMI/
   AMIId: "ami-0226a8af83fcecb43"
 
   # Settings have default values but can be overriden. Set the below
