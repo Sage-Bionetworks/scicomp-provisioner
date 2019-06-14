@@ -10,8 +10,8 @@ parameters:
   OwnerEmail: "thomas.yu@sagebase.org"
 
   # Default account settings, leave alone unless you plan to override
-  VpcName: "{{stack_group_config.default_vpc}}"
-  KeyName: "{{stack_group_config.default_key_pair}}"
+  VpcName: "computevpc"
+  KeyName: "scicomp"
   AMIId: "ami-0226a8af83fcecb43"
 
   # Settings have default values but can be overriden. Set the below
