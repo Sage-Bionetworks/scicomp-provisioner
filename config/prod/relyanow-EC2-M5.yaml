@@ -10,16 +10,23 @@ parameters:
   OwnerEmail: "rebecca.elyanow@sagebase.org"
 
   # Default account settings, leave alone unless you plan to override
-  VpcName: "{{stack_group_config.default_vpc}}"
-  KeyName: "{{stack_group_config.default_key_pair}}"
-  AMIId: "{{stack_group_config.default_ami}}"
+  VpcName: "computevpc"
+  KeyName: "scicomp"
+  AMIId: "ami-0de53d8956e8dcf80"      # Amazon Linux 2 AMI 2.0.20190313
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
-  # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
+
+  # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/pricing/on-demand/)
   InstanceType: "m5.large"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "50"
+  # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
+  # VpcSubnet: "PublicSubnet"
+  # (Optional) Set true to enable daily backups (default: false)
+  # BackupEc2: "true"
+  # (Optional) Number of daily backups to keep (default: 7) (valid range: 1-180)
+  # SnapshotCount: "14"
 
   # Integration with our jumpcloud directory service (do not change)
   JcConnectKey: !ssm /infra/JcConnectKey
