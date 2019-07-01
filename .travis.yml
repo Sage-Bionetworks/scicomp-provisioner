@@ -3,6 +3,9 @@ language: python
 python: 3.6
 cache: pip
 fast_finish: true
+branches:
+  only:
+  - master
 install:
   - wget https://github.com/Sage-Bionetworks/infra-utils/archive/master.zip -O /tmp/infra-utils.zip
   - unzip -j -n /tmp/infra-utils.zip -x "infra-utils-master/.gitignore" "infra-utils-master/LICENSE" "infra-utils-master/*.md" "infra-utils-master/aws/*"
@@ -21,10 +24,10 @@ jobs:
     - stage: validate
       script:
         - yamllint ./config ./templates
-        - ./lint_stack.sh -l ./config/prod
+        - ./lint_stack.sh -l ./config/prod || travis_terminate 1
         - cfn-lint ./templates/**/*
     - stage: deploy
       script:
-        - ./lint_stack.sh -r
+        - ./lint_stack.sh -r || travis_terminate 1
         - travis_wait 30 sceptre launch prod --yes
 
