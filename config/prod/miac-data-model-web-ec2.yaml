@@ -19,7 +19,7 @@ parameters:
   # (Optional) EC2 instance type, default is "t2.nano" (other available types https://aws.amazon.com/ec2/instance-types/)
   InstanceType: "t2.nano"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
-  #VolumeSize: "500"
+  VolumeSize: "24"
   # (Optional) Base instance on AMI (default: ami-082278746f893d99c) (supported distros: AWS linux)
   # AMIId: "ami-0de53d8956e8dcf80"
   # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
@@ -35,7 +35,7 @@ parameters:
   JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
 
 
-#sceptre_user_data:
+sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
   OpenPorts: ["8000"]
 
