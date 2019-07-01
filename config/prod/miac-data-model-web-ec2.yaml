@@ -1,6 +1,6 @@
 # Provision an EC2 instance
 template_path: remote/managed-ec2.yaml
-stack_name: miac-data-model-web-ec2.yaml
+stack_name: miac-data-model-web-ec2
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"
