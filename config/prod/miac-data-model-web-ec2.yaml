@@ -37,7 +37,7 @@ parameters:
 
 sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
-  OpenPorts: ["8000"]
+  OpenPorts: ["8000", "9200"]
 
 # For CI system (do not change)
 hooks:
