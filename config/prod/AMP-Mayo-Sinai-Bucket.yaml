@@ -5,7 +5,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "NDR"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "amp-ad"
+  Project: "amp-ad-wgs"
   # The resource owner
   OwnerEmail: 'william.poehlman@sagebase.org'
 
