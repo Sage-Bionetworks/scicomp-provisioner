@@ -21,7 +21,7 @@ As a pre-deployment step we syntatically validate our sceptre and cloudformation
 It is recommended that you do the same before creating a PR. 
 
 ## Continuous Integration
-We have configured Travis to deploy CF template updates.
+We have configured [Travis](https://travis-ci.org) to deploy CF template updates.
 
 # Contributions
 
