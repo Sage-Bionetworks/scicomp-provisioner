@@ -1,0 +1,25 @@
+# Instance to test integration with parkmycloud
+template_path: managed-ec2-v6.yaml
+stack_name: my-test-ec2
+parameters:
+  # The Sage deparment for this resource
+  Department: "Platform"
+  # The Sage project this resource will be used for
+  Project: "Infrastructure"
+  # The resource owner
+  OwnerEmail: "joe.smith@sagebase.org"
+  # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
+  InstanceType: "t2.nano"
+
+  # (Optional) Set true to enable daily backups (default: false)
+  BackupEc2: "true"
+  # (Optional) Number of daily backups to keep (default: 7) (valid range: 1-180)
+  SnapshotCount: "3"
+
+   # Integration with our jumpcloud directory service (do not change)
+  JcConnectKey: !ssm /infra/JcConnectKey
+  JcServiceApiKey: !ssm /infra/JcServiceApiKey
+  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+#hooks:
+#  after_create:
+#    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

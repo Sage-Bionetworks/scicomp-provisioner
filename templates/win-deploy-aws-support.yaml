@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  AMIId:
+    Description: ID of the AMI to deploy
+    Type: String
+  VpcId:
+    Description: Id of an existing VPC to run the instance in.
+    Type: String
+Resources:
+  InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Metadata:
+      'AWS::CloudFormation::Init':
+        configSets:
+          GeneralSetup:
+            - testsetup
+        testsetup:
+          files:
+            'c:\scripts\test.ps1':
+              content: !Join
+                - ''
+                - - |
+                    Write-Host Hello World!
+          commands:
+            1-run-script:
+              command: !Join
+                - ''
+                - - |
+                    Powershell.exe Set-ExecutionPolicy Unrestricted -force
+                  - 'Powershell.exe C:\scripts\test.ps1'
+    Properties:
+      GroupDescription: "Open port for RDP"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - CidrIp: "0.0.0.0/0"
+          FromPort: 3389
+          ToPort: 3389
+          IpProtocol: tcp
+      SecurityGroupEgress:
+        - CidrIp: "0.0.0.0/0"
+          FromPort: -1
+          ToPort: -1
+          IpProtocol: "-1"
+  MyInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      DisableApiTermination: false
+      ImageId: !Ref AMIId
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      Monitoring: false
+      UserData: !Base64
+        'Fn::Join':
+          - ''
+          - - |
+              <script>
+            - 'cfn-init.exe -v -s '
+            - !Ref 'AWS::StackName'
+            - ' -r MyInstance '
+            - ' --configsets GeneralSetup '
+            - ' --region '
+            - !Ref 'AWS::Region'
+            - |+
+
+            - 'cfn-signal.exe -e %ERRORLEVEL% '
+            - !Base64
+              Ref: WindowsServerWaitHandle
+            - |+
+
+            - |
+              </script>
+      Tags:
+        - Key: Name
+          Value: !Ref AWS::StackName
+      NetworkInterfaces:
+        - DeleteOnTermination: true
+          Description: Primary network interface
+          DeviceIndex: "0"
+          AssociatePublicIpAddress: true
+          GroupSet:
+            - !GetAtt InstanceSecurityGroup.GroupId
+  WindowsServerWaitHandle:
+    Type: 'AWS::CloudFormation::WaitConditionHandle'
+  WindowsServerWaitCondition:
+    Type: 'AWS::CloudFormation::WaitCondition'
+    DependsOn: MyInstance
+    Properties:
+      Handle: !Ref WindowsServerWaitHandle
+      Timeout: '1200'

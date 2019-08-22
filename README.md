@@ -1,29 +1,35 @@
 # Overview
-Auto provision resources on AWS org-sagebase-scicomp account. 
+Auto provision resources on AWS org-sagebase-scicomp account.
 
 ## Workflow
 The workflow to provision AWS resources is done using pull requests.
 Request using PRs provide history, gating, reviewing and an approval
 process.
 
+## Contributions
+Contributions are welcome.
+
+Requirements:
+* Install [pre-commit](https://pre-commit.com/#install)
+
+## Testing
+As a pre-deployment step we syntatically validate our sceptre and
+cloudformation yaml files with [pre-commit](https://pre-commit.com).
+
+Please install pre-commit, once installed the file validations will
+automatically run on every commit.  Alternatively you can manually
+execute the validations by running `pre-commit run --all-files`.
+
 ## Provision resources
 Instructions and workflow to auto provision and de-provision resources are
-in [Example PRs](https://github.com/Sage-Bionetworks/scicomp-provisioner/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+%22Example+PR%22)
+in [Example PRs](https://github.com/Sage-Bionetworks/sandbox-provisioner/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+%22Example+PR%22)
 
 ## Deployments
 We use [sceptre](https://sceptre.github.io/) and [cloudformation](https://aws.amazon.com/cloudformation/)
 to deploy resources onto an AWS account.
 
-## Testing
-As a pre-deployment step we syntatically validate our sceptre and cloudformation templates with
-[yamllint](https://yamllint.readthedocs.io/en/stable/) and
-[cfn-lint](https://github.com/aws-cloudformation/cfn-python-lint).
-It is recommended that you do the same before creating a PR. 
-
 ## Continuous Integration
 We have configured [Travis](https://travis-ci.org) to deploy CF template updates.
-
-# Contributions
 
 ## Issues
 * https://sagebionetworks.jira.com/projects/IT
