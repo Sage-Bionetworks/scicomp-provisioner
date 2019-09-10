@@ -28,7 +28,7 @@ parameters:
   # to download objects in this bucket when not using an AWS resource in the same region!
   SameRegionResourceAccessToBucket: "true"
   SameRegionResourceAccessToBucketGrantVpcAccess:
-    - "vpc-78436103"    # allow computevpc resources access to this bucket
+    - "vpc-e66bd19d"    # allow computevpc resources access to this bucket
 
   # Enable Intelligent-tiering storage
   EnableDataLifeCycle: 'Enabled'
