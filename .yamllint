@@ -27,4 +27,3 @@ rules:
   truthy: disable
   new-line-at-end-of-file:
     level: warning
-
