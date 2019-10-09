@@ -16,7 +16,7 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
-  # AMIId: "ami-0226a8af83fcecb43"      # RStudio Ubuntu, 18.04 LTS, http://www.louisaslett.com/RStudio_AMI/
+  AMIId: "ami-0226a8af83fcecb43"      # RStudio Ubuntu, 18.04 LTS, http://www.louisaslett.com/RStudio_AMI/
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
