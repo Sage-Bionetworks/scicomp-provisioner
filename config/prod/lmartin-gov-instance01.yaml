@@ -12,7 +12,7 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
-  AMIId: "ami-04ca2d0801450d495"    # Windows_Server-2019-English-Full-Base-2019.07.12
+  AMIId: "ami-02b212aba9eb84405"    # Windows_Server-2019-English-Full-Base-2019.12.16
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
