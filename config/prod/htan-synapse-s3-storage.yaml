@@ -1,0 +1,11 @@
+template_path: "htan-synapse-s3-storage.yaml"
+stack_name: "htan-synapse-s3-storage"
+stack_tags:
+    Department: "CompOnc"
+    Project: "htan"
+    OwnerEmail: "xengie.doan@sagebase.org"
+parameters:
+  SynapseUserName: "xdoan"
+  S3UserARNs:
+    - "arn:aws:iam::325565585839:root"   # Synapse access
+    - "arn:aws:iam::563295687221:user/xengie.doan@sagebase.org"
