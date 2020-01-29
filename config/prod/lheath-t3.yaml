@@ -1,5 +1,5 @@
 template_path: remote/managed-ec2-linux-v1.j2
-stack_name: iwanna-instance
+stack_name: lheath-ec2-t3
 sceptre_user_data:
   Distro: "aws"     # (valid values: aws, ubuntu) AMIId must match distro
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
