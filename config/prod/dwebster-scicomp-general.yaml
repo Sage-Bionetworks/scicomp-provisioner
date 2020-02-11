@@ -9,7 +9,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "DigitalHealth"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "General Use"
+  Project: "general_use"
   # The resource owner
   OwnerEmail: "dan.webster@sagebase.org"
 
