@@ -16,8 +16,8 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
-  AMIId: "ami-0ca7208f904dc1874"      # AWS linux 2 AMI 2.0.20200108 x86_64 HVM gp2
-  # AMIId: "ami-0acb259f7a7b035f6"      # Ubuntu, 18.04 LTS, amd64 bionic image build on 2019-02-12
+  # AMIId: "ami-0ca7208f904dc1874"      # AWS linux 2 AMI 2.0.20200108 x86_64 HVM gp2
+  AMIId: "ami-0acb259f7a7b035f6"      # Ubuntu, 18.04 LTS, amd64 bionic image build on 2019-02-12
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
