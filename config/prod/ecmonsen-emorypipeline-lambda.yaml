@@ -4,9 +4,13 @@ stack_name: "ecmonsen-emorypipeline-lambda"
 dependencies:
   - prod/ecmonsen-emorypipeline-ci.yaml
 parameters:
-  SourceAccountId: "186706593821"
+  # Source account is Emory University AWS account. Contact is Duc Duong
+  SourceAccountId: "743849566882"
   SynapseStorageLocationId: "0"
-  SynapseNotifyUsers: "3399376"
+  # AMP-AD Sage Admin https://www.synapse.org/#!Team:3377637
+  # Duc Duong https://www.synapse.org/#!Profile:3320325
+  # Eva Monsen https://www.synapse.org/#!Profile:3399376
+  SynapseNotifyUsers: "3399376,3377637,3320325"
   Department: SysBio
   Project: amp-ad
   OwnerEmail: eva.monsen@sagebase.org
