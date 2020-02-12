@@ -1,0 +1,24 @@
+template_path: "remote/ecmonsen-emorypipeline-lambda.yaml"
+# Note stack name must be 43 chars or less, otherwise bucket name is too long and CloudFormation fails
+stack_name: "ecmonsen-emorypipeline-lambda"
+dependencies:
+  - prod/ecmonsen-emorypipeline-ci.yaml
+parameters:
+  SourceAccountId: "186706593821"
+  SynapseStorageLocationId: "0"
+  SynapseNotifyUsers: "3399376"
+  Department: SysBio
+  Project: amp-ad
+  OwnerEmail: eva.monsen@sagebase.org
+hooks:
+  before_create:
+    # Note: After Sep 30, 2020 only "virtual-hosted" bucket URLs (beginning with https://<bucketname>.s3.amazonaws.com)
+    # are supported. See https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
+
+    # The following command gets the lambda artifacts bucket name from the dependency stack (echoing it for logging)
+    #
+    # Note the "master" branch always contains the latest successful build. When deploying to production the path
+    # should be changed to use "vX.X.X" to deploy from tag vX.X.X
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/master/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+  before_update:
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/master/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
