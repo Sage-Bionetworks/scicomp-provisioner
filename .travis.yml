@@ -22,7 +22,8 @@ jobs:
       script:
         - pre-commit autoupdate
         - pre-commit run --all-files
-        - ./lint_stack.sh -l ./config/prod || travis_terminate 1
+# comment out lint_stack.sh due to https://sagebionetworks.jira.com/browse/IT-799
+#        - ./lint_stack.sh -l ./config/prod || travis_terminate 1
     - stage: deploy
       script:
         - ./lint_stack.sh -r || travis_terminate 1
