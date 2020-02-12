@@ -23,6 +23,6 @@ hooks:
     #
     # Note the "master" branch always contains the latest successful build. When deploying to production the path
     # should be changed to use "vX.X.X" to deploy from tag vX.X.X
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/master/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.0/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
   before_update:
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/master/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.0/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
