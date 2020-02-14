@@ -4,7 +4,7 @@ stack_name: ahayden-ubuntu-test
 sceptre_user_data:
   Distro: "ubuntu"     # (valid values: aws, ubuntu) AMIId must match distro
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
-  # OpenPorts: ["80","443"]
+  OpenPorts: ["22"]
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "Platform"
@@ -27,7 +27,7 @@ parameters:
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   # VolumeSize: "8"
   # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
-  # VpcSubnet: "PublicSubnet"
+  VpcSubnet: "PublicSubnet"
   # (Optional) Set true to enable daily backups (default: false)
   # BackupEc2: "true"
   # (Optional) Number of daily backups to keep (default: 7) (valid range: 1-180)
