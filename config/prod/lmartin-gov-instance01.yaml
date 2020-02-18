@@ -1,18 +1,18 @@
 # Provision a Windows EC2 instance
 template_path: remote/managed-ec2-win-v4.j2
-stack_name: ahayden-testhost-win
+stack_name: lmartin-gov-instance01
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "Platform"
+  Department: "Governance"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Infrastructure"
+  Project: "Synapse"
   # The resource owner
-  OwnerEmail: "aaron.hayden@sagebase.org"
+  OwnerEmail: "lea.martin@sagebase.org"
 
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
-  AMIId: "ami-04ca2d0801450d495"    # Windows_Server-2019-English-Full-2019.03.13
+  AMIId: "ami-02b212aba9eb84405"    # Windows_Server-2019-English-Full-Base-2019.12.16
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
