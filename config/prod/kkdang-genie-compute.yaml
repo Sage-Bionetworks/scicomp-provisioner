@@ -17,7 +17,7 @@ parameters:
   VpcName: "computevpc"
   KeyName: "scicomp"
   #AMIId: "ami-0ca7208f904dc1874"      # AWS linux 2 AMI 2.0.20200108 x86_64 HVM gp2
-  AMIId: "ami-01a01f46103fb6737" # ubuntu rstudio AMI found here: http://www.louisaslett.com/RStudio_AMI/
+  AMIId: "ami-0944334364827dc2d" # Using Canonical image source
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
