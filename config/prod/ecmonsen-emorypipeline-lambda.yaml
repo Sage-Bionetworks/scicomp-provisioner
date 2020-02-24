@@ -6,7 +6,7 @@ dependencies:
 parameters:
   # Source account is Emory University AWS account. Contact is Duc Duong
   SourceAccountId: "743849566882"
-  SynapseStorageLocationId: "0"
+  SynapseStorageLocationId: "40913"
   # AMP-AD Sage Admin https://www.synapse.org/#!Team:3377637
   # Duc Duong https://www.synapse.org/#!Profile:3320325
   # Eva Monsen https://www.synapse.org/#!Profile:3399376
@@ -23,6 +23,6 @@ hooks:
     #
     # Note the "master" branch always contains the latest successful build. When deploying to production the path
     # should be changed to use "vX.X.X" to deploy from tag vX.X.X
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.0/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.1/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
   before_update:
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.0/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-nu5xkcp8vax4.s3.amazonaws.com/lambda-uploader/v1.0.1/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
