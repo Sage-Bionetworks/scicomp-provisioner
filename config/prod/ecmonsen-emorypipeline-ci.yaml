@@ -1,0 +1,9 @@
+template_path: ecmonsen-emorypipeline-ci.yaml
+stack_name: ecmonsen-emorypipeline-ci
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "amp-ad"
+  # The resource owner
+  OwnerEmail: "eva.monsen@sagebase.org"
