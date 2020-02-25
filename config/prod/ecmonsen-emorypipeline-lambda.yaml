@@ -6,7 +6,7 @@ dependencies:
 parameters:
   # Source account is Emory University AWS account. Contact is Duc Duong
   SourceAccountId: "743849566882"
-  SynapseStorageLocationId: "40913"
+  SynapseStorageLocationId: "40920"
   # AMP-AD Sage Admin https://www.synapse.org/#!Team:3377637
   # Duc Duong https://www.synapse.org/#!Profile:3320325
   # Eva Monsen https://www.synapse.org/#!Profile:3399376
