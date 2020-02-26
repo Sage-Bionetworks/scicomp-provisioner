@@ -15,7 +15,7 @@ parameters:
   # Set unique database user and password values in ssm with a path specific to the project
   DBMasterUsername: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-username
   DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-password
-
+  #
   # Set SSL/TLS CSR values
   DnsDomainName: "sagebionetworks.org"
   DnsSubDomainName: "iatlasdb"
