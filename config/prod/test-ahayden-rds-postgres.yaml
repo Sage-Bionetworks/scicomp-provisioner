@@ -3,22 +3,25 @@ template_path: remote/managed-rds-postgres-v1.j2
 stack_name: test-ahayden-rds-postgres
 sceptre_user_data:
   # (Optional) Expose database ports to this whitelist of CIDR blocks
-   OpenIngress: ["207.109.76.122"]  #TODO set ingress whitelist
+   OpenIngress: ["207.109.76.122"]
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "Platform"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "testing"
+  Project: "iAtlas-testing"
   # The resource owner
   OwnerEmail: "aaron.hayden@sagebase.org"
 
-  # Set unique database user and password values in ssm
-  DBMasterUsername: !ssm test-ahayden-rds-postgres-username
-  DBMasterUserPassword: !ssm test-ahayden-rds-postgres-password
+  # Set unique database user and password values in ssm with a path specific to the project
+  DBMasterUsername: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-username
+  DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-password
+
+  # Set SSL/TLS CSR values
+  DnsDomainName: "sagebionetworks.org"
+  DnsSubDomainName: "iatlasdb"
 
   # Default account settings, leave alone unless you plan to override
-  VpcName: "computevpc"
-  KeyName: "scicomp"
+  VpcName: "snowflakevpc"
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
