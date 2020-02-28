@@ -21,7 +21,7 @@ parameters:
   DnsSubDomainName: "iatlasdb"
 
   # Default account settings, leave alone unless you plan to override
-  VpcName: "snowflakevpc"
+  VpcName: "computevpc"
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
