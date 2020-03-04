@@ -2,7 +2,7 @@
 template_path: remote/managed-rds-postgres-v1.j2
 stack_name: test-ahayden-rds-postgres
 sceptre_user_data:
-  # (Optional) Expose database ports to this whitelist of CIDR blocks
+  # (Required) Expose database ports to this whitelist of CIDR blocks
    OpenIngress: ["207.109.76.122"]
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
@@ -17,8 +17,8 @@ parameters:
   DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-password
   #
   # Set SSL/TLS CSR values
-  DnsDomainName: "sagebionetworks.org"
-  DnsSubDomainName: "iatlasdb"
+  DomainName: "iatlasdb.sagebionetworks.org"
+  ValidationDomain: "sagebionetworks.org"
 
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
@@ -26,12 +26,13 @@ parameters:
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
 
-  # (Optional) DB instance type, default is "db.t2.micro" (other available types https://aws.amazon.com/rds/postgresql/pricing/)
-  InstanceType: "db.t2.small"
+  # (Optional) DB instance type, default is "db.t3.small" (other available types https://aws.amazon.com/rds/postgresql/pricing/)
+  InstanceType: "db.t3.small"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
   VolumeSize: "200"
   # (Optional) Run DB instance in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
-  # VpcSubnet: "PublicSubnet"
+  # This parameter is independent of ingress whitelist
+  VpcSubnet: "PublicSubnet"
 
 # For CI system (do not change)
 hooks:
