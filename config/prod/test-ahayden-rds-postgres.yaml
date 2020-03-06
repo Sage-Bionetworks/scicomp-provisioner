@@ -17,7 +17,7 @@ parameters:
   DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-password
   #
   # Set SSL/TLS CSR values
-  DomainName: "iatlasdb.sagebionetworks.org"
+  DomainName: "test-ahayden-rds-postgres.sagebionetworks.org"
   ValidationDomain: "sagebionetworks.org"
 
   # Default account settings, leave alone unless you plan to override
@@ -28,8 +28,10 @@ parameters:
 
   # (Optional) DB instance type, default is "db.t3.small" (other available types https://aws.amazon.com/rds/postgresql/pricing/)
   InstanceType: "db.t3.small"
-  # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
-  VolumeSize: "200"
+  # (Optional) EC2 boot volume size in GB, default is 20GB, Max is 1000GB
+  # VolumeSize: "20"
+  # (Optional) Storage type for the database, can be io optimized or standard
+  # StorageType: "standard"
   # (Optional) Run DB instance in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
   # This parameter is independent of ingress whitelist
   VpcSubnet: "PublicSubnet"
