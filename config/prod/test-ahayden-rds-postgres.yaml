@@ -15,10 +15,8 @@ parameters:
   # Set unique database user and password values in ssm with a path specific to the project
   DBMasterUsername: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-username
   DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/test-ahayden-rds-postgres-password
-  #
-  # Set SSL/TLS CSR values
-  DomainName: "test-ahayden-rds-postgres.sagebionetworks.org"
-  ValidationDomain: "sagebionetworks.org"
+  # Manually create a certificate for the DB to present
+  AcmCertificateArn: "value"
 
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
