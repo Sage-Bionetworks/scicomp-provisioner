@@ -14,6 +14,7 @@ parameters:
   Department: SysBio
   Project: amp-ad
   OwnerEmail: eva.monsen@sagebase.org
+  SynapseUserName: amp-ad-uploader
 hooks:
   before_create:
     # Note: After Sep 30, 2020 only "virtual-hosted" bucket URLs (beginning with https://<bucketname>.s3.amazonaws.com)
