@@ -1,0 +1,52 @@
+# Provision an EC2 instance
+template_path: remote/managed-rds-postgres-v1.j2
+stack_name: iAtlas-Shinyapps.io-RDS-prod
+sceptre_user_data:
+  # (Optional) Expose database to incoming traffic by whitelisting CIDR
+  IngressWhitelist: ["207.109.76.122", "54.204.34.9", "54.204.36.75", "54.204.37.78", "34.203.76.245", "34.197.152.155", "3.217.214.132"] #TODO this must be complete before deploy
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "CompOnc"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "iAtlas"
+  # The resource owner
+  OwnerEmail: "james.eddy@sagebase.org"
+  # Domain name for your website (sagebionetworks.org)
+  DomainName: "sagebionetworks.org"
+  # The sub domain name e.g. ('mysite' in mysite.sagebionetworks.org)
+  SubDomainName: "iatlasdb"
+  # The Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate
+  AcmCertificateArn: "arn:aws:acm:us-east-1:055273631518:certificate/COMPLETE_NEW_ARN" #TODO this must be set up before deploy
+
+  # Default account settings, leave alone unless you plan to override
+  VpcName: "computevpc"
+  KeyName: "scicomp"
+
+  # Settings have default values but can be overriden. Set the below
+  # parameters *only* if you want to override the defaults.
+
+  # (Optional) Instance type, default is "db.t2.small" (other available types https://aws.amazon.com/rds/pricing/on-demand/)
+  DBInstanceClass: "db.t2.small"
+  # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
+  DBAllocatedStorage: "200"
+  # (Optional) Set true to enable daily backups (default: false)
+  # BackupEc2: "true"
+  # (Optional) Number of daily backups to keep (default: 7) (valid range: 1-180)
+  # SnapshotCount: "14"
+  # (Optional) Database connection port
+  # DBPortNumber: "5432"
+  # (Optional) Database version
+  DBEngineVersion: "11.5R1"
+  # (Optional) Name of the database on the instance
+  DBName: "iatlas-prod"
+  DBMasterUsername: "iatlas-service"
+  DBMasterUserPassword: !ssm /iAtlas/postgresql/dev/iatlas-service-password #TODO must be set up before deploy
+  # (Optional) Number of days to keep database backups
+  DBBackupRetentionPeriod: 10
+
+# For CI system (do not change)
+hooks:
+  before_create:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-rds-postgres-v1.j2 --create-dirs -o templates/remote/managed-rds-postgres-v1.j2"
+  before_update:
+    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-rds-postgres-v1.j2 --create-dirs -o templates/remote/managed-rds-postgres-v1.j2"
