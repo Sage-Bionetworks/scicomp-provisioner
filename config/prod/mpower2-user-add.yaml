@@ -9,7 +9,7 @@ parameters:
   # The resource owner
   OwnerEmail: "phil.snyder@sagebase.org"
   # EC2 instance type (available types https://aws.amazon.com/ec2/instance-types/)
-  InstanceType: "t2.micro"
+  InstanceType: "t2.small"
   AMIId: "ami-0c7cdeb6546281c1a"
 
   # Integrate with our cloud directory service (do not change)
