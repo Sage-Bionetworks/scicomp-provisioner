@@ -9,7 +9,7 @@ parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Udall SUPER-PD"
+  Project: "UdallSUPER-PD"
   # The resource owner
   OwnerEmail: "phil.snyder@sagebase.org"
 
