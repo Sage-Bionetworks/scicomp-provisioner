@@ -23,9 +23,9 @@ parameters:
   # parameters *only* if you want to override the defaults.
 
   # (Optional) EC2 instance type, default is "t3.micro" (other available types https://aws.amazon.com/ec2/pricing/on-demand/)
-  # InstanceType: "t3.medium"
+  InstanceType: "t3.medium"
   # (Optional) EC2 boot volume size in GB, default is 8GB, Max is 1000GB
-  # VolumeSize: "50"
+  VolumeSize: "100"
   # (Optional) Run EC2 in a subnet (default: PrivateSubnet) (valid values: PrivateSubnet or PublicSubnet)
   # VpcSubnet: "PublicSubnet"
   # (Optional) Set true to enable daily backups (default: false)
