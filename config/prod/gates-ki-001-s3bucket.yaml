@@ -13,7 +13,7 @@ parameters:
   # true to encrypt bucket, false (default) for no encryption
   EncryptBucket: "true"
   # Bucket owner's email address
-  OwnerEmail: 'kenneth.daily@sagebase.org'
+  OwnerEmail: 'larsson.omberg@sagebase.org'
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
