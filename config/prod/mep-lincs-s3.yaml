@@ -11,7 +11,7 @@ parameters:
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "MEP-LINCS"
   # The resource owner
-  OwnerEmail: "kenneth.daily@sagebase.org"
+  OwnerEmail: "larsson.omberg@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   SynapseUserName: 'kdaily'
