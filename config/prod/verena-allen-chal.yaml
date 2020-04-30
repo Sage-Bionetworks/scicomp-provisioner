@@ -2,7 +2,7 @@
 template_path: remote/managed-ec2-linux-v1.j2
 stack_name: verena-allen-chal
 sceptre_user_data:
-  Distro: "aws"     # (valid values: aws, ubuntu) AMIId must match distro
+  Distro: "aws" # (valid values: aws, ubuntu) AMIId must match distro
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
   # OpenPorts: ["80","443"]
 parameters:
@@ -16,7 +16,7 @@ parameters:
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"
   KeyName: "scicomp"
-  AMIId: "ami-0b898040803850657"      # Amazon Linux 2 AMI 2.0.20190618 x86_64 HVM gp2
+  AMIId: "ami-0b898040803850657" # Amazon Linux 2 AMI 2.0.20190618 x86_64 HVM gp2
   # AMIId: "ami-0a313d6098716f372"      # Ubuntu, 18.04 LTS, amd64 bionic image build on 2019-02-12
 
   # Settings have default values but can be overriden. Set the below
