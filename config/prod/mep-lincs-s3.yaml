@@ -14,7 +14,7 @@ parameters:
   OwnerEmail: "larsson.omberg@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
-  SynapseUserName: 'kdaily'
+  SynapseUserName: 'larssono'
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required
 
