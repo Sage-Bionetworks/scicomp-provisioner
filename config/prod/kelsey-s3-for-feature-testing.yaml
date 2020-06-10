@@ -1,0 +1,41 @@
+# Provision a general S3 bucket or a Synapse External Bucket
+# http://docs.synapse.org/articles/custom_storage_location.html
+template_path: remote/s3-bucket.yaml
+stack_name: s3-for-feature-testing
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "Infrastructure"
+  # The resource owner
+  OwnerEmail: "kelsey.montgomery@sagebase.org"
+  # (Optional) true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+
+  # Settings have default values but can be overriden. Set the below
+  # parameters *only* if you want to override the defaults.
+
+  # (Optional) Synapse username (default ""), required if AllowWriteBucket=true
+  #  SynapseUserName: 'jsmith'
+  # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
+  #  GrantAccess:
+  #    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
+  # (Optional) true (default) to encrypt bucket, false for no encryption
+  # EncryptBucket: 'false'
+  # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
+  # BucketVersioning: 'Enabled'
+  # (Optional) 'Enabled' to enable bucket data life cycle rule, default is 'Disabled'
+  # EnableDataLifeCycle: 'Enabled'
+  # (Optional) S3 bucket objects will transition into this storage class: GLACIER(default), DEEP_ARCHIVE, INTELLIGENT_TIERING, STANDARD_IA, ONEZONE_IA
+  # LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
+  # (Optional) Number of days until S3 objects are moved to the LifecycleDataStorageClass, default is 30
+  # LifecycleDataTransition: '90'
+  # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
+  # LifecycleDataExpiration: '1825'
+
+# For CI system (do not change)
+hooks:
+  before_launch:
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+  after_create:
+    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
