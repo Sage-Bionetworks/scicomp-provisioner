@@ -17,8 +17,8 @@ parameters:
 
 hooks:
   before_create:
-    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
   before_update:
-    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
   after_create:
     - !s3_web_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
