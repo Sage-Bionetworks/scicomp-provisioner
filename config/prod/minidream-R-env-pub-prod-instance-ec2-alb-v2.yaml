@@ -13,7 +13,7 @@ parameters:
   Ec2InstanceId: "i-0101480b61fd6dbac"
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
   VpcId: "vpc-e66bd19d"   # computevpc
-  AppPort: "443"          # nginx proxy port
+  AppPort: "8443"          # app high port will receive HTTP
   Subnets: "subnet-21a68d7c,subnet-4f3e2b2b,subnet-77d1e458"  # public subnets
 
 # For CI system (do not change)
