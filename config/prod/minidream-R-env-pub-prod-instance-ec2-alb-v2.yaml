@@ -1,0 +1,22 @@
+# Provision a load balancer for minidream.synapse.org
+template_path: remote/managed-alb-https-v2.yaml
+stack_name: minidream-R-env-pub-prod-instance-ec2-alb-v2
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "CompOnc"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "CSBC"
+  # The resource owner
+  OwnerEmail: "milen.nikolov@sagebase.org"
+
+  # load balancer configs
+  Ec2InstanceId: "i-0101480b61fd6dbac"
+  SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
+  VpcId: "vpc-e66bd19d"   # computevpc
+  AppPort: "443"          # nginx reverse proxy
+  Subnets: "subnet-21a68d7c,subnet-4f3e2b2b,subnet-77d1e458"  # public subnets
+
+# For CI system (do not change)
+hooks:
+  before_launch:
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-alb-https-v2.yaml --create-dirs -o templates/remote/managed-alb-https-v2.yaml"
