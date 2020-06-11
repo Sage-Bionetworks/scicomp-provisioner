@@ -18,7 +18,7 @@ parameters:
   KeyName: "scicomp"
   # Get latest AMI Id from https://ami.sageit.org/
   # AMIId: "ami-0810a318c4b1243c5"
-  AMIId: "ami-0b8050b43cdfde2fc"
+  AMIId: "ami-09ddd854571a732be"
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
