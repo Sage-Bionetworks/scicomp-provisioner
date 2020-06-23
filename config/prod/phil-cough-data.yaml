@@ -18,7 +18,7 @@ parameters:
   # (Optional) Synapse username (default ""), required if AllowWriteBucket=true
   SynapseUserName: 'phil'
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
-   GrantAccess:
+  GrantAccess:
      - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
      - 'arn:aws:s3:::hyfe-sage' # Joe Brew ARN
   # (Optional) true (default) to encrypt bucket, false for no encryption
