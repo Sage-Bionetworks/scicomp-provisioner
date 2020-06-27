@@ -17,7 +17,7 @@ parameters:
   VpcName: "computevpc"
   KeyName: "scicomp"
   # AMIId: "ami-0ca7208f904dc1874"      # AWS linux 2 AMI 2.0.20200108 x86_64 HVM gp2
-  AMIId: "ami-0491993ca183b00aa"      # packer-shinyserver-pro-master
+  AMIId: "ami-0cfb65d62cde639ea"      # packer-shinyserver-pro-v1.0.0
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
