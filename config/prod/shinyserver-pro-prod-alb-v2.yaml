@@ -12,7 +12,7 @@ parameters:
   # load balancer configs
   Ec2InstanceId: !stack_output_external shinyserver-pro-prod::Ec2InstanceId
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
-  VpcId: !stack_output_external computevpc::VpcId
+  VpcId: !stack_output_external computevpc::VPCId
   AppPort: "3838"          # shiny port
   Subnets: # public subnets
     - !stack_output_external computevpc::PublicSubnet
