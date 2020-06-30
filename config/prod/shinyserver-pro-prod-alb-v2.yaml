@@ -1,9 +1,6 @@
 # Provision a load balancer for shiny.synapse.org
 template_path: remote/managed-alb-https-v2.yaml
 stack_name: shinyserver-pro-prod-alb-v2
-dependencies:
-  - computevpc
-  - shinyserver-pro-prod
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "Platform"
