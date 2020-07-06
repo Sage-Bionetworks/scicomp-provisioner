@@ -19,7 +19,7 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:iam::563295687221:assumed-role/jake.gockley@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/jake.gockley@sagebase.org'
 
 # For CI system (do not change)
 hooks:
