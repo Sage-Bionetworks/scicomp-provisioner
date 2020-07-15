@@ -13,7 +13,7 @@ parameters:
   SynapseNotifyUsers: "3399376,3377637,3320325"
   Department: SysBio
   Project: amp-ad
-  OwnerEmail: eva.monsen@sagebase.org
+  OwnerEmail: kara.woo@sagebase.org
   SynapseUserName: amp-ad-uploader
 hooks:
   before_launch:
