@@ -6,4 +6,4 @@ parameters:
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "amp-ad"
   # The resource owner
-  OwnerEmail: "eva.monsen@sagebase.org"
+  OwnerEmail: "kara.woo@sagebase.org"
