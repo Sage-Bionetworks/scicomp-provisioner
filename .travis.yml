@@ -20,7 +20,6 @@ jobs:
   include:
     - stage: validate
       script:
-        - pre-commit autoupdate
         - pre-commit run --all-files
 # comment out lint_stack.sh due to https://sagebionetworks.jira.com/browse/IT-799
 #        - ./lint_stack.sh -l ./config/prod || travis_terminate 1
