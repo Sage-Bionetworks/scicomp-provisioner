@@ -17,4 +17,4 @@ parameters:
   SynapseUserName: amp-ad-uploader
 hooks:
   before_launch:
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-jnlt9zs4haa7.s3.amazonaws.com/lambda-uploader/v1.0.2/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-jnlt9zs4haa7.s3.amazonaws.com/lambda-uploader/v1.0.3/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
