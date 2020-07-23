@@ -41,6 +41,6 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "curl https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/managed-ec2-linux-v2.j2 --create-dirs -o templates/remote/managed-ec2-linux-v2.j2"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-ec2-linux-v2.j2 --create-dirs -o templates/remote/managed-ec2-linux-v2.j2"
   after_create:
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
