@@ -1,6 +1,6 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template_path: remote/s3-bucket.yaml
-stack_name: AMP-Emory-Bucket
+stack_name: amp-emory-bucket
 parameters:
   # The Sage deparment for this resource
   Department: "SysBio"
