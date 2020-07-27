@@ -1,6 +1,6 @@
 # For storage of files related to usage statistics reporting
 template_path: remote/s3-bucket.yaml
-stack_name: usage-statistics-s3
+stack_name: usage-statistics-S3
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
