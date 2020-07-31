@@ -18,7 +18,7 @@ repos:
     hooks:
     -   id: remove-tabs
 -   repo: https://github.com/Sage-Bionetworks-IT/pre-commit-provisioner
-    rev: v0.0.4
+    rev: v0.0.5
     hooks:
     -   id: compare-stack-and-file-names
     -   id: check-stack-names
