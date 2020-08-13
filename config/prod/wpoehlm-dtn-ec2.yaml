@@ -1,6 +1,6 @@
 # Provision an EC2 instance
-template_path: managed-ec2-v5.yaml
-stack_name: wpoehlm-dtn-ec2
+template_path: "managed-ec2-v5.yaml"
+stack_name: "wpoehlm-dtn-ec2"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "NDR"
@@ -10,9 +10,9 @@ parameters:
   OwnerEmail: "william.poehlman@sagebase.org"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: "!ssm /infra/JcConnectKey"
+  JcServiceApiKey: "!ssm /infra/JcServiceApiKey"
+  JcSystemsGroupId: "!ssm /infra/JcSystemsGroupId"
 
 # For CI system (do not change)
 hooks:

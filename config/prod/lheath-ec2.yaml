@@ -1,5 +1,5 @@
-template_path: remote/managed-ec2-linux-v1.j2
-stack_name: lheath-ec2
+template_path: "remote/managed-ec2-linux-v1.j2"
+stack_name: "lheath-ec2"
 sceptre_user_data:
   Distro: "aws"     # (valid values: aws, ubuntu) AMIId must match distro
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
@@ -33,9 +33,9 @@ parameters:
   # SnapshotCount: "14"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: "!ssm /infra/JcConnectKey"
+  JcServiceApiKey: "!ssm /infra/JcServiceApiKey"
+  JcSystemsGroupId: "!ssm /infra/JcSystemsGroupId"
 
 # For CI system (do not change)
 hooks:

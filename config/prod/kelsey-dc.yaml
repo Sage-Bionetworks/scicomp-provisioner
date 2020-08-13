@@ -1,5 +1,5 @@
-template_path: managed-ec2-v5.yaml
-stack_name: kelsey-dc
+template_path: "managed-ec2-v5.yaml"
+stack_name: "kelsey-dc"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
@@ -13,9 +13,9 @@ parameters:
   VolumeSize: "500"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: "!ssm /infra/JcConnectKey"
+  JcServiceApiKey: "!ssm /infra/JcServiceApiKey"
+  JcSystemsGroupId: "!ssm /infra/JcSystemsGroupId"
 hooks:
   after_create:
     - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
