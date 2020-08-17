@@ -1,6 +1,6 @@
 # Provision an EC2 instance
-template_path: remote/managed-ec2.yaml
-stack_name: kdaily-data-tasks-ec2
+template_path: "remote/managed-ec2.yaml"
+stack_name: "kdaily-data-tasks-ec2"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
@@ -10,9 +10,9 @@ parameters:
   OwnerEmail: "kenneth.daily@sagebase.org"
 
    # Default account settings, leave alone unless you plan to override
-  VpcName: {{stack_group_config.default_vpc}}
-  KeyName: {{stack_group_config.default_key_pair}}
-  AMIId: {{stack_group_config.default_ami}}
+  VpcName: "{{stack_group_config.default_vpc}}"
+  KeyName: "{{stack_group_config.default_key_pair}}"
+  AMIId: "{{stack_group_config.default_ami}}"
 
    # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
@@ -33,9 +33,9 @@ parameters:
   # SnapshotCount: "14"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: !ssm "/infra/JcConnectKey"
+  JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
+  JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
 # For CI system (do not change)
 hooks:
   before_launch:

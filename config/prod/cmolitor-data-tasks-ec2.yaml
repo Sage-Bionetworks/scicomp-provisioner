@@ -1,6 +1,6 @@
 # Provision an EC2 instance
-template_path: remote/managed-ec2.yaml
-stack_name: cmolitor-data-tasks-ec2
+template_path: "remote/managed-ec2.yaml"
+stack_name: "cmolitor-data-tasks-ec2"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
@@ -33,9 +33,9 @@ parameters:
   # SnapshotCount: "14"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: !ssm "/infra/JcConnectKey"
+  JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
+  JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
 # For CI system (do not change)
 hooks:
   before_launch:

@@ -1,6 +1,6 @@
 # Provision a S3 static website for AACR Interactome
-template_path: remote/managed-s3WebCloudfront.yaml
-stack_name: aacr-interactome-s3website-new
+template_path: "remote/managed-s3WebCloudfront.yaml"
+stack_name: "aacr-interactome-s3website-new"
 parameters:
   # The department for this resource (i.e. CompOnc, SysBio, Platform, etc..)
   Department: "CompOnc"

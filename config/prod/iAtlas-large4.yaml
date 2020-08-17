@@ -1,5 +1,5 @@
-template_path: remote/managed-ec2-ubuntu-v3.j2
-stack_name: iAtlas-large4
+template_path: "remote/managed-ec2-ubuntu-v3.j2"
+stack_name: "iAtlas-large4"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"
@@ -28,9 +28,9 @@ parameters:
   # SnapshotCount: "14"
 
   # Integration with our jumpcloud directory service (do not change)
-  JcConnectKey: !ssm /infra/JcConnectKey
-  JcServiceApiKey: !ssm /infra/JcServiceApiKey
-  JcSystemsGroupId: !ssm /infra/JcSystemsGroupId
+  JcConnectKey: !ssm "/infra/JcConnectKey"
+  JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
+  JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
 
 #sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
