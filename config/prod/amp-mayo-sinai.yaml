@@ -1,6 +1,6 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: remote/s3-bucket.yaml
-stack_name: amp-mayo-sinai
+template_path: "remote/s3-bucket.yaml"
+stack_name: "amp-mayo-sinai"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "NDR"

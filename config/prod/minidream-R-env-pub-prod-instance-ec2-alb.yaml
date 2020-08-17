@@ -1,6 +1,6 @@
 # Provision a load balancer for minidream.synapse.org
-template_path: remote/managed-alb-https.yaml
-stack_name: minidream-R-env-pub-prod-instance-ec2-alb
+template_path: "remote/managed-alb-https.yaml"
+stack_name: "minidream-R-env-pub-prod-instance-ec2-alb"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"

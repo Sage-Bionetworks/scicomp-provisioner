@@ -1,5 +1,5 @@
-template_path: ecmonsen-emorypipeline-ci.yaml
-stack_name: ecmonsen-emorypipeline-ci
+template_path: "ecmonsen-emorypipeline-ci.yaml"
+stack_name: "ecmonsen-emorypipeline-ci"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"

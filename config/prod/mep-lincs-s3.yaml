@@ -3,8 +3,8 @@
 
 # For use in the MEP-LINCS Synapse Project https://www.synapse.org/mep_lincs
 
-template_path: remote/s3-bucket.yaml
-stack_name: mep-lincs-s3
+template_path: "remote/s3-bucket.yaml"
+stack_name: "mep-lincs-s3"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
