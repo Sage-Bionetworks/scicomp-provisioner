@@ -5,4 +5,4 @@ stack_tags:
   Project: "HTAN"
   OwnerEmail: "xengie.doan@sagebase.org"
 parameters:
-  AdminRoleArn: !stack_output_external jumpcloud-idp::ScicompAdminSamlProviderRoleArn
+  AdminRoleArn: !stack_output_external "jumpcloud-idp::ScicompAdminSamlProviderRoleArn"
