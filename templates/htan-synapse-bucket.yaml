@@ -1,0 +1,157 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: S3Objects
+Description: >-
+  Synapse S3 Custom Storage
+  (https://docs.synapse.org/articles/custom_storage_location.html)
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: S3 Bucket Configuration
+        Parameters:
+          - BucketName
+      - Label:
+          default: S3 Bucket Policy Configuration
+        Parameters:
+          - SynapseIDs
+          - S3UserARNs
+Parameters:
+  S3SynapseSyncFunctionRoleArn:
+    Type: String
+    Description: The S3 Synapse sync lambda function role ARN
+    ConstraintDescription: >-
+      Must be the lambda role ARN (i.e. arn:aws:iam::055273631518:role/s3-syanpase-sync-LambdaRole-JRQLRZDI9TMS)
+  SynapseRootArn:
+    Type: String
+    Description: The Synapse root account ARN
+    Default: "arn:aws:iam::325565585839:root"
+    ConstraintDescription: >-
+      Must be the ARN of the Synapse root account
+  SynapseCanonicalId:
+    Type: String
+    Description: The Synapse AWS account canonical ID
+    Default: "d9df08ac799f2859d42a588b415111314cf66d0ffd072195f33b921db966b440"
+    ConstraintDescription: >-
+      Must be the canonical ID for the AWS Synapse account
+  SynapseIDs:
+    Type: CommaDelimitedList
+    Description: >-
+      (Optional) List of Synapse bucket user or team owners
+    Default: ""
+    ConstraintDescription: >-
+      (Optional) List of Synapse user or team IDs separated by commas
+      (i.e. 1111111, 2222222)
+  S3UserARNs:
+    Type: CommaDelimitedList
+    Description: >-
+      (Optional) User ARNs allowed to access S3 Bucket,
+      in addition to provisioning user
+    ConstraintDescription: >-
+      List of ARNs separated by commas (e.g.
+      arn:aws:iam::011223344556:user/jdoe,arn:aws:iam::544332211006:user/rjones)
+  BucketName:
+    Type: String
+    Description: (Optional) Name of the created bucket.
+    Default: ""
+Conditions:
+  HasBucketName: !Not [!Equals [!Ref BucketName, ""]]
+Resources:
+  BucketOwnerCanonicalId:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: "AWS account canonical ID"
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !If [HasBucketName, !Ref BucketName, !Ref 'AWS::NoValue']
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      CorsConfiguration:
+        CorsRules:
+          - Id: SynapseCORSRule
+            AllowedHeaders: ['*']
+            AllowedOrigins: ['*']
+            AllowedMethods: [GET, POST, PUT, HEAD]
+            MaxAge: 3000
+  S3BucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Sid: "ReadAccess"
+            Effect: "Allow"
+            Principal:
+              AWS: !Ref S3UserARNs
+            Action:
+              - "s3:ListBucket*"
+              - "s3:GetBucketLocation"
+            Resource: !Split
+              - ","
+              - !Sub
+                - "${list},${SynapseRootArn}"
+                - list: !Join [",",!Ref "S3UserARNs"]
+          -
+            Sid: "WriteAccess"
+            Effect: "Allow"
+            Principal:
+              AWS: !Ref S3UserARNs
+            Action:
+              - "s3:*Object*"
+              - "s3:*MultipartUpload*"
+            Resource: !Split
+              - ","
+              - !Sub
+                - "${list},${SynapseRootArn}"
+                - list: !Join [",",!Ref "S3UserARNs"]
+          -
+            Sid: "LambdaAccess"
+            Effect: Allow
+            Principal:
+              AWS: !Ref S3SynapseSyncFunctionRoleArn
+            Action:
+            - s3:GetObject
+            - s3:PutObject
+            - s3:PutObjectAcl
+            Resource: !Sub "${S3Bucket.Arn}/*"
+          - Effect: Deny
+            Principal: "*"
+            Action: s3:PutObject
+            Resource: !Sub "${S3Bucket.Arn}/*"
+            Condition:
+              StringNotEqualsIgnoreCase:
+                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${BucketOwnerCanonicalId}"
+              StringNotEquals:
+                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${BucketOwnerCanonicalId}"
+
+  # Add owner file to the synapse bucket, requires the cloudformation S3 objects macro
+  # https://github.com/Sage-Bionetworks-IT/cfn-s3objects-macro
+  SynapseOwnerFile:
+    Type: AWS::S3::Object
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E3001
+    Properties:
+      Target:
+        Bucket: !Ref S3Bucket
+        Key: owner.txt
+        ContentType: text
+        ACL: authenticated-read
+      Body: !Join [ ",", !Ref SynapseIDs ]
+Outputs:
+  BucketName:
+    Description: 'The name of the S3 Bucket'
+    Value: !Ref 'S3Bucket'
+  BucketARN:
+    Description: 'The ARN of the S3 Bucket'
+    Value: !GetAtt 'S3Bucket.Arn'
+  BucketUrl:
+    Description: 'View the S3 Bucket in the AWS Console'
+    Value: !Sub 'https://console.aws.amazon.com/s3/home?region=${AWS::Region}&bucket=${S3Bucket}'
