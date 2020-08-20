@@ -1,5 +1,5 @@
-template_path: remote/s3-synapse-sync.yaml
-stack_name: s3-synapse-sync
+template_path: "remote/s3-synapse-sync.yaml"
+stack_name: "s3-synapse-sync"
 stack_tags:
   Department: "CompOnc"
   Project: "HTAN"
