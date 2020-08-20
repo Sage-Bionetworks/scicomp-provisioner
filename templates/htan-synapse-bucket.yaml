@@ -87,37 +87,37 @@ Resources:
             Sid: "ReadAccess"
             Effect: "Allow"
             Principal:
-              AWS: !Ref S3UserARNs
+              AWS: !Split
+                - ","
+                - !Sub
+                  - "${list},${SynapseRootArn}"
+                  - list: !Join [",",!Ref "S3UserARNs"]
             Action:
               - "s3:ListBucket*"
               - "s3:GetBucketLocation"
-            Resource: !Split
-              - ","
-              - !Sub
-                - "${list},${SynapseRootArn}"
-                - list: !Join [",",!Ref "S3UserARNs"]
+            Resource: !GetAtt S3Bucket.Arn
           -
             Sid: "WriteAccess"
             Effect: "Allow"
             Principal:
-              AWS: !Ref S3UserARNs
+              AWS: !Split
+                - ","
+                - !Sub
+                  - "${list},${SynapseRootArn}"
+                  - list: !Join [",",!Ref "S3UserARNs"]
             Action:
               - "s3:*Object*"
               - "s3:*MultipartUpload*"
-            Resource: !Split
-              - ","
-              - !Sub
-                - "${list},${SynapseRootArn}"
-                - list: !Join [",",!Ref "S3UserARNs"]
+            Resource: !Sub "${S3Bucket.Arn}/*"
           -
             Sid: "LambdaAccess"
             Effect: Allow
             Principal:
               AWS: !Ref S3SynapseSyncFunctionRoleArn
             Action:
-            - s3:GetObject
-            - s3:PutObject
-            - s3:PutObjectAcl
+              - s3:GetObject
+              - s3:PutObject
+              - s3:PutObjectAcl
             Resource: !Sub "${S3Bucket.Arn}/*"
           - Effect: Deny
             Principal: "*"
