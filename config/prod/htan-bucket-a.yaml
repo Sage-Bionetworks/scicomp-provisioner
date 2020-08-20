@@ -1,0 +1,14 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html) that will
+# work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
+template_path: "htan-synapse-bucket.yaml"
+stack_name: "htan-bucket-a"
+stack_tags:
+  Department: "CompOnc"
+  Project: "HTAN"
+  OwnerEmail: "xengie.doan@sagebase.org"
+dependencies:
+  - "prod/s3-synapse-sync.yaml"
+parameters:
+  SynapseIDs: ["3382314"]
+  S3UserARNs: ["arn:aws:sts::563295687221:assumed-role/sandbox-admin/xengie.doan@sagebase.org"]
+  S3SynapseSyncFunctionRoleArn: !stack_output_external "sc-portfolio-ec2-external::SCEC2portfolioId"
