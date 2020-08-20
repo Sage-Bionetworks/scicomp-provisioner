@@ -11,4 +11,4 @@ dependencies:
 parameters:
   SynapseIDs: ["3382314"]
   S3UserARNs: ["arn:aws:sts::563295687221:assumed-role/sandbox-admin/xengie.doan@sagebase.org"]
-  S3SynapseSyncFunctionRoleArn: !stack_output_external "sc-portfolio-ec2-external::SCEC2portfolioId"
+  S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
