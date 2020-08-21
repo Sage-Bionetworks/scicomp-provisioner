@@ -132,7 +132,10 @@ Resources:
         Key: owner.txt
         ContentType: text
         ACL: authenticated-read
-      Body: !Join [ ",", !Ref SynapseIDs ]
+      Body: !Sub
+        - "${list}"
+        - list: !Join [",",!Ref "SynapseIDs"]
+
 Outputs:
   BucketName:
     Description: 'The name of the S3 Bucket'
