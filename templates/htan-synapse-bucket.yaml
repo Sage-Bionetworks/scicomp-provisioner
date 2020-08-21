@@ -3,18 +3,6 @@ Transform: S3Objects
 Description: >-
   Synapse S3 Custom Storage
   (https://docs.synapse.org/articles/custom_storage_location.html)
-Metadata:
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-      - Label:
-          default: S3 Bucket Configuration
-        Parameters:
-          - BucketName
-      - Label:
-          default: S3 Bucket Policy Configuration
-        Parameters:
-          - SynapseIDs
-          - S3UserARNs
 Parameters:
   S3SynapseSyncFunctionRoleArn:
     Type: String
@@ -33,13 +21,18 @@ Parameters:
     Default: "d9df08ac799f2859d42a588b415111314cf66d0ffd072195f33b921db966b440"
     ConstraintDescription: >-
       Must be the canonical ID for the AWS Synapse account
+  S3CanonicalUserId:
+    Type: String
+    Description: The S3 canonical user ID
+    ConstraintDescription: >-
+      Must be the S3 user canonical ID
+      (i.e eab4436941f355ce866fcf7944db42020c385ad1f19df8a95704dc4d7552fa06)
   SynapseIDs:
     Type: CommaDelimitedList
     Description: >-
-      (Optional) List of Synapse bucket user or team owners
-    Default: ""
+      List of Synapse bucket user or team owners
     ConstraintDescription: >-
-      (Optional) List of Synapse user or team IDs separated by commas
+      List of Synapse user or team IDs separated by commas
       (i.e. 1111111, 2222222)
   S3UserARNs:
     Type: CommaDelimitedList
@@ -56,11 +49,6 @@ Parameters:
 Conditions:
   HasBucketName: !Not [!Equals [!Ref BucketName, ""]]
 Resources:
-  BucketOwnerCanonicalId:
-    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
-    Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: "AWS account canonical ID"
   S3Bucket:
     Type: "AWS::S3::Bucket"
     Properties:
@@ -125,9 +113,9 @@ Resources:
             Resource: !Sub "${S3Bucket.Arn}/*"
             Condition:
               StringNotEqualsIgnoreCase:
-                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${BucketOwnerCanonicalId}"
+                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${S3CanonicalUserId}"
               StringNotEquals:
-                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${BucketOwnerCanonicalId}"
+                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${S3CanonicalUserId}"
 
   # Add owner file to the synapse bucket, requires the cloudformation S3 objects macro
   # https://github.com/Sage-Bionetworks-IT/cfn-s3objects-macro
@@ -144,7 +132,10 @@ Resources:
         Key: owner.txt
         ContentType: text
         ACL: authenticated-read
-      Body: !Join [ ",", !Ref SynapseIDs ]
+      Body: !Sub
+        - "${list}"
+        - list: !Join [",",!Ref "SynapseIDs"]
+
 Outputs:
   BucketName:
     Description: 'The name of the S3 Bucket'

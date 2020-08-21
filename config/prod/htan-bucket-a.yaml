@@ -9,6 +9,9 @@ stack_tags:
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
-  SynapseIDs: ["3382314"]
-  S3UserARNs: ["arn:aws:sts::563295687221:assumed-role/sandbox-admin/xengie.doan@sagebase.org"]
+  SynapseIDs:
+    - "3382314"
+  S3UserARNs:
+    - "arn:aws:sts::563295687221:assumed-role/sandbox-admin/xengie.doan@sagebase.org"
+  S3CanonicalUserId: "eab4436941f355ce866fcf7944db42020c385ad1f19df8a95704dc4d7552fa06"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
