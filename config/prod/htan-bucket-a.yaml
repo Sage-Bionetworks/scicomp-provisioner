@@ -17,4 +17,4 @@ parameters:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
   S3CanonicalUserId: "eab4436941f355ce866fcf7944db42020c385ad1f19df8a95704dc4d7552fa06"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
-  BucketServiceRoleArn: !stack_output_external "bootstrap::AWSIAMCfServiceRoleArn"
+  BucketServiceRoleArn: !stack_output_external "bootstrap::AWSIAMCfServiceRoleId"
