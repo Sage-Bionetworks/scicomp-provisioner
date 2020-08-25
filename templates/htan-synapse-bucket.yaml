@@ -118,7 +118,7 @@ Resources:
             Resource: !Sub "${S3Bucket.Arn}/*"
             Condition:
               StringNotEqualsIgnoreCase:
-                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId}, id=${S3CanonicalUserId}"
+                s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${S3CanonicalUserId}"
               StringNotEquals:
                 s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId}, id=${S3CanonicalUserId}"
               StringNotLike:
