@@ -122,7 +122,7 @@ Resources:
               StringNotEquals:
                 s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId}, id=${S3CanonicalUserId}"
               StringNotLike:
-                "aws:userid": !Join ["", [!ImportValue BucketServiceRoleArn, ":*"]]
+                "aws:userid": !Join ["", [!Ref BucketServiceRoleArn, ":*"]]
 
   # Add owner file to the synapse bucket, requires the cloudformation S3 objects macro
   # https://github.com/Sage-Bionetworks-IT/cfn-s3objects-macro
