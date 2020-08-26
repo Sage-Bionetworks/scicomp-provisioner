@@ -4,6 +4,12 @@ Description: >-
   Synapse S3 Custom Storage
   (https://docs.synapse.org/articles/custom_storage_location.html)
 Parameters:
+  S3SynapseSyncFunctionArn:
+    Type: String
+    Description: The S3 Synapse sync lambda function ARN
+    ConstraintDescription: >-
+      Must be the lambda function ARN
+      (i.e. arn:aws:lambda:us-east-1:787179373106:function:my-lambda-S3SynpaseSyncFunction)
   S3SynapseSyncFunctionRoleArn:
     Type: String
     Description: The S3 Synapse sync lambda function role ARN
@@ -67,9 +73,9 @@ Resources:
       NotificationConfiguration:
         LambdaConfigurations:
           - Event: "s3:ObjectCreated:*"
-            Function: !Ref S3SynapseSyncFunctionRoleArn
+            Function: !Ref S3SynapseSyncFunctionArn
           - Event: "s3:ObjectRemoved:*"
-            Function: !Ref S3SynapseSyncFunctionRoleArn
+            Function: !Ref S3SynapseSyncFunctionArn
   S3BucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
