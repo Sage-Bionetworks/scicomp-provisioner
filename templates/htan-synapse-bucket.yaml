@@ -64,6 +64,12 @@ Resources:
             AllowedOrigins: ['*']
             AllowedMethods: [GET, POST, PUT, HEAD]
             MaxAge: 3000
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Event: "s3:ObjectCreated:*"
+            Function: !Ref S3SynapseSyncFunctionRoleArn
+          - Event: "s3:ObjectRemoved:*"
+            Function: !Ref S3SynapseSyncFunctionRoleArn
   S3BucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
