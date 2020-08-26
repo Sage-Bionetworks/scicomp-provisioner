@@ -4,11 +4,6 @@ Description: >-
   Synapse S3 Custom Storage
   (https://docs.synapse.org/articles/custom_storage_location.html)
 Parameters:
-  BucketServiceRoleId:
-    Type: String
-    Description: A service role ID to allow managing objects in the bucket
-    ConstraintDescription: >-
-      Must be a valid AWS role ID (i.e AIDAJQABLZS4A3QDU576Q)
   S3SynapseSyncFunctionRoleArn:
     Type: String
     Description: The S3 Synapse sync lambda function role ARN
@@ -112,8 +107,15 @@ Resources:
               - s3:PutObject
               - s3:PutObjectAcl
             Resource: !Sub "${S3Bucket.Arn}/*"
-          - Effect: Deny
-            Principal: "*"
+          -
+            Sid: "Require canonical ID on object updates"
+            Effect: Deny
+            Principal:
+              AWS: !Split
+                - ","
+                - !Sub
+                  - "${list},${SynapseRootArn}"
+                  - list: !Join [",",!Ref "S3UserARNs"]
             Action: s3:PutObject
             Resource: !Sub "${S3Bucket.Arn}/*"
             Condition:
@@ -121,8 +123,6 @@ Resources:
                 s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId},id=${S3CanonicalUserId}"
               StringNotEquals:
                 s3:x-amz-grant-full-control: !Sub "id=${SynapseCanonicalId}, id=${S3CanonicalUserId}"
-              StringNotLike:
-                "aws:userid": !Join ["", [!Ref BucketServiceRoleId, ":*"]]
 
   # Add owner file to the synapse bucket, requires the cloudformation S3 objects macro
   # https://github.com/Sage-Bionetworks-IT/cfn-s3objects-macro
