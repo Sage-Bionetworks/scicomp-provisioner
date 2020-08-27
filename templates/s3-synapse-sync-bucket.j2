@@ -72,12 +72,14 @@ Resources:
             MaxAge: 3000
        # LambdaBucketPermission must be setup before NotificationConfiguration
        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html
+    {% if sceptre_user_data.EnableNotificationConfiguration.lower() == 'true' %}
       NotificationConfiguration:
         LambdaConfigurations:
           - Event: "s3:ObjectCreated:*"
             Function: !Ref S3SynapseSyncFunctionArn
           - Event: "s3:ObjectRemoved:*"
             Function: !Ref S3SynapseSyncFunctionArn
+    {% endif %}
   LambdaBucketPermission:
     Type: AWS::Lambda::Permission
     Properties:
