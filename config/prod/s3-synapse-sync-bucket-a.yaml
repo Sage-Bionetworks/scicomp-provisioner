@@ -12,7 +12,7 @@ hooks:
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
-  BucketName: "s3-synapse-sync-bucket-a"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
+  BucketName: "htan-synapse-sync-bucket-a"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
   SynapseIDs:
     - "3382314"
     - "3408101"
