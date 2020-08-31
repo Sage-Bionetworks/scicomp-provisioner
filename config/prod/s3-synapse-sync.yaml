@@ -12,3 +12,4 @@ hooks:
 parameters:
   BucketVariables: !file_contents "data/s3-synapse-sync-bucket-vars.yaml"
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
+  BucketNamePrefix: "htan-dcc-*"
