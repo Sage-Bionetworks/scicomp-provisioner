@@ -1,4 +1,4 @@
-s3-synapse-sync-bucket-a:
+htan-dcc-bucket-a:
   SynapseProjectId: "syn22335495"
   FoldersToSync:
     - "folderA"
