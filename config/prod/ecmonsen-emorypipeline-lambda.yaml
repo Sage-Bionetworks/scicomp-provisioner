@@ -5,16 +5,16 @@ dependencies:
   - prod/ecmonsen-emorypipeline-ci.yaml
 parameters:
   # Source account is Emory University AWS account. Contact is Duc Duong
-  SourceAccountId: "743849566882"
+  SourceAccountId: "607721581289"
   SynapseStorageLocationId: "40934"
   # AMP-AD Sage Admin https://www.synapse.org/#!Team:3377637
   # Duc Duong https://www.synapse.org/#!Profile:3320325
   # Eva Monsen https://www.synapse.org/#!Profile:3399376
   SynapseNotifyUsers: "3399376,3377637,3320325"
-  Department: SysBio
-  Project: amp-ad
-  OwnerEmail: kara.woo@sagebase.org
-  SynapseUserName: amp-ad-uploader
+  Department: "SysBio"
+  Project: "amp-ad"
+  OwnerEmail: "kara.woo@sagebase.org"
+  SynapseUserName: "amp-ad-uploader"
 hooks:
   before_launch:
-    - !cmd curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-jnlt9zs4haa7.s3.amazonaws.com/lambda-uploader/v1.0.3/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml
+    - !cmd "curl https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-jnlt9zs4haa7.s3.amazonaws.com/lambda-uploader/v1.0.3/ecmonsen-emorypipeline-lambda.yaml --create-dirs -o templates/remote/ecmonsen-emorypipeline-lambda.yaml"

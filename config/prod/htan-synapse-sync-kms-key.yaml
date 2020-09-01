@@ -1,0 +1,8 @@
+template_path: "htan-synapse-sync-kms-key.yaml"
+stack_name: "htan-synapse-sync-kms-key"
+stack_tags:
+  Department: "CompOnc"
+  Project: "HTAN"
+  OwnerEmail: "xengie.doan@sagebase.org"
+parameters:
+  AdminRoleArn: !stack_output_external "jumpcloud-idp::ScicompAdminSamlProviderRoleArn"
