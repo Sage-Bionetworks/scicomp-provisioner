@@ -1,5 +1,5 @@
 htan-dcc-bucket-a:
-  SynapseProjectId: "syn22335495"
+  SynapseProjectId: "syn22343754"
   FoldersToSync:
     - "folderA"
     - "folderB"
