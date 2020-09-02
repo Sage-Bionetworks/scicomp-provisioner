@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html) that will
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
 template_path: "remote/s3-synapse-sync-bucket.j2"
-stack_name: "htan-dcc-centerA"
+stack_name: "htan-dcc-center-a"
 stack_tags:
   Department: "CompOnc"
   Project: "HTAN"
@@ -12,7 +12,7 @@ hooks:
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
-  BucketName: "htan-dcc-centerA"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
+  BucketName: "htan-dcc-center-a"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
   SynapseIDs:
     - "3382314"
     - "3408101"
@@ -27,4 +27,4 @@ parameters:
 # Due to circular dependencies, enabling bucket notification must be done after bucket creation
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html
 sceptre_user_data:
-  EnableNotificationConfiguration: "true"
+  EnableNotificationConfiguration: "false"
