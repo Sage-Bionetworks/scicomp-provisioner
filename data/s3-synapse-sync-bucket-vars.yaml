@@ -8,3 +8,7 @@ htan-dcc-center-b:
   FoldersToSync:
     - "folderA"
     - "folderB"
+htan-dcc-bu:
+  SynapseProjectId: "syn22124336"
+  FoldersToSync:
+    - "data"
