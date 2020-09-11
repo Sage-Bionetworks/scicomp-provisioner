@@ -3,12 +3,15 @@ htan-dcc-center-a:
   FoldersToSync:
     - "folderA"
     - "folderB"
-htan-dcc-center-b:
-  SynapseProjectId: "syn22355020"
-  FoldersToSync:
-    - "folderA"
-    - "folderB"
 htan-dcc-bu:
   SynapseProjectId: "syn22124336"
   FoldersToSync:
-    - "data"
+    - "sc_rna_seq_level_1"
+    - "sc_rna_seq_level_2"
+    - "sc_rna_seq_level_3"
+    - "clinical_tier_1_demographics"
+    - "clinical_tier_1_family_history"
+    - "clinical_tier_1_diagnosis"
+    - "clinical_tier_1_follow_up"
+    - "clinical_tier_1_exposure"
+    - "imaging"
