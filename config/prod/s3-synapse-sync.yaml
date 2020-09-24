@@ -13,7 +13,8 @@ parameters:
   BucketVariables: >-
     {
       "htan-dcc-center-a":{"SynapseProjectId":"syn22343754"},
-      "htan-dcc-bu":{"SynapseProjectId":"syn22124336"}
+      "htan-dcc-bu":{"SynapseProjectId":"syn22124336"},
+      "htan-dcc-ohsu":{"SynapseProjectId":"syn22093319"}
     }
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
   BucketNamePrefix: "htan-dcc-*"
