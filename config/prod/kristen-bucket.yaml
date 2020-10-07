@@ -1,6 +1,6 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket-v2.yaml"
+template_path: "remote/s3-bucket-v2.j2"
 stack_name: "kristen-bucket"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
@@ -45,6 +45,6 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/s3-bucket-v2.j2 --create-dirs -o templates/remote/s3-bucket-v2.j2
   after_create:
     - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
