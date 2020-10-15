@@ -9,8 +9,8 @@ stack_tags:
 hooks:
   before_launch:
     - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/master/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
-dependencies:
-  - "prod/s3-synapse-sync.yaml"
+# dependencies:
+#   - "prod/s3-synapse-sync.yaml"
 parameters:
   BucketName: "htan-dcc-chop"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
   SynapseIDs:
