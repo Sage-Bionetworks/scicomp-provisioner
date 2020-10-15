@@ -12,7 +12,7 @@ hooks:
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
-  BucketName: "htan-dcc-ohsu"  
+  BucketName: "htan-dcc-ohsu"
   SynapseIDs:
     - "3391844" #htan dcc
     - "3410328" #htan ohsu
