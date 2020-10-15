@@ -15,7 +15,7 @@ parameters:
   BucketName: "htan-dcc-ohsu"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
   SynapseIDs:
     - "3391844" #htan dcc
-    - "3410328" #htan ohsu 
+    - "3410328" #htan ohsu
     - "3413795" #service acct
   S3UserARNs:
     - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
