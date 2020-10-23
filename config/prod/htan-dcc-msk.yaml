@@ -26,4 +26,4 @@ parameters:
 # Due to circular dependencies, enabling bucket notification must be done after bucket creation
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html
 sceptre_user_data:
-  EnableNotificationConfiguration: "false"
+  EnableNotificationConfiguration: "true"
