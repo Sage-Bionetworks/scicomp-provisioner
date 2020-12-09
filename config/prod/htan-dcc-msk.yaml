@@ -22,6 +22,9 @@ parameters:
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::583643567512:user/jchan"
     - "arn:aws:iam::070278699608:user/inodb"
+  DenyDeleteARNs:
+    - "arn:aws:iam::289701539771:user/dagutman"
+    - "arn:aws:iam::583643567512:user/jchan"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 
