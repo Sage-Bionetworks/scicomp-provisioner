@@ -23,6 +23,10 @@ parameters:
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/idp-import"
+  DenyDeleteARNs:
+    - "arn:aws:iam::696725769253:user/creason"
+    - "arn:aws:iam::289701539771:user/dagutman"
+    - "arn:aws:iam::292075781285:user/idp-import"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 
