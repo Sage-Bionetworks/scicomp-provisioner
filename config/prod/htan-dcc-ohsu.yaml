@@ -1,0 +1,36 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html) that will
+# work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
+template_path: "remote/s3-synapse-sync-bucket.j2"
+stack_name: "htan-dcc-ohsu"
+stack_tags:
+  Department: "CompOnc"
+  Project: "HTAN"
+  OwnerEmail: "xengie.doan@sagebase.org"
+hooks:
+  before_launch:
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/master/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
+dependencies:
+  - "prod/s3-synapse-sync.yaml"
+parameters:
+  BucketName: "htan-dcc-ohsu"
+  SynapseIDs:
+    - "3391844" #htan dcc
+    - "3410328" #htan ohsu
+    - "3413795" #service acct
+  S3UserARNs:
+    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
+    - "arn:aws:iam::426577889437:user/clarisse.lau"
+    - "arn:aws:iam::696725769253:user/creason"
+    - "arn:aws:iam::289701539771:user/dagutman"
+    - "arn:aws:iam::292075781285:user/idp-import"
+  DenyDeleteARNs:
+    - "arn:aws:iam::696725769253:user/creason"
+    - "arn:aws:iam::289701539771:user/dagutman"
+    - "arn:aws:iam::292075781285:user/idp-import"
+  S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
+  S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
+
+# Due to circular dependencies, enabling bucket notification must be done after bucket creation
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html
+sceptre_user_data:
+  EnableNotificationConfiguration: "true"
