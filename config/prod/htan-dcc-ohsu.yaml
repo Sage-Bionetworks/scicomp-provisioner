@@ -18,8 +18,6 @@ parameters:
     - "3410328" #htan ohsu
     - "3413795" #service acct
   S3UserARNs:
-    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
-    - "arn:aws:iam::426577889437:user/clarisse.lau"
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/idp-import"
@@ -27,6 +25,10 @@ parameters:
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/idp-import"
+  S3AdminARNs:
+    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
+    - "arn:aws:iam::426577889437:user/clarisse.lau"
+    - "arn:aws:iam::563295687221:assumed-role/sandbox-developer/bruno.grande@sagebase.org"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 
