@@ -9,11 +9,11 @@ parameters:
   SynapseStorageLocationId: "40934"
   # AMP-AD Sage Admin https://www.synapse.org/#!Team:3377637
   # Duc Duong https://www.synapse.org/#!Profile:3320325
-  # Eva Monsen https://www.synapse.org/#!Profile:3399376
-  SynapseNotifyUsers: "3399376,3377637,3320325"
+  # Larsson Omberg https://www.synapse.org/#!Profile:372127
+  SynapseNotifyUsers: "372127,3377637,3320325"
   Department: "SysBio"
   Project: "amp-ad"
-  OwnerEmail: "kara.woo@sagebase.org"
+  OwnerEmail: "larsson.omberg@sagebase.org"
   SynapseUserName: "amp-ad-uploader"
 hooks:
   before_launch:
