@@ -3,7 +3,7 @@ stack_name: "s3-synapse-sync"
 stack_tags:
   Department: "CompOnc"
   Project: "HTAN"
-  OwnerEmail: "xengie.doan@sagebase.org"
+  OwnerEmail: "bruno.grande@sagebase.org"
 dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
 hooks:
@@ -16,7 +16,8 @@ parameters:
       "htan-dcc-ohsu":{"SynapseProjectId":"syn22093319"},
       "htan-dcc-tma-tnp":{"SynapseProjectId":"syn22041595"},
       "htan-dcc-msk":{"SynapseProjectId":"syn23448901"},
-      "htan-dcc-duke":{"SynapseProjectId":"syn23511961"}
+      "htan-dcc-duke":{"SynapseProjectId":"syn23511961"},
+      "htan-dcc-tnp-sardana":{"SynapseProjectId":"syn24984270"}
     }
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
   BucketNamePrefix: "htan-dcc-*"

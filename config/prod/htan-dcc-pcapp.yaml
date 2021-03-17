@@ -5,7 +5,7 @@ stack_name: "htan-dcc-pcapp"
 stack_tags:
   Department: "CompOnc"
   Project: "HTAN"
-  OwnerEmail: "xengie.doan@sagebase.org"
+  OwnerEmail: "bruno.grande@sagebase.org"
 hooks:
   before_launch:
     - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/master/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
@@ -17,11 +17,12 @@ parameters:
     - "3391844" #HTAN DCC
     - "3413795" #service acct
   S3UserARNs:
-    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
-    - "arn:aws:iam::426577889437:user/clarisse.lau"
     - "arn:aws:iam::289701539771:user/dagutman" # for DSA
   DenyDeleteARNs:
     - "arn:aws:iam::289701539771:user/dagutman"
+  S3AdminARNs:
+    - "arn:aws:iam::426577889437:user/clarisse.lau"
+    - "arn:aws:iam::563295687221:assumed-role/sandbox-developer/bruno.grande@sagebase.org"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 

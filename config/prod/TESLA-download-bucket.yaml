@@ -4,14 +4,14 @@ template_path: "remote/s3-bucket-v2.j2"
 stack_name: "TESLA-download-bucket"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
-  SynapseIDs: ["1968150", "3382314"]  # Kristen Dang and Xengie Doan
+  SynapseIDs: ["2223305"]  # James Eddy
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "CompOnc"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "TESLA"
   # The resource owner
-  OwnerEmail: "kristen.dang@sagebase.org"
+  OwnerEmail: "james.eddy@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
 
@@ -27,8 +27,7 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
     - "arn:aws:iam::325565585839:root"   # Required ARN for a synapse bucket
-    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/kristen.dang@sagebase.org"
-    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/xengie.doan@sagebase.org"
+    - "arn:aws:sts::563295687221:assumed-role/sandbox-developer/james.eddy@sagebase.org"
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
