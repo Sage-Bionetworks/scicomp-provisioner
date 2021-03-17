@@ -1,5 +1,5 @@
 # Overview
-Auto provision resources on AWS org-sagebase-scicomp account.
+Auto provision resources into AWS org-sagebase-scicomp account.
 
 ## Workflow
 The workflow to provision AWS resources is done using pull requests.
