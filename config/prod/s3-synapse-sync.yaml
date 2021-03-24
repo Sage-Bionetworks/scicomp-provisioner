@@ -8,7 +8,7 @@ dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
 hooks:
   before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/master/s3-synapse-sync.yaml --create-dirs -o templates/remote/s3-synapse-sync.yaml"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.1/s3-synapse-sync.yaml --create-dirs -o templates/remote/s3-synapse-sync.yaml"
 parameters:
   BucketVariables: >-
     {
