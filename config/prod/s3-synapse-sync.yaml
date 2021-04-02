@@ -22,5 +22,8 @@ parameters:
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
   BucketNamePrefix: "htan-dcc-*"
   DockerImage: "clarisselau/minerva-batch"
-  Subnets: "subnet-1a2b3c4d,subnet-1a2b3c4d"
-  VpcID: "vpc-1a2b3c4d"
+  Subnets:
+    - !stack_output_external computevpc::PrivateSubnet
+    - !stack_output_external computevpc::PrivateSubnet1
+    - !stack_output_external computevpc::PrivateSubnet2
+  VpcID: !stack_output_external computevpc::VPCId
