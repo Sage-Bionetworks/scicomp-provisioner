@@ -23,7 +23,7 @@ parameters:
   BucketNamePrefix: "htan-dcc-*"
   DockerImage: "clarisselau/minerva-batch"
   Subnets:
-    - !stack_output_external computevpc::PrivateSubnet
-    - !stack_output_external computevpc::PrivateSubnet1
-    - !stack_output_external computevpc::PrivateSubnet2
-  VpcID: !stack_output_external computevpc::VPCId
+    - !stack_output_external "computevpc::PrivateSubnet"
+    - !stack_output_external "computevpc::PrivateSubnet1"
+    - !stack_output_external "computevpc::PrivateSubnet2"
+  VpcID: !stack_output_external "computevpc::VPCId"
