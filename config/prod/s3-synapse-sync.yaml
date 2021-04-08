@@ -8,7 +8,7 @@ dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
 hooks:
   before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.3.0/s3-synapse-sync.yaml --create-dirs -o templates/remote/s3-synapse-sync.yaml"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.4.0/s3-synapse-sync.yaml --create-dirs -o templates/remote/s3-synapse-sync.yaml"
 parameters:
   BucketVariables: >-
     {
@@ -21,3 +21,9 @@ parameters:
     }
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
   BucketNamePrefix: "htan-dcc-*"
+  DockerImage: "clarisselau/minerva-batch"
+  Subnets:
+    - !stack_output_external "computevpc::PrivateSubnet"
+    - !stack_output_external "computevpc::PrivateSubnet1"
+    - !stack_output_external "computevpc::PrivateSubnet2"
+  VpcID: !stack_output_external "computevpc::VPCId"
