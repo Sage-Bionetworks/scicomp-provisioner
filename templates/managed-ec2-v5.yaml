@@ -396,6 +396,10 @@ Resources:
   Ec2Instance:
     Type: 'AWS::EC2::Instance'
     Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W4002
       'AWS::CloudFormation::Init':
         configSets:
           InstallAndRun:
