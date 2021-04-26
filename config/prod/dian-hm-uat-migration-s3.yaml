@@ -1,7 +1,7 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: remote/s3-bucket-v2.yaml
-stack_name: dian-hm-uat-migration-s3
+template_path: "remote/s3-bucket-v2.yaml"
+stack_name: "dian-hm-uat-migration-s3"
 #sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   # SynapseIDs: ["1300139", "3390915"]
