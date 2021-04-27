@@ -44,6 +44,6 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "wget https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/master/s3-bucket-v2.j2 --create-dirs -o templates/remote/s3-bucket-v2.j2"
+    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/master/s3-bucket-v2.j2 -N -P templates/remote"
   after_create:
     - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
