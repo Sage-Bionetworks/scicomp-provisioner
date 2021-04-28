@@ -2,7 +2,7 @@
 # http://docs.synapse.org/articles/custom_storage_location.html
 template_path: "remote/s3-bucket-v2.j2"
 stack_name: "dian-hm-uat-migration-s3"
-sceptre_user_data:
+#sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   # SynapseIDs: ["1300139", "3390915"]
 parameters:
