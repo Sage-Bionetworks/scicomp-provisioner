@@ -4,14 +4,14 @@ template_path: "remote/s3-bucket-v2.j2"
 stack_name: "dian-uat-synapse-import-s3"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
-   SynapseIDs: ["3425757"]  #synapse-service-dian-uat@synapse.org
+  SynapseIDs: ["3425757"]  #synapse-service-dian-uat@synapse.org
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "Platform"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "DIAN"
   # The resource owner
-  OwnerEmail: "synapse-service-dian-uat@synapse.org"
+  OwnerEmail: "synapse-service+dian-uat@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
 
