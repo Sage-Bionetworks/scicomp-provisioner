@@ -19,14 +19,14 @@ parameters:
   S3UserARNs:
     - "arn:aws:iam::289701539771:user/dagutman" # for DSA
     - "arn:aws:iam::765935791797:user/jeremy.gresham@duke.edu"
-    - "arn:aws:iam::563295687221:assumed-role/sandbox-developer/jason.hwee@sagebase.org"
+    - "arn:aws:iam::888810830951:user/hweej"
   DenyDeleteARNs:
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::765935791797:user/jeremy.gresham@duke.edu"
-    - "arn:aws:iam::563295687221:assumed-role/sandbox-developer/jason.hwee@sagebase.org"
+    - "arn:aws:iam::888810830951:user/hweej"
   S3AdminARNs:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
-    - "arn:aws:iam::563295687221:assumed-role/sandbox-developer/bruno.grande@sagebase.org"
+    - "arn:aws:iam::888810830951:user/bgrande"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 
