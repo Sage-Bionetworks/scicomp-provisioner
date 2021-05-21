@@ -20,15 +20,15 @@ parameters:
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/jmuhlich"
-    - "arn:aws:iam::888810830951:user/hweej"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
   DenyDeleteARNs:
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/jmuhlich"
-    - "arn:aws:iam::888810830951:user/hweej"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
   S3AdminARNs:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
-    - "arn:aws:iam::888810830951:user/bgrande"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/bruno.grande@sagebase.org"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 
