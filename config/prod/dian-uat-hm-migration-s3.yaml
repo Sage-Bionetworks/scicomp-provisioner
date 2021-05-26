@@ -28,6 +28,7 @@ parameters:
   GrantAccess:
     - "arn:aws:iam::325565585839:root"   # Required ARN for a synapse bucket
     - "arn:aws:iam::024584448019:user/cleardata/customer/michael.votaw"
+    - "arn:aws:iam::055273631518:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_1087bdcd71db6704"
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
