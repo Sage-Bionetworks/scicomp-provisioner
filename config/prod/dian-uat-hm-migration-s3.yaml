@@ -22,13 +22,13 @@ parameters:
   # Data transfers within the same region between AWS resources are free.
   # true to restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda) within the same region as this bucket.
   # This will not allow even the owner of the bucket to download objects in this bucket when not using an AWS resource in the same region!
-  SameRegionResourceAccessToBucket: "true"
+  SameRegionResourceAccessToBucket: "false"
 
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
     - "arn:aws:iam::325565585839:root"   # Required ARN for a synapse bucket
     - "arn:aws:iam::024584448019:user/cleardata/customer/michael.votaw"
-    - "arn:aws:iam::055273631518:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_1087bdcd71db6704"
+    - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Administrator_1087bdcd71db6704/aaron.hayden@sagebase.org"
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
