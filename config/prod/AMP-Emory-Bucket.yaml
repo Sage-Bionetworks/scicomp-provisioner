@@ -19,6 +19,7 @@ parameters:
     - 'arn:aws:iam::325565585839:root'
     - 'arn:aws:iam::743849566882:user/dduong'
     - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/phil.snyder@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/nicole.kauer@sagebase.org'
 
 hooks:
   before_launch:
