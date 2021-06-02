@@ -10,9 +10,9 @@ parameters:
   OwnerEmail: 'larsson.omberg@sagebase.org'
 
   GrantAccess:
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/phil.snyder@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/larsson.omberg@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/nicole.kauer@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/phil.snyder@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/larsson.omberg@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/nicole.kauer@sagebase.org'
 
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
