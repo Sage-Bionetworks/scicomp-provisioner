@@ -18,6 +18,7 @@ parameters:
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
     - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/phil.snyder@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/nicole.kauer@sagebase.org'
 
 hooks:
   before_launch:
