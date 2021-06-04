@@ -5,5 +5,4 @@ stack_tags:
   Project: "HTAN"
   OwnerEmail: "bruno.grande@sagebase.org"
 parameters:
-  # SSO generated admin role
-  AdminRoleArn: "arn:aws:iam::531805629419:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_Administrator_66bb518af6b2dfa2"
+  AdminRoleArn: "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/bruno.grande@sagebase.org"
