@@ -8,7 +8,7 @@ parameters:
   Department: "CompOnc"
   Project: "CSBC"
   OwnerEmail: "bruno.grande@sagebase.org"
-  Ec2InstanceId: !stack_output "prod/minidream-rstudio-2021-ec2.yaml::Ec2InstanceId"
+  Ec2InstanceId: !stack_output_external "minidream-rstudio-2021-ec2::Ec2InstanceId"
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
   VpcId: "vpc-e66bd19d"   # computevpc
   AppPort: "443"          # nginx reverse proxy
