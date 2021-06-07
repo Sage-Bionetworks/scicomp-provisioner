@@ -2,7 +2,8 @@
 # Based on prod/minidream-R-env-pub-prod-instance-ec2-alb-v2.yaml
 template_path: "remote/managed-alb-https-v2.yaml"
 stack_name: "minidream-rstudio-2021-ec2-alb"
-
+dependencies:
+  - "prod/minidream-rstudio-2021-ec2.yaml"
 parameters:
   Department: "CompOnc"
   Project: "CSBC"
