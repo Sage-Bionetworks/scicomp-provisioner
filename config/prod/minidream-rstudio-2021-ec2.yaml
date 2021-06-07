@@ -1,0 +1,29 @@
+# Provision an EC2 instance for hosting miniDREAM RStudio server
+# Based on prod/minidream-R-env-pub-prod-instance-ec2-v2.yaml
+template_path: "remote/managed-ec2-linux-v2.j2"
+stack_name: "minidream-rstudio-2021-ec2"
+
+sceptre_user_data:
+  Distro: "ubuntu"
+  OpenPorts: ["443"]  # On a private subnet (default)
+parameters:
+  Department: "CompOnc"
+  Project: "CSBC"
+  OwnerEmail: "bruno.grande@sagebase.org"
+  VpcName: "computevpc"
+  KeyName: "scicomp"
+  AMIId: "ami-0b7906ab614596e7e"  # packer-base-ubuntu-bionic-v1.0.9
+  InstanceType: "x1.16xlarge"     # 64 vCPUs / 976 GiB / 1920 GiB SSD
+  VolumeSize: "500"
+  BackupEc2: "true"
+  SnapshotCount: "3"
+
+  JcConnectKey: !ssm "/infra/JcConnectKey"
+  JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
+  JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
+
+hooks:
+  before_launch:
+    - !cmd "wget https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.13/managed-ec2-linux-v2.j2 -N -P templates/remote"
+  after_create:
+    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
