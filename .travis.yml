@@ -12,6 +12,9 @@ install:
   - ./setup_aws_cli.sh || travis_terminate 1
   - pip install pre-commit sceptre sceptre-ssm-resolver
   - pip install git+git://github.com/Sage-Bionetworks/sceptre-provisioner-hooks.git
+before_script:
+  # force wget in sceptre templates to download the latest templates
+  - rm -rf templates/remote
 stages:
   - name: validate
   - name: deploy
