@@ -45,4 +45,4 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.8/s3-bucket-v2.j2 -N -P templates/remote"
+    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.14/s3-bucket-v2.j2 -N -P templates/remote"
