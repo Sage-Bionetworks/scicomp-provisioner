@@ -30,4 +30,3 @@ jobs:
       script:
 #        - ./lint_stack.sh -r || travis_terminate 1
         - travis_wait 30 sceptre launch prod --yes
-        - cat templates/remote/s3-bucket-v2.j2
