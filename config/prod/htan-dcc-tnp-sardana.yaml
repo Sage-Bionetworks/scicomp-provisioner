@@ -8,7 +8,7 @@ stack_tags:
   OwnerEmail: "bruno.grande@sagebase.org"
 hooks:
   before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.4.0/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
+    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.5.0/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
@@ -17,12 +17,10 @@ parameters:
     - "3391844" #htan dcc
     - "3413795" #service acct
   S3UserARNs:
-    - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/jmuhlich"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
   DenyDeleteARNs:
-    - "arn:aws:iam::289701539771:user/dagutman"
     - "arn:aws:iam::292075781285:user/jmuhlich"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
