@@ -1,6 +1,6 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket-v2-v0.2.17.j2"
+template_path: "remote/s3-bucket-v2.j2"
 stack_name: "dian-uat-hm-migration-s3"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
@@ -45,4 +45,4 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.17/s3-bucket-v2.j2 -O templates/remote/s3-bucket-v2-v0.2.17.j2"
+    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.17/s3-bucket-v2.j2 -O templates/remote/s3-bucket-v2.j2"
