@@ -1,6 +1,6 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket-v2_v_0_2_18.j2"
+template_path: "remote/s3-bucket-v2_v_0_2_19.j2"
 stack_name: "dian-prod-hm-migration-s3"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
@@ -26,6 +26,7 @@ parameters:
 
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
+    - "arn:aws:iam::325565585839:root" # Required ARN for a synapse bucket
     - "arn:aws:iam::024584448019:user/cleardata/customer/michael.votaw"
     - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/bruce.hoff@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/bruce.hoff@sagebase.org"
@@ -45,4 +46,4 @@ parameters:
 # For CI system (do not change)
 hooks:
   before_launch:
-    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.18/s3-bucket-v2.j2 -O templates/remote/s3-bucket-v2_v_0_2_18.j2"
+    - !cmd "wget https://s3.amazonaws.com/{{stack_group_config.admincentral_cf_bucket}}/aws-infra/v0.2.19/s3-bucket-v2.j2 -O templates/remote/s3-bucket-v2_v_0_2_19.j2"
