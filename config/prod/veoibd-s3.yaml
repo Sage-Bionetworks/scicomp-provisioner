@@ -8,7 +8,7 @@ parameters:
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "VEO-IBD"
   # The resource owner
-  OwnerEmail: "cindy.molitor@sagebase.org"
+  OwnerEmail: "nicole.kauer@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
 
