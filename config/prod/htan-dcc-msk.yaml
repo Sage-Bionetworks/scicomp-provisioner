@@ -22,11 +22,13 @@ parameters:
     - "arn:aws:iam::583643567512:user/vianne"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::583643567512:user/yubin"
   DenyDeleteARNs:
     - "arn:aws:iam::583643567512:user/jchan"
     - "arn:aws:iam::583643567512:user/vianne"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::583643567512:user/yubin"
   S3AdminARNs:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/bruno.grande@sagebase.org"
