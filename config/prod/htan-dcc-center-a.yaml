@@ -8,9 +8,6 @@ stack_tags:
   Department: "CompOnc"
   Project: "HTAN"
   OwnerEmail: "bruno.grande@sagebase.org"
-hooks:
-  before_launch:
-    - !cmd "curl  --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
