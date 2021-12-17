@@ -1,6 +1,8 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html) that will
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
-template_path: "remote/s3-synapse-sync-bucket.j2"
+template: 
+  type: "http"
+  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.6.0/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-center-a"
 stack_tags:
   Department: "CompOnc"
@@ -8,7 +10,7 @@ stack_tags:
   OwnerEmail: "bruno.grande@sagebase.org"
 hooks:
   before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.6.0/s3-synapse-sync-bucket.j2 --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
+    - !cmd "curl  --create-dirs -o templates/remote/s3-synapse-sync-bucket.j2"
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
