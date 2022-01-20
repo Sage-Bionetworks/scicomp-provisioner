@@ -3,6 +3,11 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-s3WebCloudfront.yaml"
 stack_name: "aacr-interactome-s3website-new"
+stack_tags:
+  Department: "CompOnc"
+  Project: "AACR"
+  OwnerEmail: "xindi.guo@sagebase.org"
+  CostCenter: "Genie-AACR / 312000"
 parameters:
   # The department for this resource (i.e. CompOnc, SysBio, Platform, etc..)
   Department: "CompOnc"

@@ -3,6 +3,11 @@ template:
   url: "https://ecmonsen-emorypipeline-ci-lambdaartifactsbucket-jnlt9zs4haa7.s3.amazonaws.com/lambda-uploader/v1.0.3/ecmonsen-emorypipeline-lambda.yaml"
 # Note stack name must be 43 chars or less, otherwise bucket name is too long and CloudFormation fails
 stack_name: "ecmonsen-emorypipeline-lambda"
+stack_tags:
+  Department: "SysBio"
+  Project: "amp-ad"
+  OwnerEmail: "tess.thyer@sagebase.org"
+  CostCenter: "NIA AMP-AD CC / 101500"
 dependencies:
   - "prod/ecmonsen-emorypipeline-ci.yaml"
 parameters:
