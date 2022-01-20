@@ -24,4 +24,3 @@ parameters:
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
-
