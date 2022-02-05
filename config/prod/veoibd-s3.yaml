@@ -1,6 +1,8 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "veoibd-s3"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
@@ -34,10 +36,3 @@ parameters:
   # LifecycleDataTransition: '90'
   # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
   # LifecycleDataExpiration: '1825'
-
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
-  after_create:
-    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

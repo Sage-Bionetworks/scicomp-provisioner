@@ -17,7 +17,3 @@ parameters:
   JcConnectKey: !ssm "/infra/JcConnectKey"
   JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
   JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
-
-hooks:
-  after_create:
-    - !ec2_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

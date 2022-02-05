@@ -1,4 +1,5 @@
-template_path: "htan-synapse-sync-kms-key.yaml"
+template:
+  path: "htan-synapse-sync-kms-key.yaml"
 stack_name: "htan-synapse-sync-kms-key"
 stack_tags:
   Department: "CompOnc"
