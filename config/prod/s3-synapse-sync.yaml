@@ -1,4 +1,6 @@
-template_path: "remote/s3-synapse-sync.yaml"
+template:
+  type: "http"
+  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.6.0/s3-synapse-sync.yaml"
 stack_name: "s3-synapse-sync"
 stack_tags:
   Department: "CompOnc"
@@ -6,9 +8,6 @@ stack_tags:
   OwnerEmail: "bruno.grande@sagebase.org"
 dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.5.0/s3-synapse-sync.yaml --create-dirs -o templates/remote/s3-synapse-sync.yaml"
 parameters:
   BucketVariables: >-
     {
