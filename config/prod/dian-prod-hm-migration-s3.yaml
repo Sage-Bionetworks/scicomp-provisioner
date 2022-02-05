@@ -1,6 +1,8 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket-v2_v_0_2_19.j2"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.19/s3-bucket-v2.j2"
 stack_name: "dian-prod-hm-migration-s3"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
@@ -42,8 +44,3 @@ parameters:
   # LifecycleDataTransition: '90'
   # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
   # LifecycleDataExpiration: '1825'
-
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "wget https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.19/s3-bucket-v2.j2 -O templates/remote/s3-bucket-v2_v_0_2_19.j2"
