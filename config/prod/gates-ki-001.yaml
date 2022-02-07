@@ -1,5 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: "remote/s3-bucket.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "gates-ki-001"
 parameters:
   # The Sage deparment for this resource
@@ -17,8 +19,3 @@ parameters:
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
-  after_create:
-    - !synapse_bucket_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

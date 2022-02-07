@@ -1,5 +1,7 @@
 # Provision a load balancer for shiny.synapse.org
-template_path: "remote/managed-alb-https-v2.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-alb-https-v2.yaml"
 stack_name: "shinyserver-pro-prod-alb-v2"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
@@ -18,7 +20,3 @@ parameters:
     - !stack_output_external "computevpc::PublicSubnet"
     - !stack_output_external "computevpc::PublicSubnet1"
     - !stack_output_external "computevpc::PublicSubnet2"
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-alb-https-v2.yaml --create-dirs -o templates/remote/managed-alb-https-v2.yaml"

@@ -1,6 +1,8 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket-v2.j2"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2"
 stack_name: "TESLA-download-bucket"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
@@ -40,10 +42,3 @@ parameters:
   # LifecycleDataTransition: '90'
   # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
   # LifecycleDataExpiration: '1825'
-
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2 --create-dirs -o templates/remote/s3-bucket-v2.j2"
-  after_create:
-    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
