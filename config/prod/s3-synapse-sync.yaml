@@ -18,7 +18,8 @@ parameters:
       "htan-dcc-msk":{"SynapseProjectId":"syn23448901"},
       "htan-dcc-duke":{"SynapseProjectId":"syn23511961"},
       "htan-dcc-tnp-sardana":{"SynapseProjectId":"syn24984270"},
-      "htan-dcc-hms":{"SynapseProjectId":"syn22123910"}
+      "htan-dcc-hms":{"SynapseProjectId":"syn22123910"},
+      "htan-dcc-stanford":{"SynapseProjectId":"syn23511964"}
     }
   KmsDecryptPolicyArn: !stack_output_external "htan-synapse-sync-kms-key::KmsDecryptPolicyArn"
   BucketNamePrefix: "htan-dcc-*"
