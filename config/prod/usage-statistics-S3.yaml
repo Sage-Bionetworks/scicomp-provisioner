@@ -3,6 +3,12 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "usage-statistics-S3"
+stack_tags:
+  Department: "SysBio"
+  Project: "DataEngineering"
+  OwnerEmail: 'larsson.omberg@sagebase.org'
+  CostCenter: "NO PROGRAM / 000000"
+
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"

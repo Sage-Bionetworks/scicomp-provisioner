@@ -3,6 +3,11 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-ec2-linux-v1.j2"
 stack_name: "belltown-solly-2019"
+stack_tags:
+  Department: "SysBio"
+  Project: "amp-ad"
+  OwnerEmail: "solly.sieberts@sagebase.org"
+  CostCenter: "NIA AMP-AD CC / 101500"
 sceptre_user_data:
   Distro: "ubuntu"     # (valid values: aws, ubuntu) AMIId must match distro
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)

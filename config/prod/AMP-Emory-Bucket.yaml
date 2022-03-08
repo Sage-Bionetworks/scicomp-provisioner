@@ -3,6 +3,11 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "AMP-Emory-Bucket"
+stack_tags:
+  Department: "SysBio"
+  Project: "AMP-Emory"
+  OwnerEmail: "ampadportal@sagebase.org"
+  CostCenter: "TREAT AD - Emory / 121100"
 parameters:
   # The Sage deparment for this resource
   Department: "SysBio"

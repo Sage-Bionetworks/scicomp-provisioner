@@ -3,6 +3,11 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "amp-mayo-sinai"
+stack_tags:
+  Department: "NDR"
+  Project: "amp-ad-wgs"
+  OwnerEmail: 'william.poehlman@sagebase.org'
+  CostCenter: "Model AD-IU / 116000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "NDR"

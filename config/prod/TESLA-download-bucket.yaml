@@ -4,6 +4,11 @@ template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2"
 stack_name: "TESLA-download-bucket"
+stack_tags:
+  Department: "CompOnc"
+  Project: "TESLA"
+  OwnerEmail: "james.eddy@sagebase.org"
+  CostCenter: "NO PROGRAM / 000000"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   SynapseIDs: ["2223305"]  # James Eddy
