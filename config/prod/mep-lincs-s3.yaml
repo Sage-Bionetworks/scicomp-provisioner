@@ -11,7 +11,7 @@ stack_tags:
   Department: "SysBio"
   Project: "MEP-LINCS"
   OwnerEmail: "larsson.omberg@sagebase.org"
-  CostCenter: "Other / 000001"
+  CostCenter: "NO PROGRAM / 000000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"

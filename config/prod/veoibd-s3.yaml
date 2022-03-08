@@ -7,7 +7,8 @@ stack_name: "veoibd-s3"
 stack_tags:
   Department: "SysBio"
   Project: "VEO-IBD"
-  OwnerEmail: "nicole.kauer@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
+  CostCenter: "NO PROGRAM / 000000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
