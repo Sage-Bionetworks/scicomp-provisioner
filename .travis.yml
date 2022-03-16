@@ -1,29 +1,30 @@
-sudo: false
 language: python
 python: 3.8
 cache: pip
-fast_finish: true
-branches:
-  only:
-  - master
+env:
+  global:
+    - REPO_NAME="${PWD##*/}"
+    - AWS_PROFILE="ci-role"
+    - AWS_REGION="us-east-1"
 install:
-  - wget https://github.com/Sage-Bionetworks/infra-utils/archive/master.zip -O /tmp/infra-utils.zip
-  - unzip -j -n /tmp/infra-utils.zip -x "infra-utils-master/.gitignore" "infra-utils-master/LICENSE" "infra-utils-master/*.md" "infra-utils-master/aws/*"
-  - ./setup_aws_cli.sh || travis_terminate 1
-  - pip install pre-commit sceptre sceptre-ssm-resolver
-  - pip install git+git://github.com/Sage-Bionetworks/sceptre-provisioner-hooks.git
+  # install awscli v2
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - unzip awscliv2.zip && sudo ./aws/install
+  # install other tools
+  - pip install pre-commit travis-wait-improved sceptre sceptre-ssm-resolver
+before_script:
+  - mkdir -p ~/.aws
+  - echo -e "[profile ${AWS_PROFILE}]\nregion=${AWS_REGION}\nsource_profile=ci-user\nrole_arn=${AwsCfServiceRoleArn}" > ~/.aws/config
+  - echo -e "[ci-user]\nregion=${AWS_REGION}\naws_access_key_id=${AwsTravisAccessKey}\naws_secret_access_key=${AwsTravisSecretAccessKey}" > ~/.aws/credentials
 stages:
   - name: validate
   - name: deploy
-    if: branch = master AND type = push
+    if: type = push AND branch = master
 jobs:
   include:
     - stage: validate
       script:
         - pre-commit run --all-files
-# comment out lint_stack.sh due to https://sagebionetworks.jira.com/browse/IT-799
-#        - ./lint_stack.sh -l ./config/prod || travis_terminate 1
     - stage: deploy
       script:
-#        - ./lint_stack.sh -r || travis_terminate 1
-        - travis_wait 30 sceptre launch prod --yes
+        - travis_wait 30 AWS_PROFILE=${AWS_PROFILE} AWS_DEFAULT_REGION=${AWS_REGION} sceptre launch prod --yes
