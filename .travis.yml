@@ -27,4 +27,4 @@ jobs:
         - pre-commit run --all-files
     - stage: deploy
       script:
-        - travis_wait 30 AWS_PROFILE=${AWS_PROFILE} AWS_DEFAULT_REGION=${AWS_REGION} sceptre launch prod --yes
+        - AWS_PROFILE=${AWS_PROFILE} AWS_DEFAULT_REGION=${AWS_REGION} travis_wait 30 sceptre launch prod --yes
