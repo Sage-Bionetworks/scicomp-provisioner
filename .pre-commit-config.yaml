@@ -17,8 +17,10 @@ repos:
     rev: v1.1.13
     hooks:
     -   id: remove-tabs
--   repo: https://github.com/Sage-Bionetworks-IT/pre-commit-provisioner
-    rev: v0.0.6
+-   repo: https://github.com/sceptre/sceptrelint
+    rev: v1.0.1
     hooks:
-    -   id: compare-stack-and-file-names
-    -   id: check-stack-names
+    -    id: check-file-names
+    -    id: check-stack-names
+    -    id: check-stack-tags
+         args: [--tag=CostCenter]
