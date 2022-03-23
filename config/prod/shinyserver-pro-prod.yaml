@@ -1,7 +1,7 @@
 # Provision an EC2 instance
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/managed-ec2-linux-v2.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.3.9/EC2/jc-ec2-linux.j2"
 stack_name: "shinyserver-pro-prod"
 stack_tags:
   Department: "Platform"
@@ -14,12 +14,7 @@ sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
   OpenPorts: ["3838","4151"]
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "Platform"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Infrastucture"
-  # The resource owner
-  OwnerEmail: "x.schildwachter@sagebase.org"
+  JcUserId: "x.schildwachter@sagebase.org"
 
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"

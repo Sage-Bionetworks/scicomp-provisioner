@@ -1,7 +1,7 @@
 # Provision an EC2 instance
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-ec2-linux-v1.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.3.9/EC2/jc-ec2-linux.j2"
 stack_name: "belltown-solly-2019"
 stack_tags:
   Department: "SysBio"
@@ -13,12 +13,7 @@ sceptre_user_data:
   # (Optional) Expose ports to incoming traffic (default is no open ports) (valid range: 1-65535)
   # OpenPorts: ["80","443"]
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "amp-ad"
-  # The resource owner
-  OwnerEmail: "solly.sieberts@sagebase.org"
+  JcUserId: "solly.sieberts@sagebase.org"
 
   # Default account settings, leave alone unless you plan to override
   VpcName: "computevpc"

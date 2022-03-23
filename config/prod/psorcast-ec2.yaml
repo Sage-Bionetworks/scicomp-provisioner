@@ -1,6 +1,6 @@
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.13/managed-ec2-linux-v2.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.3.9/EC2/jc-ec2-linux.j2"
 stack_name: "psorcast-ec2"
 stack_tags:
   Department: "SysBio"
@@ -10,9 +10,7 @@ stack_tags:
 sceptre_user_data:
   Distro: "ubuntu"
 parameters:
-  Department: "SysBio"
-  Project: "psorcast"
-  OwnerEmail: "vijay.yadav@sagebase.org"
+  JcUserId: "vijay.yadav@sagebase.org"
   VpcName: "computevpc"
   KeyName: "scicomp"
   AMIId: "ami-0b7906ab614596e7e"  # packer-base-ubuntu-bionic-v1.0.9
