@@ -1,9 +1,15 @@
-template_path: ecmonsen-emorypipeline-ci.yaml
-stack_name: ecmonsen-emorypipeline-ci
+template:
+  path: "ecmonsen-emorypipeline-ci.yaml"
+stack_name: "ecmonsen-emorypipeline-ci"
+stack_tags:
+  Department: "SysBio"
+  Project: "amp-ad"
+  OwnerEmail: "tess.thyer@sagebase.org"
+  CostCenter: "NIA AMP-AD CC / 101500"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "amp-ad"
   # The resource owner
-  OwnerEmail: "eva.monsen@sagebase.org"
+  OwnerEmail: "tess.thyer@sagebase.org"

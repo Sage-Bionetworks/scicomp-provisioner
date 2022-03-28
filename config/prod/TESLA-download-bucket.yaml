@@ -2,33 +2,39 @@
 # http://docs.synapse.org/articles/custom_storage_location.html
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
-stack_name: "veoibd-s3"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2"
+stack_name: "TESLA-download-bucket"
 stack_tags:
-  Department: "SysBio"
-  Project: "VEO-IBD"
-  OwnerEmail: "thomas.yu@sagebase.org"
+  Department: "CompOnc"
+  Project: "TESLA"
+  OwnerEmail: "james.eddy@sagebase.org"
   CostCenter: "NO PROGRAM / 000000"
+sceptre_user_data:
+  # (Optional) Synapse IDs for owner.txt file
+  SynapseIDs: ["2223305"]  # James Eddy
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
+  Department: "CompOnc"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "VEO-IBD"
+  Project: "TESLA"
   # The resource owner
-  OwnerEmail: "nicole.kauer@sagebase.org"
+  OwnerEmail: "james.eddy@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
-  AllowWriteBucket: 'true'
+  AllowWriteBucket: "true"
 
   # Settings have default values but can be overriden. Set the below
   # parameters *only* if you want to override the defaults.
 
-  # (Optional) Synapse username (default ""), required if AllowWriteBucket=true
-  SynapseUserName: 'veoibd-admin'
+  # THIS CURRENTLY ONLY WORKS IN THE us-east-1 REGION!!!!!
+  # Data transfers within the same region between AWS resources are free.
+  # true to restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda) within the same region as this bucket.
+  # This will not allow even the owner of the bucket to download objects in this bucket when not using an AWS resource in the same region!
+  SameRegionResourceAccessToBucket: "true"
+
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
-    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/cindy.molitor@sagebase.org'
-
+    - "arn:aws:iam::325565585839:root"   # Required ARN for a synapse bucket
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/james.eddy@sagebase.org"
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'

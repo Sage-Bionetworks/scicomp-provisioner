@@ -1,6 +1,13 @@
 # Provision a load balancer for shiny.synapse.org
-template_path: remote/managed-alb-https-v2.yaml
-stack_name: shinyserver-pro-prod-alb-v2
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-alb-https-v2.yaml"
+stack_name: "shinyserver-pro-prod-alb-v2"
+stack_tags:
+  Department: "Platform"
+  Project: "Infrastucture"
+  OwnerEmail: "x.schildwachter@sagebase.org"
+  CostCenter: "Platform Infrastructure / 990300"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "Platform"
@@ -10,15 +17,11 @@ parameters:
   OwnerEmail: "x.schildwachter@sagebase.org"
 
   # load balancer configs
-  Ec2InstanceId: !stack_output_external shinyserver-pro-prod::Ec2InstanceId
+  Ec2InstanceId: !stack_output_external "shinyserver-pro-prod::Ec2InstanceId"
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
-  VpcId: !stack_output_external computevpc::VpcId
+  VpcId: !stack_output_external "computevpc::VPCId"
   AppPort: "3838"          # shiny port
   Subnets: # public subnets
-    - !stack_output_external computevpc::PublicSubnet
-    - !stack_output_external computevpc::PublicSubnet1
-    - !stack_output_external computevpc::PublicSubnet2
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-alb-https-v2.yaml --create-dirs -o templates/remote/managed-alb-https-v2.yaml"
+    - !stack_output_external "computevpc::PublicSubnet"
+    - !stack_output_external "computevpc::PublicSubnet1"
+    - !stack_output_external "computevpc::PublicSubnet2"
