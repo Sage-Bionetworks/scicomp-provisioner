@@ -11,12 +11,13 @@ sceptre_user_data:
   Distro: "ubuntu"
 parameters:
   JcUserId: "vijay.yadav@sagebase.org"
-  VpcName: "computevpc"
-  KeyName: "scicomp"
   AMIId: "ami-0b7906ab614596e7e"  # packer-base-ubuntu-bionic-v1.0.9
   InstanceType: "p2.xlarge"     # 1GPU / 4 vCPUs / 61 GiB / 12 GiB SSD
   VolumeSize: "300"
 
+  # do not change these
+  VpcName: "computevpc"
+  KeyName: "scicomp"
   JcConnectKey: !ssm "/infra/JcConnectKey"
   JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
   JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
