@@ -1,0 +1,24 @@
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.4.0/EC2/jc-ec2-linux.j2"
+stack_name: "EC2-gene-co-expression-5"
+stack_tags:
+  Department: "ADTR"
+  Project: "ConsensusNetworks"
+  OwnerEmail: "jake.gockley@sagebase.org"
+  CostCenter: "NIA AMP-AD CC / 101500"
+sceptre_user_data:
+  Distro: "aws"
+parameters:
+  JcUserId: "jake.gockley@sagebase.org"
+  AMIId: "ami-0c02fb55956c7d316"   #Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type
+  InstanceType: "c6i.32xlarge"
+  VolumeSize: "300"        # in GB
+  VpcSubnet: "PrivateSubnet"    # For public access change to PublicSubnet
+
+  # do not change these
+  VpcName: "computevpc"
+  KeyName: "scicomp"
+  JcConnectKey: !ssm "/infra/JcConnectKey"
+  JcServiceApiKey: !ssm "/infra/JcServiceApiKey"
+  JcSystemsGroupId: !ssm "/infra/JcSystemsGroupId"
