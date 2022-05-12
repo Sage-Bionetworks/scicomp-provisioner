@@ -2,7 +2,7 @@
 # Based on the PR here: https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/504/files
 
 template:
-  type: http
+  type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.4.0/managed-alb-https-v2.yaml"
 stack_name: "minidream-rstudio-2022-ec2-alb"
 dependencies:

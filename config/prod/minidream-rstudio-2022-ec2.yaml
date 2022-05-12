@@ -2,7 +2,7 @@
 # Based on the PR here: https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/504/files
 
 template:
-  type: http
+  type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.4.0/EC2/jc-ec2-linux.j2"
 stack_name: "minidream-rstudio-2022-ec2"
 
@@ -13,7 +13,7 @@ parameters:
   VpcName: "computevpc"
   #KeyName: "scicomp" #relying on JcUserId instead
   AMIId: "ami-0b7906ab614596e7e"  # packer-base-ubuntu-bionic-v1.0.9
-  InstanceType: "x1.16xlarge"     # 64 vCPUs / 976 GiB / 1920 GiB SSD
+  InstanceType: "x2gd.8xlarge"     # 64 vCPUs / 976 GiB / 1920 GiB SSD
   VolumeSize: "500"
   BackupEc2: "true"
   SnapshotCount: "3"
