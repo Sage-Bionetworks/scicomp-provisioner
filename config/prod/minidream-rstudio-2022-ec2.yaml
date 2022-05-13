@@ -13,7 +13,7 @@ parameters:
   VpcName: "computevpc"
   #KeyName: "scicomp" #relying on JcUserId instead
   AMIId: "ami-0b7906ab614596e7e"  # packer-base-ubuntu-bionic-v1.0.9
-  InstanceType: "x2gd.8xlarge"     # 64 vCPUs / 976 GiB / 1920 GiB SSD
+  InstanceType: "x2gd.8xlarge"     # 32 vCPUs / 512 GiB
   VolumeSize: "500"
   BackupEc2: "true"
   SnapshotCount: "3"
