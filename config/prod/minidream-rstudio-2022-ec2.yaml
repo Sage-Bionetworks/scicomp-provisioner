@@ -10,6 +10,7 @@ sceptre_user_data:
   Distro: "ubuntu"
   OpenPorts: ["443"]  # On a private subnet (default)
 parameters:
+  KeyName: "scicomp"
   VpcName: "computevpc"
   AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.10
   InstanceType: "r5.16xlarge"     # 64 vCPUs / 512 GiB / 20 Gbps
