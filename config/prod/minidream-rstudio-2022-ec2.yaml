@@ -13,7 +13,7 @@ parameters:
   KeyName: "scicomp"
   VpcName: "computevpc"
   AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.9
-  InstanceType: "x2gd.8xlarge"     # 32 vCPUs / 512 GiB
+  InstanceType: "r5a.12xlarge"     # 32 vCPUs / 512 GiB
   VolumeSize: "500"
   BackupEc2: "true"
   SnapshotCount: "3"
