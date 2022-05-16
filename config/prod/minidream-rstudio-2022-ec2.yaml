@@ -11,8 +11,8 @@ sceptre_user_data:
   OpenPorts: ["443"]  # On a private subnet (default)
 parameters:
   VpcName: "computevpc"
-  AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.9
-  InstanceType: "x2gd.8xlarge"     # 32 vCPUs / 512 GiB
+  AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.10
+  InstanceType: "r5.16xlarge"     # 64 vCPUs / 512 GiB / 20 Gbps
   VolumeSize: "500"
   BackupEc2: "true"
   SnapshotCount: "3"
