@@ -14,7 +14,7 @@ parameters:
   VpcName: "computevpc"
   AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.10
   InstanceType: "r5a.12xlarge"     # 48 vCPUs / 384 GiB
-  VolumeSize: "500"
+  VolumeSize: "1000"
   BackupEc2: "true"
   SnapshotCount: "3"
   JcUserId: "lingling.peng@sagebase.org"
