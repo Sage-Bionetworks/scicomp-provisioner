@@ -12,8 +12,8 @@ sceptre_user_data:
 parameters:
   KeyName: "scicomp"
   VpcName: "computevpc"
-  AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.9
-  InstanceType: "r5a.12xlarge"     # 32 vCPUs / 512 GiB
+  AMIId: "ami-0a3c3e0cb6ae0cc6c"  # packer-base-ubuntu-bionic-v1.0.10
+  InstanceType: "r5a.12xlarge"     # 48 vCPUs / 384 GiB
   VolumeSize: "500"
   BackupEc2: "true"
   SnapshotCount: "3"
