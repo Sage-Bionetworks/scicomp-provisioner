@@ -21,11 +21,13 @@ parameters:
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+    - "arn:aws:iam::292075781285:user/jmuhlich"
   DenyDeleteARNs:
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+    - "arn:aws:iam::292075781285:user/jmuhlich"
   S3AdminARNs:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/bruno.grande@sagebase.org"

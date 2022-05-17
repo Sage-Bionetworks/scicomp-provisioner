@@ -17,6 +17,7 @@ parameters:
     - "3391844" #HTAN DCC
     - "3413795" #service acct
   S3UserARNs:
+    - "arn:aws:iam::292075781285:user/jmuhlich"
     - "arn:aws:iam::364787550714:user/abs33@duke.edu-p1b-dheso2"
     - "arn:aws:iam::364787550714:user/mrl17@duke.edu-p1b-dheso2"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
@@ -24,6 +25,7 @@ parameters:
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
   DenyDeleteARNs:
+    - "arn:aws:iam::292075781285:user/jmuhlich"
     - "arn:aws:iam::364787550714:user/abs33@duke.edu-p1b-dheso2"
     - "arn:aws:iam::364787550714:user/mrl17@duke.edu-p1b-dheso2"
     - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
