@@ -18,9 +18,13 @@ repos:
     hooks:
     -   id: remove-tabs
 -   repo: https://github.com/sceptre/sceptrelint
-    rev: v1.0.1
+    rev: v1.1.0
     hooks:
     -    id: check-file-names
     -    id: check-stack-names
-    -    id: check-stack-tags
-         args: [--tag=CostCenter]
+    -    id: check-stack-tag-values
+         args: [--tag=CostCenter,
+                --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodes.json,
+                --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodesOther.json,
+                --exclude=Other / 000001
+         ]
