@@ -2,7 +2,7 @@
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
 template:
   type: "http"
-  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.6.0/s3-synapse-sync-bucket.j2"
+  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.6.1/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-tnp-sardana"
 stack_tags:
   Department: "CompOnc"
