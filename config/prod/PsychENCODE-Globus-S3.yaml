@@ -1,0 +1,30 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+template:
+  type: "http"
+  url: ""
+stack_name: "PsychENCODE-Globus-S3"
+stack_tags:
+  Department: "SysBio"
+  Project: "PsychENCODE"
+  OwnerEmail: 'dan.lu@sagebase.org'
+  CostCenter: "NO PROGRAM / 000000"
+parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "PsychENCODE"
+  # The resource owner
+  OwnerEmail: 'dan.lu@sagebase.org'
+
+  # The following parameters are only examples they are not required.
+  # You may omit them if you do not need to override the defaults.
+  # (Optional) true (default) to encrypt bucket, false for no encryption
+  EncryptBucket: 'false' # allow external users access to the bucket
+  # (Optional) true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+  # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
+  SynapseUserName: 'danlu'
+  # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
+  GrantAccess:
+    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/dan.lu@sagebase.org'
