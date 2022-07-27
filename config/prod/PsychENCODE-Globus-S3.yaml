@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: ""
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.4.4/templates/S3/synapse-external-bucket.j2"
 stack_name: "PsychENCODE-Globus-S3"
 stack_tags:
   Department: "SysBio"
@@ -9,17 +9,9 @@ stack_tags:
   OwnerEmail: 'dan.lu@sagebase.org'
   CostCenter: "NO PROGRAM / 000000"
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "PsychENCODE"
-  # The resource owner
-  OwnerEmail: 'dan.lu@sagebase.org'
-
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
   # (Optional) true (default) to encrypt bucket, false for no encryption
-  EncryptBucket: 'false' # allow external users access to the bucket
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
