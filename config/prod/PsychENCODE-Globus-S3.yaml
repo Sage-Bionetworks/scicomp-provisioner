@@ -7,7 +7,7 @@ stack_tags:
   Department: "SysBio"
   Project: "PsychENCODE"
   OwnerEmail: "dan.lu@sagebase.org"
-  CostCenter: "NO PROGRAM / 000000"
+  CostCenter: "PECDCC-UMass / 106000"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
