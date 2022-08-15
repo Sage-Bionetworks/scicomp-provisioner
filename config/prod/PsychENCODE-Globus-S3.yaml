@@ -19,7 +19,6 @@ parameters:
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/dan.lu@sagebase.org'
-    - 'arn:aws:iam::531197219947:user/ucla-orion-transfer-user'
 sceptre_user_data:
   SynapseIDs:
     - "3434599"
