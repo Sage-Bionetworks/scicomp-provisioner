@@ -9,21 +9,17 @@ stack_tags:
   OwnerEmail: 'robert.allaway@sagebionetworks.org'
   CostCenter: "NTAP NF Addendum 4 / 301100"
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SCCE"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "neurofibromatosis"
-  # The resource owner
-  OwnerEmail: 'robert.allaway@sagebionetworks.org'
-
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
-
+  # (Optional) true (default) to encrypt bucket, false for no encryption
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
-  SynapseUserName: 'allawayr'
+  
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/robert.allaway@sagebase.org'
+    - 'arn:aws:sts::237179673806:assumed-role/AWSReservedSSO_Community-Manager_84cea7c897f3f843/robert.allaway@sagebase.org'
+sceptre_user_data:
+  SynapseIDs:
+    - "3342573"
