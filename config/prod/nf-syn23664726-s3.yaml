@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.4.8/templates/S3/synapse-external-bucket.j2"
 stack_name: "nf-syn23664726-s3"
 stack_tags:
   Department: "SCCE"
