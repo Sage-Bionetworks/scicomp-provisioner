@@ -15,7 +15,6 @@ parameters:
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
-  
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
