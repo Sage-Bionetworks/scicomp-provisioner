@@ -18,7 +18,8 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::237179673806:assumed-role/AWSReservedSSO_Community-Manager_84cea7c897f3f843/robert.allaway@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/robert.allaway@sagebase.org'
+    - 'arn:aws:iam::694704239947:root' ## Nebula Genomics access
 sceptre_user_data:
   SynapseIDs:
     - "3342573"
