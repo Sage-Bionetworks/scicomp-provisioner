@@ -1,0 +1,140 @@
+Description: Setup service account and roles for Emory pipeline lambda
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  Department:
+    Description: 'The department for this resource'
+    Type: String
+    AllowedPattern: '^\S*$'
+    ConstraintDescription: 'Must be string with no spaces'
+    Default: 'SysBio'
+  Project:
+    Description: 'The name of the project that this resource is used for'
+    Type: String
+    AllowedPattern: '^\S*$'
+    ConstraintDescription: 'Must be string with no spaces'
+    Default: 'AMP-AD'
+  OwnerEmail:
+    Description: 'Email address of the owner of this resource'
+    Type: String
+    AllowedPattern: '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+    ConstraintDescription: 'Must be an acceptable email address syntax(i.e. joe.smith@sagebase.org)'
+    Default: 'eva.monsen@sagebase.org'
+
+Resources:
+  # !! IMPORTANT !! - AWS API will refuse to remove users that have attached resources.
+  # Therefore you must do the following before deleting them from this file:
+  # 1. Detach or remove the following user resources: login profile, attached
+  #    MFA device, access-keys, ssh-keys, and policies.
+  # 2. Detach the user from all groups.
+  LambdaArtifactsBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      Tags:
+        - Key: "Department"
+          Value: !Ref Department
+        - Key: "Project"
+          Value: !Ref Project
+        - Key: "OwnerEmail"
+          Value: !Ref OwnerEmail
+
+  # Allow public read on lambda bucket so that build users can read from it
+  # Same as bootstrap bucket https://github.com/Sage-Bionetworks/aws-infra/blob/206c4b0ecafc8966561a2bfb3adfeb9ffa872048/templates/bootstrap.yaml#L66
+  LambdaArtifactsBucketBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref LambdaArtifactsBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Sid: "AllowPublicRead"
+            Effect: "Allow"
+            Principal:
+              AWS: "*"
+            Action: "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${LambdaArtifactsBucket}/*"
+
+  CfnDeployerServiceUser:
+    Type: 'AWS::IAM::User'
+  CfnDeployerServiceUserAccessKey:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      UserName: !Ref CfnDeployerServiceUser
+  CfnDeployerServiceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              AWS:
+                - !GetAtt CfnDeployerServiceUser.Arn
+            Action:
+              - "sts:AssumeRole"
+  CfnDeployerServiceRolePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: "deployer"
+      Roles:
+        - !Ref CfnDeployerServiceRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Action:
+              - s3:ListBucket
+              - s3:GetBucketLocation
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${LambdaArtifactsBucket}"
+          - Action:
+              - s3:PutObject
+              - s3:PutObjectAcl
+              - s3:GetObject
+              - s3:GetObjectAcl
+              - s3:DeleteObject
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::${LambdaArtifactsBucket}/*"
+          # "sam validate" requires ListPolicies permissions
+          # see the reason here:
+          # https://github.com/awslabs/serverless-application-model/blob/9de1f6a99d9b62277ad6debe3a391a040d02564a/samtranslator/translator/managed_policy_translator.py#L8
+          - Sid: "ListAWSManagedPolicies"
+            Action:
+              - iam:ListPolicies
+            Effect: Allow
+            Resource:
+              - "*"
+Outputs:
+  LambdaArtifactsBucketName:
+    Value: !Ref LambdaArtifactsBucket
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-LambdaArtifactsBucketName'
+  LambdaArtifactsBucketArn:
+    Value: !GetAtt LambdaArtifactsBucket.Arn
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-LambdaArtifactsBucketArn'
+  CfnDeployerServiceUser:
+    Value: !Ref CfnDeployerServiceUser
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceUser'
+  CfnDeployerServiceUserArn:
+    Value: !GetAtt CfnDeployerServiceUser.Arn
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceUserArn'
+  CfnDeployerServiceUserAccessKey:
+    Value: !Ref CfnDeployerServiceUserAccessKey
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceUserAccessKey'
+  CfnDeployerServiceUserSecretAccessKey:
+    Value: !GetAtt CfnDeployerServiceUserAccessKey.SecretAccessKey
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceUserSecretAccessKey'
+  CfnDeployerServiceRole:
+    Value: !Ref CfnDeployerServiceRole
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceRole'
+  CfnDeployerServiceRoleArn:
+    Value: !GetAtt CfnDeployerServiceRole.Arn
+    Export:
+      Name: !Sub '${AWS::Region}-${AWS::StackName}-CfnDeployerServiceRoleArn'

@@ -1,5 +1,4 @@
 project_code: sage-bionetworks
-profile: {{ var.profile | default("default") }}
 region: {{ var.region | default("us-east-1") }}
 template_bucket_name: bootstrap-awss3cloudformationbucket-114n2ojlbvj21
 template_key_prefix: {{ environment_variable.TRAVIS_BRANCH | default("testing") }}
@@ -13,4 +12,3 @@ default_key_pair: "scicomp"
 default_vpc: "computevpc"
 default_win_ami: "ami-0388ce15d3f7066cb"
 default_ubuntu_ami: "ami-0618d7bfcc5a707aa"
-

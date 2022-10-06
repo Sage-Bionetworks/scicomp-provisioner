@@ -1,77 +1,49 @@
 # Overview
-Auto provision resources on AWS scicomp account. Cloudformation templates
-in this repo build on top of CF templates in Sage-Bionetworks/scicomp-infra
-repo.
-
-*Note - This project depends on CF templates from other accounts.*
+Auto provision resources into AWS org-sagebase-scicomp account.
 
 ## Workflow
 The workflow to provision AWS resources is done using pull requests.
-PRs provide history, gating, and a way to review and approve resource
-requests.
+Request using PRs provide history, gating, reviewing and an approval
+process.
 
-### Provision EC2 instances
-Instructions and workflow to auto provision and de-provision an EC2 is in
-[Example PR: Auto provision an EC2 instance](https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/3)
+## Contributions
+Contributions are welcome.
 
-Merging the above should create an EC2 instance and join the instance to a Sage
-Jumpcloud "system group" identified by $JcSystemsGroupId.  Jumpcloud
-"User groups" that have access to $JcSystemsGroupId will have access to
-the provisioned instance.
+Requirements:
+* Install [pre-commit](https://pre-commit.com/#install) app
+* Clone this repo
+* Run `pre-commit install` to install the git hook.
 
-#### EC2 AMIs
-We allow provisioning based on custom AMIs.  List of Sage IT managed AMIs:
+## Testing
+As a pre-deployment step we syntatically validate our sceptre and
+cloudformation yaml files with [pre-commit](https://pre-commit.com).
 
-AMI ID|Distribution|Volume|Comment|
------------|------------|---------|-------|
-ami-082278746f893d99c|AWS linux 2|8GB encrypted boot volume|Default AMI|
+Please install pre-commit, once installed the file validations will
+automatically run on every commit.  Alternatively you can manually
+execute the validations by running `pre-commit run --all-files`.
 
+## Provision resources
+Instructions and workflow to auto provision and de-provision resources are
+in [Example PRs](https://github.com/Sage-Bionetworks/scicomp-provisioner/pulls?q=is%3Apr+%22Example+PR%22+is%3Aclosed)
 
-## Jumpcloud
-We use a directory service [Jumpcloud](https://jumpcloud.com/)
-to manage user access to EC2 instances.  
+### Stack & config file names
+The value of a stack's `stack_name` parameter must match the config's file
+name.  Stack names can contain only alphanumeric characters (case-sensitive)
+and hyphens. They must start with an alphabetic character and can't be longer
+than 128 characters.
 
-
-### Jumpcloud System Groups
-Find [system groups](https://docs.jumpcloud.com/2.0/system-groups/list-all-systems-groups)
-by using the Jumpcloud API:
-```
-curl -X GET https://console.jumpcloud.com/api/v2/systemgroups \
-  -H 'Accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: abcd111122223333aaaabbbbccccddddeeeeffff'
-```
-
-### Jumpcloud Systems
-Find [systems](https://docs.jumpcloud.com/1.0/systems/list-all-systems)
-by using the Jumpcloud API:
-```
-curl -X GET https://console.jumpcloud.com/api/systems \
-  -H 'Accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: abcd111122223333aaaabbbbccccddddeeeeffff'
-```
-
-### Provision a Synapse external S3 bucket
-Instructions and workflow to auto provision a
-[Synapse external S3 bucket](http://docs.synapse.org/articles/custom_storage_location.html) 
-can be found in 
-[Example PR: Auto provision a synapse bucket](https://github.com/Sage-Bionetworks/scicomp-provisioner/pull/14)
-
-Merging the above should create a synapse bucket with the configurations defined in
-the documentation.
+## Deployments
+We use [sceptre](https://sceptre.github.io/) and [cloudformation](https://aws.amazon.com/cloudformation/)
+to deploy resources onto an AWS account.
 
 ## Continuous Integration
-We have configured Travis to deploy CF template updates.  Travis deploys using
-[sceptre](https://sceptre.cloudreach.com/latest/about.html)
-
-# Contributions
+We have configured [Travis](https://travis-ci.org) to deploy CF template updates.
 
 ## Issues
 * https://sagebionetworks.jira.com/projects/IT
 
 ## Builds
-* https://travis-ci.org/Sage-Bionetworks/scicomp-infra
+* https://travis-ci.org/Sage-Bionetworks/scicomp-provisioner
 
 ## Secrets
 * We use the [AWS SSM](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)

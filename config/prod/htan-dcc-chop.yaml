@@ -1,0 +1,40 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html) that will
+# work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
+template:
+  type: "http"
+  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.6.1/s3-synapse-sync-bucket.j2"
+stack_name: "htan-dcc-chop"
+stack_tags:
+  Department: "CompOnc"
+  Project: "HTAN"
+  OwnerEmail: "bruno.grande@sagebase.org"
+  CostCenter: "HTAN-DFCI / 120100"
+dependencies:
+  - "prod/s3-synapse-sync.yaml"
+parameters:
+  BucketName: "htan-dcc-chop"
+  SynapseIDs:
+    - "3391844" #HTAN DCC
+    - "3413795" #service acct
+  S3UserARNs:
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+  DenyDeleteARNs:
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
+    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+  S3AdminARNs:
+    - "arn:aws:iam::426577889437:user/clarisse.lau"
+    - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_viewer-plus_96e9ce963c940f21/bruno.grande@sagebase.org"
+  S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
+  S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
+
+# Due to circular dependencies, enabling bucket notification must be done after bucket creation
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html
+sceptre_user_data:
+  EnableNotificationConfiguration: "false"

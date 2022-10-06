@@ -2,19 +2,19 @@
 template:
   type: "http"
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
-stack_name: "JKG-SciComp-S3"
+stack_name: "amp-mayo-sinai"
 stack_tags:
-  Department: "SysBio"
-  Project: "amp-ad"
-  OwnerEmail: 'jake.gockley@sagebase.org'
-  CostCenter: "NIA AMP-AD CC / 101500"
+  Department: "NDR"
+  Project: "amp-ad-wgs"
+  OwnerEmail: 'william.poehlman@sagebase.org'
+  CostCenter: "Model AD-IU / 116000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
+  Department: "NDR"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "amp-ad"
+  Project: "amp-ad-wgs"
   # The resource owner
-  OwnerEmail: 'jake.gockley@sagebase.org'
+  OwnerEmail: 'william.poehlman@sagebase.org'
 
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
@@ -22,8 +22,17 @@ parameters:
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
-  SynapseUserName: 'jgockley'
+  SynapseUserName: 'wpoehlm'
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jake.gockley@sagebase.org'
+    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/william.poehlman@sagebase.org'
+
+  # Restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda)
+  # within the same region as this bucket.  This will not allow even the owner of the bucket
+  # to download objects in this bucket when not using an AWS resource in the same region!
+  SameRegionResourceAccessToBucket: "true"
+
+  # Enable Intelligent-tiering storage
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'

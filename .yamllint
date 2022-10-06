@@ -27,4 +27,10 @@ rules:
   truthy: disable
   new-line-at-end-of-file:
     level: warning
-
+  quoted-strings:
+    ignore: |
+      .yamllint
+      .pre-commit-config.yaml
+      .travis.yml
+      config/config.yaml
+      templates/

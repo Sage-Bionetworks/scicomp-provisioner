@@ -1,0 +1,30 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/adrienverge/yamllint
+    rev: v1.26.3
+    hooks:
+    -   id: yamllint
+-   repo: https://github.com/awslabs/cfn-python-lint
+    rev: v0.61.1
+    hooks:
+    -   id: cfn-python-lint
+        files: templates/.*\.(json|yml|yaml)$
+-   repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.3.0
+    hooks:
+    -   id: remove-tabs
+-   repo: https://github.com/sceptre/sceptrelint
+    rev: v1.2.0
+    hooks:
+    -    id: check-file-names
+    -    id: check-stack-names
+    -    id: check-stack-tag-values
+         args: [--tag=CostCenter,
+                --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodes.json,
+                --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodesOther.json,
+                --exclude=Other / 000001
+         ]
