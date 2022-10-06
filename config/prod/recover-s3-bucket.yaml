@@ -7,7 +7,7 @@ stack_tags:
   Department: "SysBio"
   Project: "recover"
   OwnerEmail: 'meghasyam@sagebase.org'
-  CostCenter: "RECOVER / 122500"
+  CostCenter: "MGH RECOVER / 122500"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
