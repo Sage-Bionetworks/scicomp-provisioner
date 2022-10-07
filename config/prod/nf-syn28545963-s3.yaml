@@ -11,10 +11,8 @@ stack_tags:
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
-  # (Optional) true (default) to encrypt bucket, false for no encryption
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
-  # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
