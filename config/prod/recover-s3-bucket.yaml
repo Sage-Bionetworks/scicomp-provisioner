@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.4.8/templates/S3/synapse-external-bucket.j2"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.5.0/templates/S3/synapse-external-bucket.j2"
 stack_name: "recover-s3-bucket"
 stack_tags:
   Department: "SysBio"
@@ -19,8 +19,6 @@ parameters:
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/meghasyam@sagebase.org'
-    - 'arn:aws:iam::621233246578:role/EES3-RK-72CF2DF7-RECOVER-Adult' # Care Evolution access (PROD (may need additional roles for Pediatric projects going forward))
-    - 'arn:aws:iam::621233246578:role/EES3-RK-6A32F45B-RECOVER' # Care Evolution access (TEST/pilot)
 sceptre_user_data:
   SynapseIDs:
     - "3357179" # Megha's synapse profileID
