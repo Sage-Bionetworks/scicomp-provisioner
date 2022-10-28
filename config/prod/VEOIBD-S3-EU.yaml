@@ -8,7 +8,7 @@ stack_tags:
   Project: "veo-ibd"
   OwnerEmail: "dan.lu@sagebase.org"
   CostCenter: "Helmsley VEOIBD / 314100"
-region:
+region: "eu-central-1"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
