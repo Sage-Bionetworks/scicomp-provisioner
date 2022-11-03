@@ -18,8 +18,6 @@ parameters:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/robert.allaway@sagebase.org'
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/sasha.scott@sagebase.org'
-    - 'arn:aws:iam::184059545989:role/NCBI-CSVM-Service' #NCBI data delivery tool
-    - 'arn:aws:iam::783971887864:role/NCBI-CSVM-Service' #NCBI data delivery tool
 sceptre_user_data:
   SynapseIDs:
     - "3342573"
