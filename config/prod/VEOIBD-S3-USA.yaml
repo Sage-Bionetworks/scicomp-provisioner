@@ -21,8 +21,4 @@ parameters:
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/dan.lu@sagebase.org'
 sceptre_user_data:
   SynapseIDs:
-    - "syn29377188"
-    - "syn35284017"
-    - "syn35283613"
-    - "syn35283625"
-    - "syn35283991"
+    - "3434599"
