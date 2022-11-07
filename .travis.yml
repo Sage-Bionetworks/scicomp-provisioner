@@ -27,4 +27,4 @@ jobs:
         - pre-commit run --all-files
     - stage: deploy
       script:
-        - AWS_PROFILE=${AWS_PROFILE} travis_wait 30 sceptre launch prod --yes
+        - '[ "$(ls -A ./config/prod)" ] && AWS_PROFILE=${AWS_PROFILE} travis_wait 30 sceptre launch prod --prune --yes || echo "No Stacks"'
