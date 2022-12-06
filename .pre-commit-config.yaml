@@ -26,5 +26,6 @@ repos:
          args: [--tag=CostCenter,
                 --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodes.json,
                 --file=https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/tags/SageFinancialProgramCodesOther.json,
+                --file=DeprecatedProgramCodes.json,
                 --exclude=Other / 000001
          ]
