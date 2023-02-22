@@ -1,7 +1,7 @@
 # For storage of files related to usage statistics reporting
 template:
   type: "http"
-  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/master/templates/S3/synapse-external-bucket.j2"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.6.7/templates/S3/synapse-external-bucket.j2"
 stack_name: "usage-statistics-S3"
 stack_tags:
   Department: "SysBio"
