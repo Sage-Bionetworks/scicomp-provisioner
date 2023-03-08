@@ -18,7 +18,7 @@ repos:
     hooks:
     -   id: remove-tabs
 -   repo: https://github.com/sceptre/sceptrelint
-    rev: v1.2.0
+    rev: v1.3.0
     hooks:
     -    id: check-file-names
     -    id: check-stack-names
