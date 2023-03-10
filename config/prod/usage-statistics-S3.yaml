@@ -7,7 +7,7 @@ stack_tags:
   Department: "SysBio"
   Project: "DataEngineering"
   OwnerEmail: 'larsson.omberg@sagebase.org'
-  CostCenter: "NO PROGRAM / 000000"
+  CostCenter: "No Program / 000000"
 
 parameters:
   GrantAccess:
