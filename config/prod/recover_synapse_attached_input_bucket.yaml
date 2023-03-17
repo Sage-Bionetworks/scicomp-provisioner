@@ -1,4 +1,8 @@
-# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+# Provision a general S3 bucket or a Synapse External Bucket
+# http://docs.synapse.org/articles/custom_storage_location.html
+
+# For use in RECOVER Synapse project (syn51105296)
+
 #### 
 # NOTE:
 # This is the second bucket in the ingress pipeline for RECOVER project. We will create a copy of the first bucket (recover_input_shared_bucket).
