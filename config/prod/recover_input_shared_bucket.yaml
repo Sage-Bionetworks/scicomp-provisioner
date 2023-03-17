@@ -21,7 +21,7 @@ parameters:
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc.,)
   Project: "RECOVER"
   # The resouce owner
-  OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org' 
+  OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org'
   # This is the shared account (credentials shared on Last Pass) for RECOVER
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
