@@ -1,0 +1,37 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+#### 
+# NOTE:
+# This is the first bucket in the ingress pipeline for RECOVER project. We expect to receive data from Care Evolution in this bucket.
+# This would be the raw version of the data, no QC, no QA - just all the data dump from Care Evolution
+# Both Care Evolution and Sage have access to this bucket
+####
+template:
+  type: "http"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.5.0/templates/S3/synapse-external-bucket.j2"
+stack_name: "recover-input-shared-bucket"
+stack_tags:
+  Department: "SysBio"
+  Project: "RECOVER"
+  OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org'
+  # This is the shared account (credentials shared on Last Pass) for RECOVER
+  CostCenter: "MGH RECOVER / 122500"
+parameters:
+  # The Sage department (Platform, CompOnc, SysBio, Governance, etc.,)
+  Department: "SysBio"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc.,)
+  Project: "RECOVER"
+  # The resouce owner
+  OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org' 
+  # This is the shared account (credentials shared on Last Pass) for RECOVER
+  # (Optional) true for read-write bucket, false (default) for read-only bucket
+  AllowWriteBucket: 'true'
+  # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
+  SynapseUserName: 'meghasyam'
+  # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
+  GrantAccess:
+    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/meghasyam@sagebase.org'
+    - 'arn:aws:iam::621233246578:role/EES3-RK-6A32F45B-RECOVER' # QA ARN role for Care Evolution
+sceptre_user_data:
+  SynapseIDs:
+    - "3357179" # Megha's synapse profileID
