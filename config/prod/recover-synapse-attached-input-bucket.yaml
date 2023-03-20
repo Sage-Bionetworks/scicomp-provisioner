@@ -16,23 +16,12 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "recover-synapse-attached-input-bucket"
 stack_tags:
-  Department: "SysBio"
-  Project: "RECOVER"
   OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org'
   # This is the shared account (credentials shared on Last Pass) for RECOVER
   CostCenter: "MGH RECOVER / 122500"
 parameters:
-  # The Sage department (Platform, CompOnc, SysBio, Governance, etc.,)
-  Department: "SysBio"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc.,)
-  Project: "RECOVER"
-  # The resouce owner
-  OwnerEmail: 'synapse-service-sysbio-recover-data-storage-01@sagebase.org'
-  # This is the shared account (credentials shared on Last Pass) for RECOVER
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
-  # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
-  SynapseUserName: 'meghasyam'
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
