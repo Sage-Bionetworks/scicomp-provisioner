@@ -1,4 +1,4 @@
-name: "scicomp-provisioner-gha"
+name: "deploy"
 on:
   push:
     branches:
@@ -16,29 +16,15 @@ jobs:
         with:
           python-version: 3.9
       - uses: pre-commit/action@v3.0.0
-  sceptre-validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: 'Sceptre Validate dev'
-        uses: Sceptre/github-ci-action@master
-        with:
-          sceptre_version: '4.0.2'
-          sceptre_subcommand: 'validate dev'
-      - name: 'Sceptre Validate prod'
-        uses: Sceptre/github-ci-action@master
-        with:
-          sceptre_version: '4.0.2'
-          sceptre_subcommand: 'validate prod'
   sceptre-deploy:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/master' }}
-    needs: [ 'pre-commit', 'sceptre-validate' ]
+    needs: [ 'pre-commit' ]
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: Assume AWS Role
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::055273631518:role/sagebase-github-oidc-sage-ProviderRolescicompprovi-BWN39S0CL6IZ
