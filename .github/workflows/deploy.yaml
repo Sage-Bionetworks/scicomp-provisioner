@@ -31,7 +31,7 @@ jobs:
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1800
       - name: 'Sceptre Launch prod'
-        uses: Sceptre/github-ci-action@master
+        uses: Sceptre/github-ci-action@v2.2.0
         with:
           sceptre_version: '4.0.2'
           sceptre_plugins: >-
