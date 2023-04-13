@@ -17,7 +17,7 @@ parameters:
   AppPort: "443"          # nginx reverse proxy
   Subnets: "subnet-21a68d7c,subnet-4f3e2b2b,subnet-77d1e458"  # public subnets
 stack_tags:
-  CostCenter: "Multi-Consortia Coordinating Center (MC2 Center) / 123100"
+  CostCenter: "Multi-Consortia Coordinating Center MC2 Center / 123100"
 # After deployment, Ec2SecurityGroup must be manually attached to the EC2 referenced by Ec2InstanceId:
 # https://github.com/Sage-Bionetworks/aws-infra/blob/v0.2.13/templates/managed-alb-https-v2.yaml#L5-L8
 # Also, update DNS for minidream.synapse.org to point to this ALB once deployed.
