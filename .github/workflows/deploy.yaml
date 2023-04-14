@@ -1,0 +1,39 @@
+name: "deploy"
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - uses: pre-commit/action@v3.0.0
+  sceptre-deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs: [ 'pre-commit' ]
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+      - name: Assume AWS Role
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::055273631518:role/sagebase-github-oidc-sage-ProviderRolescicompprovi-BWN39S0CL6IZ
+          role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
+          role-duration-seconds: 1800
+      - name: 'Sceptre Launch prod'
+        uses: Sceptre/github-ci-action@v2.2.0
+        with:
+          sceptre_version: '4.0.2'
+          sceptre_plugins: >-
+            sceptre-ssm-resolver==1.2.2
+          sceptre_subcommand: 'launch prod --prune --yes'
