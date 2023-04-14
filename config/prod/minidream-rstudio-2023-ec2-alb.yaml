@@ -8,6 +8,8 @@ stack_name: "minidream-rstudio-2023-ec2-alb"
 dependencies:
   - "prod/minidream-rstudio-2023-ec2.yaml"
 parameters:
+  Department: "SCCE"
+  Project: "MC2Center"
   OwnerEmail: "verena.chung@sagebase.org"
   Ec2InstanceId: !stack_output_external "minidream-rstudio-2023-ec2::Ec2InstanceId"
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
