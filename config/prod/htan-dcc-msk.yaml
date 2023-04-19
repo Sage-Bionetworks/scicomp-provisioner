@@ -2,7 +2,7 @@
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
 template:
   type: "http"
-  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/v1.6.0/s3-synapse-sync-bucket.j2"
+  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.6.1/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-msk"
 stack_tags:
   Department: "CompOnc"
@@ -19,23 +19,23 @@ parameters:
   S3UserARNs:
     - "arn:aws:iam::583643567512:user/jchan"
     - "arn:aws:iam::070278699608:user/inodb"
-    - "arn:aws:iam::583643567512:user/vianne"
-    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
-    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org"
     - "arn:aws:iam::583643567512:user/yubin"
+    - "arn:aws:iam::583643567512:user/roses3"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
   DenyDeleteARNs:
     - "arn:aws:iam::583643567512:user/jchan"
-    - "arn:aws:iam::583643567512:user/vianne"
-    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/jason.hwee@sagebase.org"
-    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/adam.taylor@sagebase.org"
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org"
     - "arn:aws:iam::583643567512:user/yubin"
+    - "arn:aws:iam::583643567512:user/roses3"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
     - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
   S3AdminARNs:
     - "arn:aws:iam::426577889437:user/clarisse.lau"
-    - "arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/bruno.grande@sagebase.org"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/bruno.grande@sagebase.org"
   S3SynapseSyncFunctionArn: !stack_output_external "s3-synapse-sync::FunctionArn"
   S3SynapseSyncFunctionRoleArn: !stack_output_external "s3-synapse-sync::FunctionRoleArn"
 

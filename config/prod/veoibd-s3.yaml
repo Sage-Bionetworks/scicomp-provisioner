@@ -8,14 +8,14 @@ stack_tags:
   Department: "SysBio"
   Project: "VEO-IBD"
   OwnerEmail: "thomas.yu@sagebase.org"
-  CostCenter: "NO PROGRAM / 000000"
+  CostCenter: "No Program / 000000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "VEO-IBD"
   # The resource owner
-  OwnerEmail: "nicole.kauer@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
 
@@ -27,7 +27,7 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/cindy.molitor@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/thomas.yu@sagebase.org'
 
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'

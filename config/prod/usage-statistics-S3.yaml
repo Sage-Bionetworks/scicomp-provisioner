@@ -1,26 +1,19 @@
 # For storage of files related to usage statistics reporting
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.6.7/templates/S3/synapse-external-bucket.j2"
 stack_name: "usage-statistics-S3"
 stack_tags:
   Department: "SysBio"
   Project: "DataEngineering"
   OwnerEmail: 'larsson.omberg@sagebase.org'
-  CostCenter: "NO PROGRAM / 000000"
+  CostCenter: "No Program / 000000"
 
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "DataEngineering"
-  # The resource owner
-  OwnerEmail: 'larsson.omberg@sagebase.org'
-
   GrantAccess:
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/phil.snyder@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/larsson.omberg@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/AWSReservedSSO_Developer_baa6fed639faf5e7/nicole.kauer@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/phil.snyder@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/larsson.omberg@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/abby.vanderlinden@sagebase.org'
 
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
