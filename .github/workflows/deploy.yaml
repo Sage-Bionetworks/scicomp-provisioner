@@ -33,9 +33,10 @@ jobs:
           role-to-assume: arn:aws:iam::055273631518:role/sagebase-github-oidc-sage-ProviderRolescicompprovi-BWN39S0CL6IZ
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1800
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install sceptre sceptre-ssm-resolver
-      - name: Deploy with sceptre
-        run: sceptre launch prod --prune --yes
+      - name: 'Sceptre Deploy'
+        uses: Sceptre/github-ci-action@v2.3.0
+        with:
+          sceptre_version: '4.1.0'
+          sceptre_plugins: >-
+            sceptre-ssm-resolver==1.2.2
+          sceptre_subcommand: 'launch prod --prune --yes'
