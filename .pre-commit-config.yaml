@@ -26,7 +26,6 @@ repos:
          args: [--tag=CostCenter,
                 --file=https://mips-api.finops.sageit.org/tags,
                 --file=DeprecatedProgramCodes.json,
-                --exclude=Other / 000001
          ]
 -   repo: https://github.com/sirosen/check-jsonschema
     rev: 0.22.0
