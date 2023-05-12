@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
-          role-to-assume: arn:aws:iam::055273631518:role/sagebase-github-oidc-sage-ProviderRolescicompprovi-BWN39S0CL6IZ
+          role-to-assume: arn:aws:iam::055273631518:role/sagebase-github-oidc-sage-bionetworks-scicomp-provisioner
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1800
       - name: 'Sceptre Deploy'
