@@ -2,23 +2,15 @@
 # http://docs.synapse.org/articles/custom_storage_location.html
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/s3-bucket-v2.j2"
 stack_name: "TESLA-download-bucket"
 stack_tags:
-  Department: "CompOnc"
-  Project: "TESLA"
   OwnerEmail: "james.eddy@sagebase.org"
   CostCenter: "No Program / 000000"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   SynapseIDs: ["2223305"]  # James Eddy
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "CompOnc"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "TESLA"
-  # The resource owner
-  OwnerEmail: "james.eddy@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
 

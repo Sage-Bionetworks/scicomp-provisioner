@@ -4,8 +4,6 @@ template:
 # Note stack name must be 43 chars or less, otherwise bucket name is too long and CloudFormation fails
 stack_name: "ecmonsen-emorypipeline-lambda"
 stack_tags:
-  Department: "SysBio"
-  Project: "amp-ad"
   OwnerEmail: "tess.thyer@sagebase.org"
   CostCenter: "NIA AMP-AD CC / 101500"
 dependencies:

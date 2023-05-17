@@ -2,8 +2,6 @@ template:
   path: "htan-synapse-sync-kms-key.yaml"
 stack_name: "htan-synapse-sync-kms-key"
 stack_tags:
-  Department: "CompOnc"
-  Project: "HTAN"
   OwnerEmail: "bruno.grande@sagebase.org"
   CostCenter: "HTAN-DFCI / 120100"
 parameters:

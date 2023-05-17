@@ -5,8 +5,6 @@ template:
   url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.6.1/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-chop"
 stack_tags:
-  Department: "CompOnc"
-  Project: "HTAN"
   OwnerEmail: "bruno.grande@sagebase.org"
   CostCenter: "HTAN-DFCI / 120100"
 dependencies:

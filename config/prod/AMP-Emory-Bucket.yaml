@@ -1,26 +1,18 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/s3-bucket.yaml"
 stack_name: "AMP-Emory-Bucket"
 stack_tags:
-  Department: "SysBio"
-  Project: "AMP-Emory"
   OwnerEmail: "ampadportal@sagebase.org"
   CostCenter: "TREAT AD - Emory / 121100"
 parameters:
-  # The Sage deparment for this resource
-  Department: "SysBio"
-  # The Sage project this resource will be used for
-  Project: "AMP-Emory"
   # true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
   # Synapse username
   SynapseUserName: "yooree"
   # true to encrypt bucket, false (default) for no encryption
   EncryptBucket: "true"
-  # Bucket owner's email address
-  OwnerEmail: 'ampadportal@sagebase.org'
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'

@@ -4,8 +4,6 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.4.0/EC2/jc-ec2-linux.j2"
 stack_name: "psorcast-ec2"
 stack_tags:
-  Department: "SysBio"
-  Project: "psorcast"
   OwnerEmail: "vijay.yadav@sagebase.org"
   CostCenter: "Psorcast Pscrosis App / 613500"
 sceptre_user_data:
