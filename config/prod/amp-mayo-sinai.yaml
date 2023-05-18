@@ -1,12 +1,19 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/s3-bucket.yaml"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "amp-mayo-sinai"
 stack_tags:
   OwnerEmail: 'william.poehlman@sagebase.org'
   CostCenter: "Model AD-IU / 116000"
 parameters:
+  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "NDR"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "amp-ad-wgs"
+  # The resource owner
+  OwnerEmail: 'william.poehlman@sagebase.org'
+
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
 

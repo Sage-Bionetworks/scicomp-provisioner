@@ -2,7 +2,7 @@
 # http://docs.synapse.org/articles/custom_storage_location.html
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/s3-bucket-v2.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.19/s3-bucket-v2.j2"
 stack_name: "dian-prod-hm-migration-s3"
 stack_tags:
   OwnerEmail: "synapse-service+dian-prod@sagebase.org"
@@ -11,6 +11,12 @@ sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   SynapseIDs: ["3425758"]  #synapse-service-dian-prod@synapse.org
 parameters:
+  # The Sage department (Platform, CompOnc, SysBio, Governance, etc..)
+  Department: "Platform"
+  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
+  Project: "DIAN"
+  # The resource owner
+  OwnerEmail: "synapse-service+dian-prod@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
 
