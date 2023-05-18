@@ -1,20 +1,12 @@
 # Provision a S3 static website for AACR Interactome
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/managed-s3WebCloudfront.yaml"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/managed-s3WebCloudfront.yaml"
 stack_name: "aacr-interactome-s3website-new"
 stack_tags:
-  Department: "CompOnc"
-  Project: "AACR"
   OwnerEmail: "xindi.guo@sagebase.org"
   CostCenter: "Genie-AACR / 312000"
 parameters:
-  # The department for this resource (i.e. CompOnc, SysBio, Platform, etc..)
-  Department: "CompOnc"
-  # The project for this resource (i.e. NTAP, BSMN, DREAM, etc..)
-  Project: "AACR"
-  # The resource owner's email address
-  OwnerEmail: "xindi.guo@sagebase.org"
   # Domain name for your website (sagebionetworks.org)
   DomainName: "sagebionetworks.org"
   # The sub domain name e.g. ('mysite' in mysite.sagebionetworks.org)

@@ -4,8 +4,6 @@ template:
   url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.5.0/templates/S3/synapse-external-bucket.j2"
 stack_name: "nf-syn28545963-s3"
 stack_tags:
-  Department: "SCCE"
-  Project: "neurofibromatosis"
   OwnerEmail: 'robert.allaway@sagebionetworks.org'
   CostCenter: "CTF NF Amend 11 / 304002"
 parameters:

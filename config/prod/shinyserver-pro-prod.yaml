@@ -4,8 +4,6 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.4.0/EC2/jc-ec2-linux.j2"
 stack_name: "shinyserver-pro-prod"
 stack_tags:
-  Department: "Platform"
-  Project: "Infrastucture"
   OwnerEmail: "x.schildwachter@sagebase.org"
   CostCenter: "Platform Infrastructure / 990300"
 

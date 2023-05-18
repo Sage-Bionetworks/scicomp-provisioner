@@ -5,8 +5,6 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.19/s3-bucket-v2.j2"
 stack_name: "dian-prod-hm-migration-s3"
 stack_tags:
-  Department: "Platform"
-  Project: "DIAN"
   OwnerEmail: "synapse-service+dian-prod@sagebase.org"
   CostCenter: "Washington Univ - DIAN / 403500"
 sceptre_user_data:

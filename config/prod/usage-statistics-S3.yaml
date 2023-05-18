@@ -4,8 +4,6 @@ template:
   url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.6.7/templates/S3/synapse-external-bucket.j2"
 stack_name: "usage-statistics-S3"
 stack_tags:
-  Department: "SysBio"
-  Project: "DataEngineering"
   OwnerEmail: 'larsson.omberg@sagebase.org'
   CostCenter: "No Program / 000000"
 
