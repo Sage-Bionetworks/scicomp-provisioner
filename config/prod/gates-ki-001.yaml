@@ -22,3 +22,6 @@ parameters:
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
+  # Enable Intelligent-tiering storage
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'

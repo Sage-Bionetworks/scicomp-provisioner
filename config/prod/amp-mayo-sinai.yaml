@@ -31,6 +31,6 @@ parameters:
   # to download objects in this bucket when not using an AWS resource in the same region!
   SameRegionResourceAccessToBucket: "true"
 
-  # Enable Intelligent-tiering storage
+  # Enable transition to deep archive storage
   EnableDataLifeCycle: 'Enabled'
-  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
+  LifecycleDataStorageClass: 'DEEP_ARCHIVE'
