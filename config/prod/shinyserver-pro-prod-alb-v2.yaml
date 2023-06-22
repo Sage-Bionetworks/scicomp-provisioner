@@ -1,14 +1,12 @@
 # Provision a load balancer for shiny.synapse.org
-template_path: "remote/managed-alb-https-v2.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/managed-alb-https-v2.yaml"
 stack_name: "shinyserver-pro-prod-alb-v2"
-parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "Platform"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "Infrastucture"
-  # The resource owner
+stack_tags:
   OwnerEmail: "x.schildwachter@sagebase.org"
-
+  CostCenter: "Platform Infrastructure / 990300"
+parameters:
   # load balancer configs
   Ec2InstanceId: !stack_output_external "shinyserver-pro-prod::Ec2InstanceId"
   SSLCertificateIdArn: "arn:aws:acm:us-east-1:055273631518:certificate/992c2d49-579a-465e-beff-1a08c284f7db"
@@ -18,7 +16,3 @@ parameters:
     - !stack_output_external "computevpc::PublicSubnet"
     - !stack_output_external "computevpc::PublicSubnet1"
     - !stack_output_external "computevpc::PublicSubnet2"
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-alb-https-v2.yaml --create-dirs -o templates/remote/managed-alb-https-v2.yaml"

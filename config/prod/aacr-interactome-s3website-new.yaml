@@ -1,22 +1,15 @@
 # Provision a S3 static website for AACR Interactome
-template_path: "remote/managed-s3WebCloudfront.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.7.3/managed-s3WebCloudfront.yaml"
 stack_name: "aacr-interactome-s3website-new"
-parameters:
-  # The department for this resource (i.e. CompOnc, SysBio, Platform, etc..)
-  Department: "CompOnc"
-  # The project for this resource (i.e. NTAP, BSMN, DREAM, etc..)
-  Project: "AACR"
-  # The resource owner's email address
+stack_tags:
   OwnerEmail: "xindi.guo@sagebase.org"
+  CostCenter: "Genie-AACR / 312000"
+parameters:
   # Domain name for your website (sagebionetworks.org)
   DomainName: "sagebionetworks.org"
   # The sub domain name e.g. ('mysite' in mysite.sagebionetworks.org)
   SubDomainName: "cancer"
   # The Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate
   AcmCertificateArn: "arn:aws:acm:us-east-1:055273631518:certificate/62283392-710d-439e-ad40-3b53a6a78499"
-
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/managed-s3WebCloudfront.yaml --create-dirs -o templates/remote/managed-s3WebCloudfront.yaml"
-  after_create:
-    - !s3_web_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

@@ -1,14 +1,19 @@
 # Provision a general S3 bucket or a Synapse External Bucket
 # http://docs.synapse.org/articles/custom_storage_location.html
-template_path: "remote/s3-bucket.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "veoibd-s3"
+stack_tags:
+  OwnerEmail: "thomas.yu@sagebase.org"
+  CostCenter: "No Program / 000000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "SysBio"
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "VEO-IBD"
   # The resource owner
-  OwnerEmail: "cindy.molitor@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
 
@@ -20,7 +25,7 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/cindy.molitor@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/thomas.yu@sagebase.org'
 
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
@@ -34,10 +39,3 @@ parameters:
   # LifecycleDataTransition: '90'
   # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
   # LifecycleDataExpiration: '1825'
-
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
-  after_create:
-    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

@@ -1,8 +1,8 @@
-template_path: "htan-synapse-sync-kms-key.yaml"
+template:
+  path: "htan-synapse-sync-kms-key.yaml"
 stack_name: "htan-synapse-sync-kms-key"
 stack_tags:
-  Department: "CompOnc"
-  Project: "HTAN"
   OwnerEmail: "bruno.grande@sagebase.org"
+  CostCenter: "HTAN-DFCI / 120100"
 parameters:
-  AdminRoleArn: !stack_output_external "jumpcloud-idp::ScicompAdminSamlProviderRoleArn"
+  AdminRoleArn: "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/bruno.grande@sagebase.org"

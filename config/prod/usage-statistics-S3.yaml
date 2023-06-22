@@ -1,28 +1,20 @@
 # For storage of files related to usage statistics reporting
-template_path: "remote/s3-bucket.yaml"
+template:
+  type: "http"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.6.7/templates/S3/synapse-external-bucket.j2"
 stack_name: "usage-statistics-S3"
-parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "SysBio"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "DataEngineering"
-  # The resource owner
+stack_tags:
   OwnerEmail: 'larsson.omberg@sagebase.org'
+  CostCenter: "No Program / 000000"
 
+parameters:
   GrantAccess:
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/phil.snyder@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/larsson.omberg@sagebase.org'
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/nicole.kauer@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/phil.snyder@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/larsson.omberg@sagebase.org'
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/abby.vanderlinden@sagebase.org'
 
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
 
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
-
-# For CI system (do not change)
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
-  after_create:
-    - !s3_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"

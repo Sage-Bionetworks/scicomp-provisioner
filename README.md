@@ -1,5 +1,5 @@
 # Overview
-Auto provision resources on AWS org-sagebase-scicomp account.
+Auto provision resources into AWS org-sagebase-scicomp account.
 
 ## Workflow
 The workflow to provision AWS resources is done using pull requests.
@@ -24,7 +24,7 @@ execute the validations by running `pre-commit run --all-files`.
 
 ## Provision resources
 Instructions and workflow to auto provision and de-provision resources are
-in [Example PRs](https://github.com/Sage-Bionetworks/scicomp-provisioner/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+%22Example+PR%22)
+in [Example PRs](https://github.com/Sage-Bionetworks/scicomp-provisioner/pulls?q=is%3Apr+%22Example+PR%22+is%3Aclosed)
 
 ### Stack & config file names
 The value of a stack's `stack_name` parameter must match the config's file

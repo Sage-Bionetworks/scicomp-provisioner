@@ -1,6 +1,11 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
-template_path: "remote/s3-bucket.yaml"
+template:
+  type: "http"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "AMP-Emory-Bucket"
+stack_tags:
+  OwnerEmail: "ampadportal@sagebase.org"
+  CostCenter: "TREAT AD - Emory / 121100"
 parameters:
   # The Sage deparment for this resource
   Department: "SysBio"
@@ -17,11 +22,4 @@ parameters:
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'
-    - 'arn:aws:iam::743849566882:user/dduong'
-    - 'arn:aws:sts::563295687221:assumed-role/sandbox-developer/phil.snyder@sagebase.org'
-
-hooks:
-  before_launch:
-    - !cmd "curl https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/master/s3-bucket.yaml --create-dirs -o templates/remote/s3-bucket.yaml"
-  after_create:
-    - !synapse_bucket_notify "{{stack_group_config.aws_account_name}} {{stack_group_config.aws_account_email}}"
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/phil.snyder@sagebase.org'
