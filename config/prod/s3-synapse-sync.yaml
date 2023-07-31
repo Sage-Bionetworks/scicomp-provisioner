@@ -8,6 +8,7 @@ stack_tags:
 dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
 parameters:
+  CIDR: "10.50.0.0/16"
   BucketVariables: >-
     {
       "htan-dcc-center-a":{"SynapseProjectId":"syn22343754"},
