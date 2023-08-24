@@ -20,6 +20,8 @@ parameters:
     - 'arn:aws:iam::694704239947:root' ## Nebula Genomics access
     - 'arn:aws:iam::694704239947:user/giri' ## Nebula Genomics access
     - 'arn:aws:iam::969434029702:user/audrisc' ##Stanford access (Audris Chiang)
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchHeadJobRole-X9Y068JVFXHC' ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchWorkJobRole-TYLG8H2QIS7R' ## Sage NF Tower access
   # Enable Intelligent-tiering storage
   EnableDataLifeCycle: 'Enabled'
   LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
