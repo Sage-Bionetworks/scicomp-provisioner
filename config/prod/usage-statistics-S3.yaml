@@ -18,3 +18,5 @@ parameters:
 
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
+  EnableDataLifeCycle: "Enabled"
+  LifecycleDataStorageClass: "INTELLIGENT_TIERING"
