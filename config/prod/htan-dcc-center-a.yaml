@@ -2,7 +2,7 @@
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
 template:
   type: "http"
-  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.6.1/s3-synapse-sync-bucket.j2"
+  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/v1.7.1/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-center-a"
 stack_tags:
   OwnerEmail: "thomas.yu@sagebase.org"
@@ -11,6 +11,8 @@ dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:
   BucketName: "htan-dcc-center-a"  # must match bucket name in data/s3-synapse-sync-bucket-vars.yaml
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
   SynapseIDs:
     - "3382314"
     - "3408101"
