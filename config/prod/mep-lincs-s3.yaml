@@ -22,5 +22,5 @@ parameters:
   SynapseUserName: 'larssono'
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required
-  EnableDataLifeCycle: "true"
+  EnableDataLifeCycle: "Enabled"
   LifecycleDataStorageClass: "INTELLIGENT_TIERING"
