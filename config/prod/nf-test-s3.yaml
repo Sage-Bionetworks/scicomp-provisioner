@@ -1,0 +1,48 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+template:
+  path: "nextflow-tower-s3-bucket.j2"
+stack_name: "nf-test-s3"
+stack_tags:
+  OwnerEmail: 'robert.allaway@sagebionetworks.org'
+  CostCenter: "NTAP NF Addendum 4 / 301100"
+parameters:
+  BucketName: "nf-test-s3"
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
+  SynapseIDs:
+    - "3342573"
+    - "3391844" #HTAN DCC
+    - "3413795" #service acct
+  S3UserARNs:
+    # from nf-syn23664726:
+    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/robert.allaway@sagebase.org'
+    - 'arn:aws:iam::694704239947:root' ## Nebula Genomics access
+    - 'arn:aws:iam::694704239947:user/giri' ## Nebula Genomics access
+    - 'arn:aws:iam::969434029702:user/audrisc' ##Stanford access (Audris Chiang)
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchHeadJobRole-X9Y068JVFXHC' ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchWorkJobRole-TYLG8H2QIS7R' ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeServiceRole-1KZP8QDA7AR8P'  ## Sage NF Tower access
+    - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/robert.allaway@sagebase.org' ## Sage NF Tower access
+
+    # from s3-synapse-sync:
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:iam::364787550714:user/abs33@duke.edu-p1b-dheso2"
+    - "arn:aws:iam::364787550714:user/mrl17@duke.edu-p1b-dheso2"
+    - "arn:aws:iam::589138424736:user/svennam"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+    - "arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/adam.taylor@sagebase.org"
+  DenyDeleteARNs:
+    - "arn:aws:iam::292075781285:user/idp-import"
+    - "arn:aws:iam::364787550714:user/abs33@duke.edu-p1b-dheso2"
+    - "arn:aws:iam::364787550714:user/mrl17@duke.edu-p1b-dheso2"
+    - "arn:aws:iam::589138424736:user/svennam"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5"
+    - "arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU"
+    - "arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/adam.taylor@sagebase.org"
+  S3AdminARNs:
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/robert.allaway@sagebase.org'
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/thomas.yu@sagebase.org"
