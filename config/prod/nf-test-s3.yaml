@@ -20,6 +20,9 @@ parameters:
     - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchHeadJobRole-X9Y068JVFXHC' ## Sage NF Tower access
     - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchWorkJobRole-TYLG8H2QIS7R' ## Sage NF Tower access
     - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeServiceRole-1KZP8QDA7AR8P'  ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchHeadJobRole-HIWGWLF4RRVR'
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchWorkJobRole-1L393O0WB7BOA'
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchExecutionRole-134E5Z3AQQMJT'
     - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/robert.allaway@sagebase.org' ## Sage NF Tower access
   DenyDeleteARNs:
     - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/robert.allaway@sagebase.org' ## Sage NF Tower access
