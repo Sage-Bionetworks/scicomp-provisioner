@@ -8,7 +8,7 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "mep-lincs-s3"
 stack_tags:
-  OwnerEmail: "larsson.omberg@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
   CostCenter: "No Program / 000000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
@@ -16,7 +16,7 @@ parameters:
   # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
   Project: "MEP-LINCS"
   # The resource owner
-  OwnerEmail: "larsson.omberg@sagebase.org"
+  OwnerEmail: "thomas.yu@sagebase.org"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   SynapseUserName: 'larssono'
