@@ -1,6 +1,0 @@
-template:
-  path: "ecmonsen-emorypipeline-ci.yaml"
-stack_name: "ecmonsen-emorypipeline-ci"
-stack_tags:
-  OwnerEmail: "abby.vanderlinden@sagebase.org"
-  CostCenter: "NIA AMP-AD CC / 101500"
