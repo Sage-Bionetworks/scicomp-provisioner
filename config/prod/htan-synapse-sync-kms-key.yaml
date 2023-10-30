@@ -5,4 +5,6 @@ stack_tags:
   OwnerEmail: "thomas.yu@sagebase.org"
   CostCenter: "HTAN-DFCI / 120100"
 parameters:
-  AdminRoleArn: "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/thomas.yu@sagebase.org"
+  AdminRoleArns:
+    - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/thomas.yu@sagebase.org"
+    - !stack_output_external "sagebase-github-oidc-sage-bionetworks-scicomp-provisioner::ProviderRoleArn"

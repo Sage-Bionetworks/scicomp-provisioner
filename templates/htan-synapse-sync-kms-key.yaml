@@ -2,9 +2,9 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: HTAN SynapseSync KMS Key and IAM policy
 
 Parameters:
-  AdminRoleArn:
-    Type: String
-    Description: ARN of the Administrator Role for a particular account
+  AdminRoleArns:
+    Type: List<String>
+    Description: A list of Administrator Role ARNs for a particular account
 
 Resources:
   KmsDecryptPolicy:
@@ -46,10 +46,7 @@ Resources:
           - Sid: "Allow administration of the key to CFN service role"
             Effect: "Allow"
             Principal:
-              AWS:
-                - !ImportValue
-                    'Fn::Sub': '${AWS::Region}-bootstrap-CfServiceRoleArn'
-                - !Ref AdminRoleArn
+              AWS: !Ref AdminRoleArns
             Action:
               - "kms:Create*"
               - "kms:Describe*"
