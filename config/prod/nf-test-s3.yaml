@@ -1,0 +1,30 @@
+# Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
+template:
+  path: "nextflow-tower-s3-bucket.j2"
+stack_name: "nf-test-s3"
+stack_tags:
+  OwnerEmail: 'robert.allaway@sagebionetworks.org'
+  CostCenter: "NTAP NF Addendum 4 / 301100"
+parameters:
+  BucketName: "nf-test-s3"
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
+  SynapseIDs:
+    - "3342573"
+    - "3391844" #HTAN DCC
+    - "3413795" #service acct
+  S3UserARNs:
+    # from nf-syn23664726:
+    - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/robert.allaway@sagebase.org'
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchHeadJobRole-X9Y068JVFXHC' ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchWorkJobRole-TYLG8H2QIS7R' ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeServiceRole-1KZP8QDA7AR8P'  ## Sage NF Tower access
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchHeadJobRole-HIWGWLF4RRVR'
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchWorkJobRole-1L393O0WB7BOA'
+    - 'arn:aws:iam::728882028485:role/nf-test-project-TowerForgeBatchExecutionRole-134E5Z3AQQMJT'
+    - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/robert.allaway@sagebase.org' ## Sage NF Tower access
+  DenyDeleteARNs:
+    - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/robert.allaway@sagebase.org' ## Sage NF Tower access
+  S3AdminARNs:
+    - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/robert.allaway@sagebase.org'

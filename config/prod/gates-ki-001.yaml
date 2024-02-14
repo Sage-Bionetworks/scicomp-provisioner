@@ -4,7 +4,7 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/aws-infra/v0.2.7/s3-bucket.yaml"
 stack_name: "gates-ki-001"
 stack_tags:
-  OwnerEmail: 'larsson.omberg@sagebase.org'
+  OwnerEmail: 'thomas.yu@sagebase.org'
   CostCenter: "BMGF-Ki / 30144"
 parameters:
   # The Sage deparment for this resource
@@ -18,7 +18,7 @@ parameters:
   # true to encrypt bucket, false (default) for no encryption
   EncryptBucket: "true"
   # Bucket owner's email address
-  OwnerEmail: 'larsson.omberg@sagebase.org'
+  OwnerEmail: 'thomas.yu@sagebase.org'
   # Allow accounts, groups, and users to access bucket.
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'

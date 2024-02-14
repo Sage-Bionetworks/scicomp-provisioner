@@ -2,7 +2,7 @@
 # http://docs.synapse.org/articles/custom_storage_location.html
 template:
   type: "http"
-  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.2.7/s3-bucket-v2.j2"
+  url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.7.6/S3/synapse-external-bucket.j2"
 stack_name: "TESLA-download-bucket"
 stack_tags:
   OwnerEmail: "james.eddy@sagebase.org"
@@ -11,12 +11,7 @@ sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   SynapseIDs: ["2223305"]  # James Eddy
 parameters:
-  # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
-  Department: "CompOnc"
-  # The Sage project (Infrastructure, amp-ad, ntap, dream, etc..)
-  Project: "TESLA"
-  # The resource owner
-  OwnerEmail: "james.eddy@sagebase.org"
+  BucketName: "tesla-download-bucket-synapseencryptedexternalbuc-1o0vdppfmht0c"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: "true"
 
@@ -27,7 +22,7 @@ parameters:
   # Data transfers within the same region between AWS resources are free.
   # true to restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda) within the same region as this bucket.
   # This will not allow even the owner of the bucket to download objects in this bucket when not using an AWS resource in the same region!
-  SameRegionResourceAccessToBucket: "false"
+  SameRegionResourceAccessToBucket: "true"
 
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
@@ -38,9 +33,9 @@ parameters:
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
   # BucketVersioning: 'Enabled'
   # (Optional) 'Enabled' to enable bucket data life cycle rule, default is 'Disabled'
-  # EnableDataLifeCycle: 'Enabled'
+  EnableDataLifeCycle: 'Enabled'
   # (Optional) S3 bucket objects will transition into this storage class: GLACIER(default), DEEP_ARCHIVE, INTELLIGENT_TIERING, STANDARD_IA, ONEZONE_IA
-  # LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
+  LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
   # (Optional) Number of days until S3 objects are moved to the LifecycleDataStorageClass, default is 30
   # LifecycleDataTransition: '90'
   # (Optional) Number of days (from creation) when objects are deleted from S3 and LifecycleDataStorageClass, default is 365000
