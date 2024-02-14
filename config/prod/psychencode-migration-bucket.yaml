@@ -2,7 +2,7 @@
 template:
   type: "http"
   url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.8.3/templates/S3/synapse-external-bucket.j2"
-stack_name: "psychencode-migrationbucket"
+stack_name: "psychencode-migration-bucket"
 stack_tags:
   OwnerEmail: 'thomas.yu@sagebase.org'
   CostCenter: "UMass PECDCC / 106000"
