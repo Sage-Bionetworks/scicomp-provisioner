@@ -22,4 +22,4 @@ parameters:
   LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
 sceptre_user_data:
   SynapseIDs:
-    - "3494169" # Psychencode migration Synapse team
+    - "3489135" # Rancho - Psychencode migration Synapse team
