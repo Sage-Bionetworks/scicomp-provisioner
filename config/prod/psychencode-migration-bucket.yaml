@@ -13,6 +13,10 @@ parameters:
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
   SameRegionResourceAccessToBucket: 'true'
+
+  # Enable transition to deep archive storage
+  EnableDataLifeCycle: 'Enabled'
+  LifecycleDataStorageClass: 'DEEP_ARCHIVE'
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
   GrantAccess:
@@ -23,3 +27,4 @@ parameters:
 sceptre_user_data:
   SynapseIDs:
     - "3489135" # Rancho - Psychencode migration Synapse team
+    - "3453016" # DPE team
