@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.8.3/templates/S3/synapse-external-bucket.j2"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.8.4/templates/S3/synapse-external-bucket.j2"
 stack_name: "psychencode-migration-bucket"
 stack_tags:
   OwnerEmail: 'thomas.yu@sagebase.org'
@@ -12,7 +12,7 @@ parameters:
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # (Optional) true for read-write bucket, false (default) for read-only bucket
   AllowWriteBucket: 'true'
-  # SameRegionResourceAccessToBucket: 'true'
+  SameRegionResourceAccessToBucket: 'true'
 
   # (Optional) Synapse username (default: ""), required if AllowWriteBucket=true
   # (Optional) Allow accounts, groups, and users to access bucket (default is no access).
