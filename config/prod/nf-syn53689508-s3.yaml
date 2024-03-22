@@ -5,7 +5,7 @@ template:
 stack_name: "nf-syn53689508-s3"
 stack_tags:
   OwnerEmail: 'jineta.banerjee@sagebionetworks.org'
-  CostCenter: "NTAP NF Addendum 4 / 301100"
+  CostCenter: "JHU NTAP / 301100"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
