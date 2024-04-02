@@ -1,7 +1,7 @@
 # Provision a Synapse External Bucket (http://docs.synapse.org/articles/custom_storage_location.html)
 template:
   type: "http"
-  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.8.4/templates/S3/synapse-external-bucket.j2"
+  url: "https://raw.githubusercontent.com/Sage-Bionetworks/aws-infra/v0.8.8/templates/S3/synapse-external-bucket.j2"
 stack_name: "nda-migration"
 stack_tags:
   OwnerEmail: 'thomas.yu@sagebase.org'
