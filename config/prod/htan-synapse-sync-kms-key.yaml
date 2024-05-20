@@ -2,7 +2,7 @@ template:
   path: "htan-synapse-sync-kms-key.yaml"
 stack_name: "htan-synapse-sync-kms-key"
 stack_tags:
-  OwnerEmail: "thomas.yu@sagebase.org"
+  OwnerEmail: "adam.taylor@sagebase.org"
   CostCenter: "HTAN-DFCI / 120100"
 parameters:
   AdminRoleArns:

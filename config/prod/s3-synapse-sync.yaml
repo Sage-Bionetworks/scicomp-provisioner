@@ -3,7 +3,7 @@ template:
   url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/1.7.2/s3-synapse-sync.yaml"
 stack_name: "s3-synapse-sync"
 stack_tags:
-  OwnerEmail: "thomas.yu@sagebase.org"
+  OwnerEmail: "adam.taylor@sagebase.org"
   CostCenter: "HTAN-DFCI / 120100"
 dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
