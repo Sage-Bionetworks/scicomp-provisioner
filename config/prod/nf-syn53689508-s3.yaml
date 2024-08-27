@@ -21,6 +21,8 @@ parameters:
     - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeBatchWorkJobRole-TYLG8H2QIS7R' ## Sage NF Tower access
     - 'arn:aws:iam::728882028485:role/ntap-add5-project-TowerForgeServiceRole-1KZP8QDA7AR8P'  ## Sage NF Tower access
     - 'arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/jineta.banerjee@sagebase.org' ## Sage NF Tower access
+    - 'arn:aws:iam::184059545989:role/NCBI-CSVM-Service'  ## NCBI SRA DATA DELIVERY
+    - 'arn:aws:iam::783971887864:role/NCBI-CSVM-Service'  ## NCBI SRA DATA DELIVERY
   # Enable Intelligent-tiering storage
   EnableDataLifeCycle: 'Enabled'
   LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
