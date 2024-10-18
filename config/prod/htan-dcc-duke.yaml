@@ -6,7 +6,7 @@ template:
 stack_name: "htan-dcc-duke"
 stack_tags:
   OwnerEmail: "adam.taylor@sagebase.org"
-  CostCenter: "HTAN-DFCI / 120100"
+  CostCenter: "DFCI HTAN / 120100"
 dependencies:
   - "prod/s3-synapse-sync.yaml"
 parameters:

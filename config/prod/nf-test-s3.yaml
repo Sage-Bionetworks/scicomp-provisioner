@@ -4,7 +4,7 @@ template:
 stack_name: "nf-test-s3"
 stack_tags:
   OwnerEmail: 'robert.allaway@sagebionetworks.org'
-  CostCenter: "NTAP NF Addendum 4 / 301100"
+  CostCenter: "JHU NTAP / 301100"
 parameters:
   BucketName: "nf-test-s3"
   EnableDataLifeCycle: 'Enabled'
