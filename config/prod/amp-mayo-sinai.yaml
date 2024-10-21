@@ -29,7 +29,7 @@ parameters:
   # Restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda)
   # within the same region as this bucket.  This will not allow even the owner of the bucket
   # to download objects in this bucket when not using an AWS resource in the same region!
-  SameRegionResourceAccessToBucket: "true"
+#  SameRegionResourceAccessToBucket: "true"
 
   # Enable transition to deep archive storage
   EnableDataLifeCycle: 'Enabled'

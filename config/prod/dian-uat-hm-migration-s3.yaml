@@ -27,7 +27,7 @@ parameters:
   # Data transfers within the same region between AWS resources are free.
   # true to restrict downloading files from this bucket to only AWS resources (e.g. EC2 , Lambda) within the same region as this bucket.
   # This will not allow even the owner of the bucket to download objects in this bucket when not using an AWS resource in the same region!
-  SameRegionResourceAccessToBucket: "false"
+#  SameRegionResourceAccessToBucket: "false"
 
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
