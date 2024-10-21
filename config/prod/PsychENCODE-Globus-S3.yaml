@@ -5,7 +5,7 @@ template:
 stack_name: "PsychENCODE-Globus-S3"
 stack_tags:
   OwnerEmail: "dan.lu@sagebase.org"
-  CostCenter: "PECDCC-UMass / 106000"
+  CostCenter: "UMass PECDCC / 106000"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.
