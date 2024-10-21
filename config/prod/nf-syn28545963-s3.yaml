@@ -5,7 +5,7 @@ template:
 stack_name: "nf-syn28545963-s3"
 stack_tags:
   OwnerEmail: 'robert.allaway@sagebionetworks.org'
-  CostCenter: "CTF Amendment 11 / 304002"
+  CostCenter: "CTF NF Amend 11 / 304002"
 parameters:
   # The following parameters are only examples they are not required.
   # You may omit them if you do not need to override the defaults.

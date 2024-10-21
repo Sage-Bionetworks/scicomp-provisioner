@@ -5,7 +5,7 @@ template:
 stack_name: "aacr-interactome-s3website-new"
 stack_tags:
   OwnerEmail: "xindi.guo@sagebase.org"
-  CostCenter: "Genie AACR / 312000"
+  CostCenter: "Genie-AACR / 312000"
 parameters:
   # Domain name for your website (sagebionetworks.org)
   DomainName: "sagebionetworks.org"
