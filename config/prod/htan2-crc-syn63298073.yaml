@@ -5,7 +5,7 @@ template:
 stack_name: "htan2-crc-syn63298073"
 stack_tags:
   OwnerEmail: 'aditi.gopalan@sagebase.org'
-  CostCenter: "HTAN-DFCI / 120100"
+  CostCenter: "DFCI HTAN / 120100"
 parameters:
   BucketName: "htan2-crc-syn63298073"
   GrantAccess:
