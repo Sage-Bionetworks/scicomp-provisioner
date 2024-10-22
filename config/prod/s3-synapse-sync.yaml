@@ -4,7 +4,7 @@ template:
 stack_name: "s3-synapse-sync"
 stack_tags:
   OwnerEmail: "adam.taylor@sagebase.org"
-  CostCenter: "DFCI HTAN / 120100"
+  CostCenter: "HTAN-DFCI / 120100"
 dependencies:
   - "prod/htan-synapse-sync-kms-key.yaml"
 parameters:

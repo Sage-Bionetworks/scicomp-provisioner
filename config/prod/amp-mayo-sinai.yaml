@@ -5,7 +5,7 @@ template:
 stack_name: "amp-mayo-sinai"
 stack_tags:
   OwnerEmail: 'william.poehlman@sagebase.org'
-  CostCenter: "IU Model AD / 116000"
+  CostCenter: "Model AD-IU / 116000"
 parameters:
   # The Sage deparment (Platform, CompOnc, SysBio, Governance, etc..)
   Department: "NDR"

@@ -6,7 +6,7 @@ template:
 stack_name: "dian-prod-hm-migration-s3"
 stack_tags:
   OwnerEmail: "synapse-service+dian-prod@sagebase.org"
-  CostCenter: "Washington University DIAN / 403500"
+  CostCenter: "Washington Univ - DIAN / 403500"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
   SynapseIDs: ["3425758"]  #synapse-service-dian-prod@synapse.org
