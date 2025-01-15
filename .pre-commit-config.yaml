@@ -1,5 +1,6 @@
 ci:
   autoupdate_schedule: monthly
+  skip: ["check-stack-tag-values"] # work around for https://github.com/pre-commit-ci/issues/issues/241
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
