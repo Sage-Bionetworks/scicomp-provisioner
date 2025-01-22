@@ -1,6 +1,6 @@
 template:
   type: "http"
-  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/1.7.3/s3-synapse-sync.yaml"
+  url:  "https://{{stack_group_config.admincentral_cf_bucket}}.s3.amazonaws.com/s3-synapse-sync/1.7.4/s3-synapse-sync.yaml"
 stack_name: "s3-synapse-sync"
 stack_tags:
   OwnerEmail: "adam.taylor@sagebase.org"
