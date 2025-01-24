@@ -25,6 +25,7 @@ parameters:
     - "arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/adam.taylor@sagebase.org"
     - "arn:aws:iam::426577889437:user/bill.clifford"
     - "arn:aws:iam::426577889437:user/darya.pozhidayeva.admin"
+    - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_viewer-plus_96e9ce963c940f21/aditi.gopalan@sagebase.org"
   DenyDeleteARNs:
     - "arn:aws:iam::696725769253:user/creason"
     - "arn:aws:iam::292075781285:user/idp-import"
