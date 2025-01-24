@@ -34,7 +34,6 @@ parameters:
     - "arn:aws:sts::728882028485:assumed-role/AWSReservedSSO_TowerViewer_fd6aee98ec127705/adam.taylor@sagebase.org"
     - "arn:aws:iam::426577889437:user/bill.clifford"
     - "arn:aws:iam::426577889437:user/darya.pozhidayeva.admin"
-    - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_viewer-plus_96e9ce963c940f21/aditi.gopalan@sagebase.org"
   S3AdminARNs:
     - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org"
     - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/thomas.yu@sagebase.org"
