@@ -22,6 +22,7 @@ parameters:
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/william.poehlman@sagebase.org'
     - 'arn:aws:iam::274274586781:role/nih-dev-power-user'
     - 'arn:aws:iam::274274586781:role/OPSCrossAccountAdmin'
+    - 'arn:aws:sts::423819316185:assumed-role/ServiceCatalogEndusers/3503713'
   EnableDataLifeCycle: 'Enabled'
   LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
 sceptre_user_data:
