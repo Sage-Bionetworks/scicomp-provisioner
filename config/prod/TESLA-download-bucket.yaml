@@ -5,11 +5,11 @@ template:
   url: "https://{{stack_group_config.admincentral_cf_bucket}}.s3.us-east-1.amazonaws.com/aws-infra/v0.7.6/S3/synapse-external-bucket.j2"
 stack_name: "TESLA-download-bucket"
 stack_tags:
-  OwnerEmail: "james.eddy@sagebase.org"
+  OwnerEmail: "susheel.varma@sagebase.org"
   CostCenter: "No Program / 000000"
 sceptre_user_data:
   # (Optional) Synapse IDs for owner.txt file
-  SynapseIDs: ["2223305"]  # James Eddy
+  SynapseIDs: ["3319694"]  # Susheel Varma
 parameters:
   BucketName: "tesla-download-bucket-synapseencryptedexternalbuc-1o0vdppfmht0c"
   # (Optional) true for read-write bucket, false (default) for read-only bucket
@@ -27,7 +27,7 @@ parameters:
   # (Optional) Allow accounts, groups, and users to access bucket. (default is no access).
   GrantAccess:
     - "arn:aws:iam::325565585839:root"   # Required ARN for a synapse bucket
-    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/james.eddy@sagebase.org"
+    - "arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/susheel.varma@sagebase.org"
   # (Optional) true (default) to encrypt bucket, false for no encryption
   # EncryptBucket: 'false'
   # (Optional) 'Enabled' to enable bucket versioning, default is 'Suspended'
