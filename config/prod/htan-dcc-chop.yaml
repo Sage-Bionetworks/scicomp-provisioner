@@ -2,7 +2,7 @@
 # work with the s3-synapse-sync lambda: https://github.com/Sage-Bionetworks/s3-synapse-sync
 template:
   type: "http"
-  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/1.7.3/s3-synapse-sync-bucket.j2"
+  url:  "https://raw.githubusercontent.com/Sage-Bionetworks/s3-synapse-sync/1.7.6/s3-synapse-sync-bucket.j2"
 stack_name: "htan-dcc-chop"
 stack_tags:
   OwnerEmail: "adam.taylor@sagebase.org"
