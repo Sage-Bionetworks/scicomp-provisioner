@@ -5,7 +5,7 @@ template:
 stack_name: "htan2-pancreatic-syn63298065"
 stack_tags:
   OwnerEmail: 'aditi.gopalan@sagebase.org'
-  CostCenter: "DFCI HTAN / 120100"
+  CostCenter: "DFCI HTAN Renewal / 120100"
 parameters:
   BucketName: "htan2-pancreatic-syn63298065"
   GrantAccess:

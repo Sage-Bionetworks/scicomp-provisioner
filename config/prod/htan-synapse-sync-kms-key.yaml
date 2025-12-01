@@ -3,7 +3,7 @@ template:
 stack_name: "htan-synapse-sync-kms-key"
 stack_tags:
   OwnerEmail: "adam.taylor@sagebase.org"
-  CostCenter: "HTAN-DFCI / 120100"
+  CostCenter: "DFCI HTAN Renewal / 120100"
 parameters:
   AdminRoleArns:
     - "arn:aws:sts::055273631518:assumed-role/AWSReservedSSO_Developer_d1a84a78c9777596/thomas.yu@sagebase.org"
