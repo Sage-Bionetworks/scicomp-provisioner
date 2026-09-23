@@ -5,13 +5,15 @@ template:
 stack_name: "htan2-pediatric-syn63298059"
 stack_tags:
   OwnerEmail: 'aditi.gopalan@sagebase.org'
-  CostCenter: "DFCI HTAN Renewal / 120100"
+  CostCenter: "HTAN2 - DFCI - BP08 / 120100"
 parameters:
   BucketName: "htan2-pediatric-syn63298059"
   GrantAccess:
     - 'arn:aws:iam::325565585839:root'   # Required ARN for a synapse bucket
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/aditi.gopalan@sagebase.org'
     - 'arn:aws:sts::526515999252:assumed-role/AWSReservedSSO_S3ExternalCollab_40c062f682e7f3f5/adam.taylor@sagebase.org'
+    - 'arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchHeadJobRole-17MIZHWBA1TC5'   # Seqera htan-project (read-only)
+    - 'arn:aws:iam::728882028485:role/htan-project-TowerForgeBatchWorkJobRole-17360PQARGWYU'   # Seqera htan-project (read-only)
   EnableDataLifeCycle: 'Enabled'
   LifecycleDataStorageClass: 'INTELLIGENT_TIERING'
 sceptre_user_data:
